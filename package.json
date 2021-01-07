@@ -1,0 +1,30 @@
+{
+  "name": "react-native-rainbow-module-example",
+  "description": "Example app for react-native-rainbow-module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "react": "16.11.0",
+    "react-native": "0.62.2",
+    "react-native-gesture-handler": "^1.8.0",
+    "react-native-keychain": "^6.2.0",
+    "react-native-localization": "^2.1.6",
+    "react-native-permissions": "^2.2.2",
+    "react-native-reanimated": "^1.13.0",
+    "react-native-screens": "^2.10.1",
+    "react-redux": "^7.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "@types/react-redux": "^7.1.9",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "native-base": "^2.13.14"
+  }
+}

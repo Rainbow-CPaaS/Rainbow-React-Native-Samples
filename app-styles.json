@@ -1,0 +1,29 @@
+{
+    "home": {
+        "tabBackground": {
+            "backgroundColor": "#0086CF"
+        },
+        "tabIcon": {
+            "color": "#ffffff"
+        }
+    },
+    "contacts": {
+        "tabBackground": {
+            "backgroundColor": "#0086CF"
+        },
+        "tabIcon": {
+            "color": "#ffffff"
+        }
+    },
+    "contactsInformation": {
+        "tabBackground": {
+            "backgroundColor": "#0086CF"
+        },
+        "tabIcon": {
+            "color": "#ffffff"
+        },
+        "text": {
+            "color": "#ffffff"
+        }
+    }
+}

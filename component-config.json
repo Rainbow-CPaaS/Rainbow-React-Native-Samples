@@ -1,0 +1,24 @@
+{
+    "calls": {
+        "enabled": true,
+        "webRtcEnabled": true,
+        "pbxEnabled": true
+    },
+    "invitations": {
+        "enabled": true
+    },
+    "conversations": {
+        "enabled": false
+    },
+    "bubbles": {
+        "enabled": false
+    },
+    "ContactInformation": {
+        "viewEmails": false,
+        "viewPhoneNumbers": true
+    },
+    "Contacts": {
+        "networkContactsEnabled": true,
+        "localContactsEnabled": true
+    }
+}
