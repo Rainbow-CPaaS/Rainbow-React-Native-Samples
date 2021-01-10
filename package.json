@@ -27,5 +27,8 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "native-base": "^2.13.14",
     "react-native": "0.62.2"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }
