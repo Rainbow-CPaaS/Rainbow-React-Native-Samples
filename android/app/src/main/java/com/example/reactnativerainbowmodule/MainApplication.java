@@ -29,8 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for RainbowModuleExample:
           // packages.add(new MyReactNativePackage());
-//          packages.add(new RainbowPackage());
-
           return packages;
         }
 
@@ -48,7 +46,9 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-   RainbowPackage.initializeRainbowSdk(this,"65c681c01c8f11e9add8932b358ef81d","UYdu3wCXTdfyjImhURnIkZ0tac5J9XSLszIKBRUUWVB35b6nT3fWV2BhAGhojdBQ");
+    String applicationId = "YOUR APPLICATION IDENTIFIER";
+    String applicationSecret = "YOUR APPLICATION SECRET";
+    RainbowPackage.initializeRainbowSdk(this,applicationId,applicationSecret);
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager()); // Remove this line if you don't want Flipper enabled
   }
