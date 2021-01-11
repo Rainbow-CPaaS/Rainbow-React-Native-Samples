@@ -38,7 +38,7 @@ $ yarn ios
 make sure to run npm install before you run the app.
 ## Content
 
-This Starter-Kit is a Node.JS application that:
+This sample application for React Native SDK provide the following features:
 
 - **Conversations** - manage list of conversations - chat and bubbles.
 - **Contacts** - manage list of contacts and make a native call to a contact.
