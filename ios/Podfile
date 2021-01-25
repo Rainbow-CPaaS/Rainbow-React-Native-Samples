@@ -53,7 +53,8 @@ target 'RainbowModuleExample' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-rainbow-module', :path => '../..'
+  pod 'react-native-rainbow-module', :path => '../node_modules/react-native-rainbow-module/react-native-rainbow-module.podspec'
+
 
 
 permissions_path = '../node_modules/react-native-permissions/ios'
