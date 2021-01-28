@@ -47,4 +47,5 @@ This sample application for React Native SDK provide the following features:
 - **Invitations** - manage list of sent and received invitations. Accept, reject or resend the invitation.
 - **CallLogs** - manage all the calls history and the missed calls.
 - **ForgotPassword** - reset your password account.
+- **Search for Contact** - search for contact by name.
 
