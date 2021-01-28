@@ -7,6 +7,8 @@ import componentConfig from '../component-config.json'
 import appStyleConfig from '../app-styles.json';
 import { CallComponent } from './CallComponent';
 import AppMenuView from './AppMenu';
+import { CreateBubbleComponent } from './BubblesComponent';
+import { MessagesComponent } from './MessagesComponent';
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
@@ -37,8 +39,8 @@ export default function App() {
                     />
                     <Scene key="Telephony" component={TelephonySettings} />
                     <Scene key="AppMenu" component={AppMenuView} />
-
-
+                    <Scene key="createBubble" component={CreateBubbleComponent} />
+                    <Scene key="messages" component={MessagesComponent} />
                 </Scene>
             </Router>
         </RainbowContainer>
