@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.ale.rainbow.rn.RainbowPackage;
-import com.facebook.react.BuildConfig;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -46,8 +45,8 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    String applicationId = "YOUR APPLICATION IDENTIFIER";
-    String applicationSecret = "YOUR APPLICATION SECRET";
+    String applicationId = "da08203056d111e9959047751de2fb98";
+    String applicationSecret = "JtUbeBs2wsomWGQMexjg4Us4BBRLpCpTjk84IB4uwBiZCtOz5gsqz6LscEuDzsG3";
     String host = "sandbox.openrainbow.com";
     RainbowPackage.initializeRainbowSdk(this,applicationId,applicationSecret,host);
     SoLoader.init(this, /* native exopackage */ false);

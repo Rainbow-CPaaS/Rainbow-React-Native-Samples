@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { startUpService, permissionsService, EventsTabIcon, SearchBarInput, IBackButtonHandler, Logger } from 'react-native-rainbow-module';
+import { startUpService, permissionsService, EventsTabIcon, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps } from 'react-native-rainbow-module';
 import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
@@ -10,10 +10,16 @@ import { Actions } from 'react-native-router-flux';
 import { BubblesComponent } from './BubblesComponent'
 import { ConversationsComponent } from './ConversationsComponent';
 import { SearchComponent } from './SearchComponent'
+import { FunctionComponent } from 'react';
 
 const logger = new Logger('Home');
 const homeStyle = StyleSheet.create(appStyleConfig.home);
-export default function Home() {
+interface IProps extends IBackButtonHandlerProps {
+	registerBackButtonHandler: (handler: IBackButtonHandler) => () => void
+}
+export const Home: FunctionComponent<IProps> = ({
+	registerBackButtonHandler
+}) => {
 	const [selectedTab, setSelectedTab] = React.useState<string>('contacts');
 	const [isSearchMode, setIsSearchMode] = React.useState<boolean>(false);
 	const [searchQuery, setSearchQuery] = React.useState<string>('');
@@ -22,6 +28,7 @@ export default function Home() {
 		const allAppPermissions = permissionsService.appPermissions;
 		permissionsService.checkMultiPermissionRequest(allAppPermissions).then((result) => {
 			// Do what ever you want
+			logger.info(`checkMultiPermissionRequest ${result}`)
 
 		});
 		startUpService.getLocalContacts();
@@ -55,23 +62,24 @@ export default function Home() {
 		setSelectedTab(tabName);
 
 	}
-
-	const updateHomeSearchState = (value: boolean, searchQuery: string) => {
+	const updateHomeSearchState = (value: boolean, query: string) => {
 		setIsSearchMode(value);
-		setSearchQuery(searchQuery);
+		setSearchQuery(query);
 
 	};
-
 	const cancelSearch = () => {
+		onBackButtonPressed();
+	};
+	const onBackButtonPressed = () => {
+		logger.info('onBackButtonPressed handled by home');
 		if (isSearchMode && Actions.currentScene === 'contactInformation') {
-			console.info('onBackButtonPressed handled by home, exit contact Card details and back to the search');
+			logger.info('onBackButtonPressed handled by home, exit contact Card details and back to the search');
 			Actions.pop();
 			return true;
 		}
 		if (isSearchMode) {
 			logger.info('onBackButtonPressed handled by home, exit searchMode');
 			setIsSearchMode(false);
-
 			if (searchQuery) {
 				// To do clear input value on back button pressed.
 			} else {
@@ -81,25 +89,7 @@ export default function Home() {
 		}
 		return false;
 	};
-
-	const handlers: IBackButtonHandler[] = [];
-
-	const registerBackButtonHandler = (handler: IBackButtonHandler) => {
-		handlers.push(handler);
-		return () => {
-			const index = handlers.indexOf(handler);
-			if (index >= 0) {
-				handlers.splice(index);
-			} else {
-				logger.error('Failed to unregister handler; handler not found');
-			}
-		};
-	};
-
-
 	const searchComponent = <SearchComponent />;
-
-
 	return (
 		<React.Fragment>
 			<Container>
@@ -140,6 +130,10 @@ export default function Home() {
 				</Footer>)
 				}
 			</Container>
+			<BackButtonHandler
+				registerBackButtonHandler={registerBackButtonHandler}
+				onBackButtonPressed={onBackButtonPressed}
+			/>
 		</React.Fragment>
 	);
 }
