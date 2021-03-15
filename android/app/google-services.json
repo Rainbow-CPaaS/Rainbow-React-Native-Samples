@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "469155888257",
+    "project_id": "rn-sdk-sample-app",
+    "storage_bucket": "rn-sdk-sample-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469155888257:android:e9787800a26102d3f56180",
+        "android_client_info": {
+          "package_name": "com.example.reactnativerainbowmodule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469155888257-3t783fav94ahl19tud122rkkc5u3m1jc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJtAGmlA-FCZylKHYQEWyRZgoidfcW2ro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469155888257-3t783fav94ahl19tud122rkkc5u3m1jc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

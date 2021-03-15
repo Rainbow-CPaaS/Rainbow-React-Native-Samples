@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { startUpService, permissionsService, EventsTabIcon, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps } from 'react-native-rainbow-module';
 import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
@@ -31,6 +31,10 @@ export const Home: FunctionComponent<IProps> = ({
 			logger.info(`checkMultiPermissionRequest ${result}`)
 
 		});
+		if (Platform.OS === 'android') {
+			startUpService.getAutoStartPermissions();
+		}
+
 		startUpService.getLocalContacts();
 		startUpService.getRosterContacts();
 	}, [])
