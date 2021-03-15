@@ -48,4 +48,5 @@ This sample application for React Native SDK provide the following features:
 - **CallLogs** - manage all the calls history and the missed calls.
 - **ForgotPassword** - reset your password account.
 - **Search for Contact** - search for contact by name.
+- **Enabling Push Notifications**
 
