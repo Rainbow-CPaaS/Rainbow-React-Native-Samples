@@ -8,7 +8,7 @@ export class ConversationsComponent extends Component {
         this.onHandelClickEvent = this.onHandelClickEvent.bind(this);
     }
     public onHandelClickEvent = (conversation: IConversation) => {
-        Actions.messages({ conversation, isBubble: conversation.isBubble });
+        Actions.messages({ conversation, isBubble: false });
     };
     public render() {
         return <Conversations onHandelClickEvent={this.onHandelClickEvent} />;

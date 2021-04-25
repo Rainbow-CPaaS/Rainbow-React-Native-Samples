@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { BackHandler, StyleSheet } from 'react-native';
-import { Logger, DialPad, RainbowContainer, ContactInformation, IContactInfoStyleProps, TelephonySettings, CallHistory, IBackButtonHandler } from 'react-native-rainbow-module';
+import {
+    Logger, DialPad, RainbowContainer, ContactInformation, IContactInfoStyleProps,
+    TelephonySettings, CallHistory, IBackButtonHandler, ForwardedView
+} from 'react-native-rainbow-module';
 import { Actions, Router, Scene } from 'react-native-router-flux';
 import { Home } from './Home';
 import componentConfig from '../component-config.json'
@@ -55,6 +58,8 @@ export default function App() {
                     <Scene key="createBubble" component={CreateBubbleComponent} />
                     <Scene key="messages" component={MessagesComponent} />
                     <Scene key="callHistory" component={CallHistory} callActionsComponent={CallComponent} />
+                    <Scene key="ForwardedView" component={ForwardedView} />
+
 
                 </Scene>
             </Router>
