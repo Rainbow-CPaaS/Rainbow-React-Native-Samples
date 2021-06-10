@@ -1,8 +1,17 @@
 import * as React from 'react';
 import { BackHandler, StyleSheet } from 'react-native';
 import {
-    Logger, DialPad, RainbowContainer, ContactInformation, IContactInfoStyleProps,
-    TelephonySettings, CallHistory, IBackButtonHandler, ForwardedView
+    Logger,
+    DialPad,
+    RainbowContainer,
+    ContactInformation,
+    IContactInfoStyleProps,
+    TelephonySettings,
+    CallHistory,
+    IBackButtonHandler,
+    ForwardedView,
+    EditBubble,
+    AddParticipant
 } from 'react-native-rainbow-module';
 import { Actions, Router, Scene } from 'react-native-router-flux';
 import { Home } from './Home';
@@ -10,7 +19,7 @@ import componentConfig from '../component-config.json'
 import appStyleConfig from '../app-styles.json';
 import { CallComponent } from './CallComponent';
 import AppMenuView from './AppMenu';
-import { CreateBubbleComponent } from './BubblesComponent';
+import { CreateBubbleComponent, BubblesComponent } from './BubblesComponent';
 import { MessagesComponent } from './MessagesComponent';
 import { useEffect } from 'react';
 
@@ -19,7 +28,6 @@ const logger = new Logger('example');
 const contactsInfoCustomStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
 
 const handlers: IBackButtonHandler[] = [];
-
 export default function App() {
     const registerBackButtonHandler = (handler: IBackButtonHandler) => {
         console.info('Home: registerBackButtonHandler');
@@ -36,10 +44,10 @@ export default function App() {
     return (
         <RainbowContainer>
             <BackHandlerListener />
-
             <Router>
                 <Scene key="root" headerMode="none">
-                    <Scene key="home" component={Home} registerBackButtonHandler={registerBackButtonHandler} />
+                    <Scene key="home" component={Home}
+                        registerBackButtonHandler={registerBackButtonHandler} />
                     <Scene
                         key="dialPad"
                         component={DialPad}
@@ -59,13 +67,16 @@ export default function App() {
                     <Scene key="messages" component={MessagesComponent} />
                     <Scene key="callHistory" component={CallHistory} callActionsComponent={CallComponent} />
                     <Scene key="ForwardedView" component={ForwardedView} />
-
+                    <Scene key="bubbles" component={BubblesComponent} />
+                    <Scene key="editBubble" component={EditBubble} />
+                    <Scene key="AddParticipants" component={AddParticipant} />
 
                 </Scene>
             </Router>
         </RainbowContainer>
     );
 }
+
 const BackHandlerListener: React.FunctionComponent = () => {
     useEffect(() => {
         logger.info('BackHandlerListener');

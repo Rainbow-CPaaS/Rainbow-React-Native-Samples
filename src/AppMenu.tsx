@@ -1,7 +1,8 @@
 import { Body, Content, Icon, List, ListItem, Text, Thumbnail, View } from 'native-base';
 import React from 'react';
-import { Dimensions, GestureResponderEvent, SafeAreaView, TextStyle, ViewStyle } from 'react-native';
+import { Dimensions, SafeAreaView, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 import { Logger, Telephony, IStyledProps, IUser, Presence, PresenceIcon, store, authService } from 'react-native-rainbow-module';
+import { Actions } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 
 const logger = new Logger('AppMenu');
@@ -21,6 +22,10 @@ interface ISideMenuStyleProps {
     contactInfo?: ViewStyle;
     profilePic?: ViewStyle;
     menuContentContainer?: ViewStyle;
+    safeArea?: ViewStyle;
+    nameText?: TextStyle;
+    backButtonText?: TextStyle;
+    leftView?: ViewStyle;
 }
 class AppMenuView extends React.Component<IProps> {
     constructor(props: IProps) {
@@ -32,19 +37,26 @@ class AppMenuView extends React.Component<IProps> {
         const presence = connectedUserFromStore ? (connectedUserFromStore.presence as keyof typeof Presence) : 'unsubscribed';
         return (
             <Provider store={store}>
-                <SafeAreaView style={{ backgroundColor: '#0086CF', flex: 1 }}>
+                <SafeAreaView style={defaultStyle.safeArea}>
                     <View style={defaultStyle.menuHeader}>
                         <View style={defaultStyle.profilePic}>
                             <Thumbnail size={500} source={{ uri: `data:image/png;base64,${connectedUserFromStore.profileImgBase64}` }} />
                             <PresenceIcon presence={connectedUserFromStore.presence} />
                         </View>
                         <View style={defaultStyle.contactInfo}>
-                            <Text style={[defaultStyle.name, { fontSize: 18 }]}>
-                                {connectedUserFromStore.contactName ? connectedUserFromStore.contactName.split('\n')[0].slice(0, 15) : ''}
+                            <Text style={[defaultStyle.name, defaultStyle.nameText]}>
+                                {connectedUserFromStore.name ? connectedUserFromStore.name.split('\n')[0].slice(0, 15) : ''}
                             </Text>
                             <Text style={defaultStyle.name}>{connectedUserFromStore.companyName}</Text>
                             <Text style={defaultStyle.name}>{presence}</Text>
                         </View>
+                        <View style={defaultStyle.leftView}>
+                            <TouchableOpacity onPress={() => { Actions.pop() }}>
+                                <Text style={defaultStyle.backButtonText}>Done</Text>
+                            </TouchableOpacity>
+
+                        </View>
+
                     </View>
                     <View style={defaultStyle.menuContentContainer}>
                         <Content>
@@ -64,7 +76,7 @@ class AppMenuView extends React.Component<IProps> {
 
         );
     }
-    private onLogout = (event: GestureResponderEvent) => {
+    private onLogout = () => {
         authService.signOut();
         store.dispatch(SignOutActionCreator);
     };
@@ -107,6 +119,15 @@ const defaultStyle: ISideMenuStyleProps = {
         fontSize: 15,
         maxWidth: 180
     },
+    backButtonText: {
+        color: 'white',
+        fontWeight: 'bold'
+    },
+    leftView: {
+        position: 'absolute',
+        top: 10,
+        right: 20
+    },
     contactInfo: {
         display: 'flex',
         flexDirection: 'column',
@@ -131,5 +152,8 @@ const defaultStyle: ISideMenuStyleProps = {
     menuContentContainer: {
         flex: 2,
         backgroundColor: '#fff'
-    }
+    },
+    safeArea: { backgroundColor: '#0086CF', flex: 1 },
+    nameText: { fontSize: 18 }
+
 };

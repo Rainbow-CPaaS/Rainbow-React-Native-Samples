@@ -8,8 +8,8 @@ export const BubblesComponent: FunctionComponent = () => {
         if (Actions.currentScene !== actionName) {
             console.log('onItemClick', actionName)
             Actions[actionName]({
-                conversation: bubble,
-                isBubble: true
+                bubble,
+                isBubble: true,
             });
         }
     };

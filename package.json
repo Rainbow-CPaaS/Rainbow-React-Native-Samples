@@ -16,7 +16,7 @@
     "react-native-keychain": "^6.2.0",
     "react-native-localization": "^2.1.6",
     "react-native-permissions": "^2.2.2",
-    "react-native-rainbow-module": "^0.2.2",
+    "react-native-rainbow-module": "^0.2.3",
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^2.10.1",

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { startUpService, permissionsService, EventsTabIcon, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps } from 'react-native-rainbow-module';
+import { startUpService, permissionsService, EventsTabIcon, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon } from 'react-native-rainbow-module';
 import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
@@ -122,6 +122,7 @@ export const Home: FunctionComponent<IProps> = ({
 							<Icon name="ios-chatbox" style={homeStyle.tabIcon} />
 						</Button>
 						<Button vertical={true} onPress={switchTab('bubbles')}>
+							<BubbleEventsTabIcon name="BubbleInvitation" />
 							<Icon name="ios-chatbubbles" style={homeStyle.tabIcon} />
 						</Button>
 						<Button vertical={true} onPress={switchTab('invitations')}>

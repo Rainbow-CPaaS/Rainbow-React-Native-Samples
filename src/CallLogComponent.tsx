@@ -10,8 +10,10 @@ import {
     ICallLog,
     ICallLogAction,
     ICallLogActionsProvider,
-    IContact
+    IContact,
+    Logger
 } from 'react-native-rainbow-module';
+const logger = new Logger('CallLogComponent');
 
 export const CallLogComponent: React.FunctionComponent = () => {
     const [showDialog, setShowDialog] = useState<boolean>(false);
@@ -40,9 +42,12 @@ export const CallLogComponent: React.FunctionComponent = () => {
     };
     const callLogActionsProvider: ICallLogActionsProvider = new class {
         public getCallLogAction = (callLog: ICallLog) => {
+            logger.info(`getCallLogAction: ${callLog}`)
             return actions;
         };
         public getOnClickCallLogAction = (callLog: ICallLog) => {
+            logger.info(`getOnClickCallLogAction: ${callLog}`)
+
             return redialAction;
         };
     }();

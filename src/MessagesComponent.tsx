@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Messages, IConversation } from 'react-native-rainbow-module';
+import { Messages, IConversation, IBubble } from 'react-native-rainbow-module';
 
 export interface IProps {
     conversation: IConversation;
     isBubble: boolean;
+    bubble: IBubble
 }
 
 export class MessagesComponent extends Component<IProps> {
@@ -13,7 +14,7 @@ export class MessagesComponent extends Component<IProps> {
     }
 
     public render() {
-        const { conversation, isBubble } = this.props;
-        return <Messages conversation={conversation} isBubble={isBubble} />;
+        const { conversation, isBubble, bubble } = this.props;
+        return <Messages conversation={conversation} isBubble={isBubble} bubble={bubble} />;
     }
 }
