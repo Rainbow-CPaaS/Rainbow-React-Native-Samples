@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { startUpService, permissionsService, EventsTabIcon, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon } from 'react-native-rainbow-module';
+import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon } from 'react-native-rainbow-module';
 import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
@@ -28,13 +28,14 @@ export const Home: FunctionComponent<IProps> = ({
 		const allAppPermissions = permissionsService.appPermissions;
 		permissionsService.checkMultiPermissionRequest(allAppPermissions).then((result) => {
 			// Do what ever you want
+
+			permissionsService.requestIOSNotificationsPermission();
 			logger.info(`checkMultiPermissionRequest ${result}`)
 
 		});
 		if (Platform.OS === 'android') {
 			startUpService.getAutoStartPermissions();
 		}
-
 		startUpService.getLocalContacts();
 		startUpService.getRosterContacts();
 	}, [])
@@ -93,6 +94,15 @@ export const Home: FunctionComponent<IProps> = ({
 		}
 		return false;
 	};
+	const renderButtonTab = (tabName: string, iconName: string) => {
+		return (
+			<Button vertical={true} onPress={switchTab(tabName)}  >
+				{tabName === 'bubbles' && <BubbleEventsTabIcon name="BubbleInvitation" />}
+				<Icon name={iconName} style={selectedTab === tabName ? styles.selectedTabIcon : homeStyle.tabIcon} />
+			</Button>
+		);
+	};
+
 	const searchComponent = <SearchComponent />;
 	return (
 		<React.Fragment>
@@ -115,22 +125,11 @@ export const Home: FunctionComponent<IProps> = ({
 				{!isSearchMode && renderTab()}
 				{!isSearchMode && (<Footer>
 					<FooterTab style={homeStyle.tabBackground}>
-						<Button vertical={true} onPress={switchTab('contacts')}>
-							<Icon name="person" style={homeStyle.tabIcon} />
-						</Button>
-						<Button vertical={true} onPress={switchTab('conversations')}>
-							<Icon name="ios-chatbox" style={homeStyle.tabIcon} />
-						</Button>
-						<Button vertical={true} onPress={switchTab('bubbles')}>
-							<BubbleEventsTabIcon name="BubbleInvitation" />
-							<Icon name="ios-chatbubbles" style={homeStyle.tabIcon} />
-						</Button>
-						<Button vertical={true} onPress={switchTab('invitations')}>
-							<Icon name="person-add-sharp" style={homeStyle.tabIcon} />
-						</Button>
-						<Button vertical={true} badge={true} onPress={switchTab('callLogs')}>
-							<EventsTabIcon name={'ios-time'} />
-						</Button>
+						{renderButtonTab('contacts', 'person')}
+						{renderButtonTab('conversations', 'ios-chatbox')}
+						{renderButtonTab('bubbles', 'ios-chatbubbles')}
+						{renderButtonTab('invitations', 'person-add-sharp')}
+						{renderButtonTab('callLogs', 'ios-time')}
 					</FooterTab>
 				</Footer>)
 				}
@@ -147,7 +146,8 @@ const styles = StyleSheet.create({
 	header: { borderBottomWidth: 0 },
 	headerIcon: { fontSize: 40 },
 	tabBackground: { backgroundColor: '#0086CF' },
-	tabIcon: { color: '#ffffff' },
+	selectedTabIcon: { color: '#ffffff' },
+	tabIcon: { color: '#a5c0f3' },
 	menuIcon: {
 		color: 'white',
 		marginTop: 5,
