@@ -68,6 +68,11 @@ class AppMenuView extends React.Component<IProps> {
                                         <Text>Log out</Text>
                                     </Body>
                                 </ListItem>
+                                <ListItem onPress={this.onSendLogs}>
+                                    <Body>
+                                        <Text>Send Logs</Text>
+                                    </Body>
+                                </ListItem>
                             </List>
                         </Content>
                     </View>
@@ -80,6 +85,11 @@ class AppMenuView extends React.Component<IProps> {
         authService.signOut();
         store.dispatch(SignOutActionCreator);
     };
+    private onSendLogs = () => {
+        logger.info(`sendLogs:`);
+        logger.sendLogs();
+
+    }
 }
 
 const SignOutActionCreator = () => {
