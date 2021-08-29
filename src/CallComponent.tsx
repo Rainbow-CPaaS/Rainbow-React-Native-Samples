@@ -5,13 +5,11 @@ import videoCall from './videoCall.png';
 
 interface ICallComponentProps {
     contact: IContact;
-    showDialog: boolean;
-    openDialog: () => void;
 }
 const customStyle: IImageButtonStyleProps = {
     image: {
-        width: 60,
-        height: 60
+        width: 50,
+        height: 50
     }
 };
 export const webRtcActions: IWebRtcCallActionProps[] = [

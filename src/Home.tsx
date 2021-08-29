@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon } from 'react-native-rainbow-module';
+import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon, InvitationTabIcon } from 'react-native-rainbow-module';
 import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
@@ -94,10 +94,21 @@ export const Home: FunctionComponent<IProps> = ({
 		}
 		return false;
 	};
+	const renderPendingTabCounter = (tabName: string) => {
+		switch (tabName) {
+			case 'bubbles':
+				return <BubbleEventsTabIcon />
+			case 'invitations':
+				return <InvitationTabIcon />
+			default:
+				return
+		}
+	}
+
 	const renderButtonTab = (tabName: string, iconName: string) => {
 		return (
 			<Button vertical={true} onPress={switchTab(tabName)}  >
-				{tabName === 'bubbles' && <BubbleEventsTabIcon name="BubbleInvitation" />}
+				{renderPendingTabCounter(tabName)}
 				<Icon name={iconName} style={selectedTab === tabName ? styles.selectedTabIcon : homeStyle.tabIcon} />
 			</Button>
 		);

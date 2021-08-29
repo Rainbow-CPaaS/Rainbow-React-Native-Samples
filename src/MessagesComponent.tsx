@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Messages, IConversation, IBubble } from 'react-native-rainbow-module';
+import { CallComponent } from './CallComponent';
 
 export interface IProps {
     conversation: IConversation;
@@ -15,6 +16,6 @@ export class MessagesComponent extends Component<IProps> {
 
     public render() {
         const { conversation, isBubble, bubble } = this.props;
-        return <Messages conversation={conversation} isBubble={isBubble} bubble={bubble} />;
+        return <Messages conversation={conversation} isBubble={isBubble} bubble={bubble} callActionsComponent={CallComponent} />;
     }
 }

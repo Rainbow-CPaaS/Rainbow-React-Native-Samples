@@ -19,6 +19,6 @@
     },
     "Contacts": {
         "networkContactsEnabled": true,
-        "localContactsEnabled": true
+        "localContactsEnabled": false
     }
 }
