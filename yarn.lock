@@ -1893,6 +1893,11 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
+e@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/e/-/e-0.2.1.tgz#ecef23b48dd3b8122bcb974d8f9caf906f6c2338"
+  integrity sha512-07oBQ1ewLgTChyGb2H9HrdUjCK/yFDmPHf7WQCZf+m4Rzyrw9gK8wjBVYWpOHntTKxGxxwXA/lyCBYWy4XlfWw==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -4009,7 +4014,7 @@ prop-types@15.5.8:
   dependencies:
     fbjs "^0.8.9"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.7.x:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.7.x:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -4142,6 +4147,11 @@ react-native-gifted-chat@^0.16.3:
     react-native-typing-animation "^0.1.7"
     uuid "3.4.0"
 
+react-native-image-picker@^4.0.4:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.0.6.tgz#0dfa5bb83bcf6ff58635ebb9201a185c2271e8cc"
+  integrity sha512-Pp3UWKUADuMG1mz12m6dSO/R2KnvXVEd77bldrfTMFpz4PFc4iVKo+bHeS79It0mUBezfzDMgfesg/OPLSugvQ==
+
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1, react-native-iphone-x-helper@^1.3.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
@@ -4178,20 +4188,23 @@ react-native-permissions@^2.2.2:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.2.2.tgz#3d2a63f6b7d6be52fc86e30f77412a9566283028"
   integrity sha512-ihf4shQDSX5Oo9ChQXb9kr13mmyyNem5MaEvOpr3dCjhBOBWyEMztXm9/uPK1Qg5PsNpaYLa1KpcPZDCw87LXg==
 
-"react-native-rainbow-module@file:../react-native-rainbow-module-0.2.4.tgz":
-  version "0.2.4"
-  resolved "file:../react-native-rainbow-module-0.2.4.tgz#698cb1ecb4c53150a3eb6b5cedaf556995a3766e"
+react-native-rainbow-module@^0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/react-native-rainbow-module/-/react-native-rainbow-module-0.2.8.tgz#95e3033e59a4bfc4a14f77aca5117649020800ae"
+  integrity sha512-Lzlr3+zBoWDa2O9myOv5N7taKlbNLrhDjxpkz/XyNPNMNclWuLx5q95pDEUTQ4IpP7FkSr2U75GGyxVVQNIBbA==
   dependencies:
     moment "^2.24.0"
     native-base "^2.13.14"
     react-native-devsettings-android "^0.3.0"
     react-native-elements "^1.2.7"
     react-native-gifted-chat "^0.16.3"
+    react-native-image-picker "^4.0.4"
     react-native-keychain "^6.0.0"
     react-native-localization "^2.1.6"
     react-native-permissions "^2.2.2"
     react-native-router-flux "^4.0.6"
     react-native-simple-dialogs "^1.4.0"
+    react-native-super-grid "^4.1.3"
     react-redux "^7.1.0"
     recyclerlistview "^2.0.12"
     redux "^4.0.4"
@@ -4258,6 +4271,13 @@ react-native-status-bar-height@^2.2.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.6.0.tgz#b6afd25b6e3d533c43d0fcdcfd5cafd775592cea"
   integrity sha512-z3SGLF0mHT+OlJDq7B7h/jXPjWcdBT3V14Le5L2PjntjjWM3+EJzq2BcXDwV+v67KFNJic5pgA26cCmseYek6w==
+
+react-native-super-grid@^4.1.3:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-super-grid/-/react-native-super-grid-4.1.3.tgz#f9d0e68efb23be948d7bd402e91384977795721f"
+  integrity sha512-Zgp+olHshuA/e/d+eyIP8JkdyxjC39SW6eIWHXmOATcJEQ8d0mKTOEVq+4rBvD6xMgceT45X0DF+H691LMy34g==
+  dependencies:
+    prop-types "^15.6.0"
 
 react-native-tab-view@^2.15.2:
   version "2.15.2"

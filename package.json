@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-picker/picker": "^1.16.1",
+    "e": "^0.2.1",
     "react": "16.11.0",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-keychain": "^6.2.0",
