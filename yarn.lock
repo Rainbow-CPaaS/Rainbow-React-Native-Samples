@@ -4188,10 +4188,10 @@ react-native-permissions@^2.2.2:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.2.2.tgz#3d2a63f6b7d6be52fc86e30f77412a9566283028"
   integrity sha512-ihf4shQDSX5Oo9ChQXb9kr13mmyyNem5MaEvOpr3dCjhBOBWyEMztXm9/uPK1Qg5PsNpaYLa1KpcPZDCw87LXg==
 
-react-native-rainbow-module@^0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/react-native-rainbow-module/-/react-native-rainbow-module-0.2.8.tgz#95e3033e59a4bfc4a14f77aca5117649020800ae"
-  integrity sha512-Lzlr3+zBoWDa2O9myOv5N7taKlbNLrhDjxpkz/XyNPNMNclWuLx5q95pDEUTQ4IpP7FkSr2U75GGyxVVQNIBbA==
+react-native-rainbow-module@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/react-native-rainbow-module/-/react-native-rainbow-module-0.2.9.tgz#66eaceddc58dfaad4ed047c0a743680882b5cf7b"
+  integrity sha512-POCrGtWQhNCDTwMp8A0BpNLdg2uEipNYr0B1jBx1yv6gZdBSMGiI0rqoiL4J93G2N70ZxQFpYAb69+bEP/3lmQ==
   dependencies:
     moment "^2.24.0"
     native-base "^2.13.14"
