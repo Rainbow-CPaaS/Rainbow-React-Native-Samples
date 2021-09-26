@@ -1,8 +1,8 @@
 diff --git a/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m b/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m
-index 7c929ea..deb3ef3 100644
+index 7c929ea..e40e7cb 100644
 --- a/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m
 +++ b/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m
-@@ -61,11 +61,12 @@ - (void)dealloc {
+@@ -61,11 +61,14 @@ - (void)dealloc {
          return;
      }
      NSLog(@"[Authentication] my user name: %@",[[[ServicesManager sharedInstance] myUser]contact].fullName);
@@ -13,7 +13,9 @@ index 7c929ea..deb3ef3 100644
 -RCT_EXPORT_METHOD(login :(NSString*)email password:(NSString*)password) {
 +RCT_EXPORT_METHOD(login :(NSString*)email password:(NSString*)password host:(NSString*)host) {
      BOOL autoLogin = [[ServicesManager sharedInstance] loginManager].autoLogin;
-+    [[RNRainbowRn sharedManager] setServerName:host];
++    if([host length] > 0){
++           [[RNRainbowRn sharedManager] setServerName:host];
++    }
      if( autoLogin == YES && [[[ServicesManager sharedInstance] myUser]contact].fullName != nil ){
          NSLog(@"[Authentication] Authentication Succeeded already connected ");
          _loginSuccess = YES;
