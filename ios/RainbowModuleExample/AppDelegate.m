@@ -25,7 +25,10 @@
                                                    moduleName:@"RainbowModuleExample"
                                             initialProperties:nil];
 
-  [[RNRainbowRn sharedManager] initRainbowServiceManager:bridge AppId:@"65c681c01c8f11e9add8932b358ef81d" secretKey:@"UYdu3wCXTdfyjImhURnIkZ0tac5J9XSLszIKBRUUWVB35b6nT3fWV2BhAGhojdBQ"];
+  NSString *applicationId = @"YOUR APPLICATION IDENTIFIER";
+  NSString *applicationSecret = @"YOUR APPLICATION SECRET";
+  NSString *host = @"sandbox.openrainbow.com";
+  [[RNRainbowRn sharedManager] initRainbowServiceManager:bridge AppId:applicationId secretKey:applicationSecret host:host];
 
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];

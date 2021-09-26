@@ -1,0 +1,63 @@
+diff --git a/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m b/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m
+index 7c929ea..deb3ef3 100644
+--- a/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m
++++ b/node_modules/react-native-rainbow-module/ios/rainvowRN/Authentication/Authentication.m
+@@ -61,11 +61,12 @@ - (void)dealloc {
+         return;
+     }
+     NSLog(@"[Authentication] my user name: %@",[[[ServicesManager sharedInstance] myUser]contact].fullName);
+-    [self login:[[ServicesManager sharedInstance] myUser].username password:[[ServicesManager sharedInstance] myUser].password];
++    [self login:[[ServicesManager sharedInstance] myUser].username password:[[ServicesManager sharedInstance] myUser].password host:[[ServicesManager sharedInstance] myUser].server.serverDisplayedName];
+ }
+ 
+-RCT_EXPORT_METHOD(login :(NSString*)email password:(NSString*)password) {
++RCT_EXPORT_METHOD(login :(NSString*)email password:(NSString*)password host:(NSString*)host) {
+     BOOL autoLogin = [[ServicesManager sharedInstance] loginManager].autoLogin;
++    [[RNRainbowRn sharedManager] setServerName:host];
+     if( autoLogin == YES && [[[ServicesManager sharedInstance] myUser]contact].fullName != nil ){
+         NSLog(@"[Authentication] Authentication Succeeded already connected ");
+         _loginSuccess = YES;
+diff --git a/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.h b/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.h
+index fb92797..15ae8d8 100644
+--- a/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.h
++++ b/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.h
+@@ -12,6 +12,6 @@
+ @property (nonatomic) BOOL pbxEnabled;
+ +(id)sharedManager;
+ - (UINavigationController *) setupRainbowRootController:(UIViewController *) rootViewController;
+--(void) initRainbowServiceManager:(RCTBridge*)appBridge AppId:(NSString*)appId secretKey:(NSString*)secKey;
++-(void) initRainbowServiceManager:(RCTBridge*)appBridge AppId:(NSString*)appId secretKey:(NSString*)secKey host:(NSString*)host;
+ 
+ @end
+diff --git a/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.m b/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.m
+index bd6437f..db1ee63 100644
+--- a/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.m
++++ b/node_modules/react-native-rainbow-module/ios/rainvowRN/RNRainbowRn.m
+@@ -29,16 +29,17 @@ +(id)sharedManager {
+ - (instancetype)init {
+     self = [super init];
+     if (self) {
+-        self.serverName = @"openrainbow.com";
++        self.serverName = @"";
+     }
+     return self;
+ }
+ 
+ 
+-- (void) initRainbowServiceManager:(RCTBridge*)appBridge AppId:(NSString*)appId secretKey:(NSString*)secKey {
++- (void) initRainbowServiceManager:(RCTBridge*)appBridge AppId:(NSString*)appId secretKey:(NSString*)secKey host:(NSString*)host {
+     
+     [[IEventEmmiter sharedManager] setBridge:appBridge];
+     [[Navigation sharedManager] setNavigationBridge:appBridge];
++    self.serverName = host;
+     [self checkIfFirstInstallation];
+     
+     NSDictionary* componentsConfigJson = [AssetsHelper getJson:@"components-config"];
+@@ -61,6 +62,7 @@ - (void) initRainbowServiceManager:(RCTBridge*)appBridge AppId:(NSString*)appId
+      }
+    }
+ 
++//-(void) setServer
+ - (UINavigationController *) setupRainbowRootController:(UIViewController *) rootViewController{
+     
+     self.navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
