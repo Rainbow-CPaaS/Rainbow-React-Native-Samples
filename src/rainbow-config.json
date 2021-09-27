@@ -1,0 +1,17 @@
+[
+    {
+        "HOST": "openrainbow.com",
+        "APP_ID": "YOUR APPLICATION IDENTIFIER",
+        "SEC_KEY": "YOUR APPLICATION SECRET"
+    },
+    {
+        "HOST": "openrainbow.net",
+        "APP_ID": "YOUR APPLICATION IDENTIFIER",
+        "SEC_KEY": "YOUR APPLICATION SECRET"
+    },
+    {
+        "HOST": "sandbox.openrainbow.com",
+        "APP_ID": "YOUR APPLICATION IDENTIFIER",
+        "SEC_KEY": "YOUR APPLICATION SECRET"
+    }
+]

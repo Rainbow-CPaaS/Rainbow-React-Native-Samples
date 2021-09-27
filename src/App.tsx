@@ -22,12 +22,16 @@ import AppMenuView from './AppMenu';
 import { CreateBubbleComponent, BubblesComponent } from './BubblesComponent';
 import { MessagesComponent } from './MessagesComponent';
 import { useEffect } from 'react';
+import jsonRainbowConfig from './rainbow-config.json';
+
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
 const contactsInfoCustomStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
 
 const handlers: IBackButtonHandler[] = [];
+RainbowContainer.setAppSecretKey(jsonRainbowConfig);
+
 export default function App() {
     const registerBackButtonHandler = (handler: IBackButtonHandler) => {
         console.info('Home: registerBackButtonHandler');

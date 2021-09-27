@@ -45,10 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    String applicationId = "YOUR APPLICATION IDENTIFIER";
-    String applicationSecret = "YOUR APPLICATION SECRET";
-    String host = "sandbox.openrainbow.com";
-    RainbowPackage.initializeRainbowSdk(this,applicationId,applicationSecret,host);
+    RainbowPackage.setApplication(this);
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager()); // Remove this line if you don't want Flipper enabled
   }
