@@ -192,7 +192,7 @@ PODS:
     - React-cxxreact (= 0.62.2)
     - React-jsi (= 0.62.2)
   - React-jsinspector (0.62.2)
-  - react-native-rainbow-module (0.2.9):
+  - react-native-rainbow-module (0.2.10):
     - React
   - react-native-safe-area-context (3.2.0):
     - React-Core
@@ -430,7 +430,7 @@ SPEC CHECKSUMS:
   React-jsi: b6dc94a6a12ff98e8877287a0b7620d365201161
   React-jsiexecutor: 1540d1c01bb493ae3124ed83351b1b6a155db7da
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
-  react-native-rainbow-module: 6ad0474085d02679d903e936b8117cf606747237
+  react-native-rainbow-module: db4fe9d673a6087d9659112842066c88c01759d2
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
