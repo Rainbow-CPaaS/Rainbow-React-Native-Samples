@@ -6398,11 +6398,12 @@ react-native-permissions@^2.2.2:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.2.2.tgz#3d2a63f6b7d6be52fc86e30f77412a9566283028"
   integrity sha512-ihf4shQDSX5Oo9ChQXb9kr13mmyyNem5MaEvOpr3dCjhBOBWyEMztXm9/uPK1Qg5PsNpaYLa1KpcPZDCw87LXg==
 
-react-native-rainbow-module@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-rainbow-module/-/react-native-rainbow-module-0.3.1.tgz#5d97423589a9570a86336e3c0b32ddcf48f979b0"
-  integrity sha512-GFkVLFRviZnYs7SauRJLCpOt//EyLHsFqj2raPuPCZ4W+liNdBGUt75lmWqMI7VpM4TZYFiirge/X38Q+U7lcg==
+react-native-rainbow-module@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-rainbow-module/-/react-native-rainbow-module-0.3.2.tgz#2828168d23f5fc623953a0ce7ec77656a44ece81"
+  integrity sha512-k9mNCqj1ssFuJ3s5CXBijxpGq1khrxjDlXAU8xJAjHoS9Hsp3RHwtZxXaCjgB+oNdODATCRTqUsvYtuCvLD08w==
   dependencies:
+    "@react-native-async-storage/async-storage" "^1.15.9"
     moment "^2.24.0"
     native-base "^2.13.14"
     react-native-devsettings-android "^0.3.0"
