@@ -10,12 +10,12 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-picker/picker": "^1.16.1",
     "e": "^0.2.1",
     "react-native-rainbow-module": "^0.3.2",
     "react-native-safe-area-context": "^3.2.0",
-    "@react-native-async-storage/async-storage": "^1.15.9",
     "appcenter": "4.2.0",
     "appcenter-analytics": "4.2.0",
     "appcenter-crashes": "4.2.0",
