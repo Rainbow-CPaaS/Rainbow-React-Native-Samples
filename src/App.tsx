@@ -24,7 +24,6 @@ import { MessagesComponent } from './MessagesComponent';
 import { useEffect } from 'react';
 import jsonRainbowConfig from './rainbow-config.json';
 
-
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
 const contactsInfoCustomStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
@@ -34,7 +33,8 @@ RainbowContainer.setAppSecretKey(jsonRainbowConfig);
 
 export default function App() {
     const registerBackButtonHandler = (handler: IBackButtonHandler) => {
-        console.info('Home: registerBackButtonHandler');
+        logger.info('registerBackButtonHandler');
+
         handlers.push(handler);
         return () => {
             const index = handlers.indexOf(handler);
@@ -90,6 +90,7 @@ const BackHandlerListener: React.FunctionComponent = () => {
     const onHandleBackButton = () => {
         logger.info(`BackHandlerListener: onHandleBackButton ${handlers.length} ${Actions.currentScene}`);
         for (const handler of handlers) {
+            logger.info(`BackHandlerListener: handler ${handler} ${Actions.currentScene}`);
             if (handler.onBackButtonPressed()) {
                 return;
             }

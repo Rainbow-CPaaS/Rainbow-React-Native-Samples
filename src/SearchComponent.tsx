@@ -2,8 +2,9 @@ import { Container } from 'native-base';
 import React, { useState } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { OpenCallDialogComponent, PbxActions } from './CallComponent';
-import { createCallPbxContactAction, IAction, IActionsProvider, IContact, Search } from 'react-native-rainbow-module';
+import { createCallPbxContactAction, IAction, IActionsProvider, IContact, Logger, Search } from 'react-native-rainbow-module';
 
+const logger = new Logger('SearchComponent');
 export const SearchComponent: React.FunctionComponent = () => {
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [contactToCall, setContactToCall] = useState<IContact>();
@@ -20,6 +21,7 @@ export const SearchComponent: React.FunctionComponent = () => {
 
     const contactActionsProvider: IActionsProvider = new (class {
         public getActions = (contact: IContact) => {
+            logger.info(`getActions for contact${contact.name}`)
             return actions;
         };
     })();

@@ -36,6 +36,7 @@ export const Home: FunctionComponent<IProps> = ({
 		if (Platform.OS === 'android') {
 			startUpService.getAutoStartPermissions();
 		}
+		startUpService.getLocalContacts();
 		startUpService.getRosterContacts();
 	}, [])
 	const openMenu = () => {
