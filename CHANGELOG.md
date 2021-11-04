@@ -5,6 +5,14 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [0.3.3] - 2021-11-4
+---
+**API Changes**
+-  Add new property  `conference: IConferenceEvent` in `IMessage` interface to distinguish the room event message type to
+    allow render different message layout depends on msg type.
+**Other Changes**
+- Fix bug receiving duplicate room event when end/start the conference room.
+
 ## [0.3.2] - 2021-11-1
 ---
 **API Changes**
