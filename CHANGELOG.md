@@ -5,6 +5,21 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [0.3.4] - 2021-11-18
+---
+- API Changes:
+
+ - Add new api `BubbleParticipants.removeContactFromBubble(bubbleId:string, contactJid:string)` for remove contact from a bubble, check docs in Rainbow API HUB[BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/bubbleParticipants).
+ - Add new property `roomEvent ` for [IMessage](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IMessage) interface to indicate if the message contains a room event (new invitation, leave and join bubble).
+ - Add new property `conference ` for [IMessage](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IMessage) interface to indicate if the message contains a webrtc conference event (someone add/remove conference call)
+
+
+- Other Changes:
+
+ - Fix for multiple notifications showing in the top navigation bar issue.
+ - Handle upload files and show progress bar while uploading/downloading files.
+ - Fix bug in load more messages.
+
 ## [0.3.3] - 2021-11-4
 ---
 **API Changes**
