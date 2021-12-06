@@ -14,16 +14,16 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 - Add new API `hangupParticipantFromConference(bubbleId: string, contactJid: string)` to hangup one of the participant during the conference call, check docs in Rainbow API HUB[BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/bubbleParticipants).
 - Add new API `promoteOwner(bubbleId: string, contactJid: string)` to change one of the ownership of the bubble, check docs in Rainbow API HUB[BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/bubbleParticipants).
 
-**Breaking Changes**
-- Upgrade Android ALE SDK version to 2.9.2.
-- Upgrade Android gradle version to 7.0.3.
-
 **Other Changes**
 
-- Fix a bugs in the conference incoming call.
-- Fix a bug in Active call panner for P2P call.
-- Fix a bug in showing permission when first installation.
-- Fix a bug in messages.
+- Fix Call end event is not coming in case if the user is not at the active screen in One2One calls issue.
+- Enhancement for requesting permission for the sample app when first installation.
+- Upgrade Rainbow Android SDK version to 2.9.2.
+- Bug Fixing.
+
+**Note**
+ please make sure to upgrade Android Gradle version greater than 7 to guarantee a smooth development.
+
 
 ## [0.3.4] - 2021-11-18
 
