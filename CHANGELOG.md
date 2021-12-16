@@ -5,6 +5,20 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [0.3.6] - 2021-12-16
+---
+- API Changes:
+
+ - Add new property `customData ` for [IBubble](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IBubble) interface which includes customized data added by you to bubble.
+ - Add new API `promoteContactFromBubble(bubbleId: string, contactJid: string)` to promote a member in a bubble(room) to be an organizer, check docs in Rainbow API HUB [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
+- Add new API `demoteContactFromBubble(bubbleId: string, contactJid: string)` to demote an organizer in a bubble(room) to be a normal member, check docs in Rainbow API HUB [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
+- IM: A new property [IsTyping](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IMessage#ITyping) has been added in Im module which allows other contacts to know if the current user is composing or not (parameter isTyping).
+
+- Fixes:
+ - Fix organizer can't add participants.
+ - Fix 'is typing' users are not shown.
+ - Fix images are not shown on the .net server from IOS side.
+
 ## [0.3.5] - 2021-12-6
 
 ---
