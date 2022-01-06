@@ -5,6 +5,24 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [0.3.7] - 2022-1-6
+---
+**API Changes:**
+
+- Add new API `createAutoAcceptedBubble(name: string, topic: string)` to create an auto accept bubble, check docs in Rainbow API HUB [BubbleServices](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleServices).
+- Add new API `inviteParticipantToBubble(bubbleId: string, contactJid: string, asModerator: string, withInvitation: string )` to invite a participant as a moderator or a member, with an option to send an invite or not, check docs in Rainbow API HUB [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
+- Add new API `getBubbleById(bubbleId: string)` to fetch a bubble using its Id, check docs in Rainbow API HUB [BubbleServices](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleServices).
+- Add new API `delegateConference(conferenceRoomId: string, participantId: string)` to transfer the meeting control to another attendee, check docs in Rainbow API HUB [Managing Conferences](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/managing_conferences).
+- Add new bubble event that fires whenever a bubble is updated. It contains only that bubble. `EventType.OnBubblesUpdated` check docs in Rainbow API HUB [BubbleServices](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleServices).
+
+**Fixes:**
+
+ - Fix bubble topic in conference object does not exist in IOS side.
+
+**Other Changes:**
+
+- Change bubbles list event name from `EventType.BubblesUpdated` to `EventType.BubblesListUpdated`.
+
 ## [0.3.6] - 2021-12-15
 ---
 **API Changes:**
