@@ -13,7 +13,7 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 - Add new API `inviteParticipantToBubble(bubbleId: string, contactJid: string, asModerator: string, withInvitation: string )` to invite a participant as a moderator or a member, with an option to send an invite or not, check docs in Rainbow API HUB [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
 - Add new API `getBubbleById(bubbleId: string)` to fetch a bubble using its Id, check docs in Rainbow API HUB [BubbleServices](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleServices).
 - Add new API `delegateConference(conferenceRoomId: string, participantId: string)` to transfer the meeting control to another attendee, check docs in Rainbow API HUB [Managing Conferences](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/managing_conferences).
-- Add new bubble event that fires whenever a bubble is updated. It contains only that bubble. `EventType.OnBubblesUpdated` check docs in Rainbow API HUB [BubbleServices](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleServices).
+- Add new bubble event that fires whenever a bubble is updated. It contains only that bubble. `EventType.OnBubbleUpdated` check docs in Rainbow API HUB [BubbleServices](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleServices).
 
 **Fixes:**
 
