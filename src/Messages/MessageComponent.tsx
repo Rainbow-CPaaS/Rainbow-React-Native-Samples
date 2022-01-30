@@ -369,7 +369,8 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       message.associatedMsgId = selectedMessage?._id;
       messagesService.replyMessage(message);
     }
-    else {
+    // Do not send any, incase there is NO attach or text to send
+    else if (filesToUpload.length > 0 || message.text.length > 0) {
       if (filesToUpload.length > 0) {
         setShowAttachedLoader(true);
       }
