@@ -20,8 +20,9 @@ import appStyleConfig from '../app-styles.json';
 import { CallComponent } from './CallComponent';
 import AppMenuView from './AppMenu';
 import { CreateBubbleComponent, BubblesComponent } from './BubblesComponent';
-import { MessagesComponent } from './MessagesComponent';
 import { useEffect } from 'react';
+import { PeerConversationChatView } from './Messages/PeerConversationChatView'
+import { BubbleChatView } from './Messages/BubbleChatView';
 import jsonRainbowConfig from './rainbow-config.json';
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
@@ -68,12 +69,13 @@ export default function App() {
                     <Scene key="Telephony" component={TelephonySettings} />
                     <Scene key="AppMenu" component={AppMenuView} />
                     <Scene key="createBubble" component={CreateBubbleComponent} />
-                    <Scene key="messages" component={MessagesComponent} />
                     <Scene key="callHistory" component={CallHistory} callActionsComponent={CallComponent} />
                     <Scene key="ForwardedView" component={ForwardedView} />
                     <Scene key="bubbles" component={BubblesComponent} />
                     <Scene key="editBubble" component={EditBubble} />
                     <Scene key="AddParticipants" component={AddParticipant} />
+                    <Scene key="PeerConversationChatView" component={PeerConversationChatView} />
+                    <Scene key="BubbleChatView" component={BubbleChatView} />
 
                 </Scene>
             </Router>

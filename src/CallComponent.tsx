@@ -1,7 +1,7 @@
 import React from 'react';
 import componentConfig from '../component-config.json';
 import { CallButton, IImageButtonStyleProps, IContact, CallDialog, IPbxCallActionProps, IWebRtcCallActionProps } from 'react-native-rainbow-module'
-import videoCall from './videoCall.png';
+import videoCall from './resources/images/videoCall.png';
 
 interface ICallComponentProps {
     contact: IContact;
