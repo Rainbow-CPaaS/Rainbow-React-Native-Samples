@@ -5,6 +5,22 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [0.3.8] - 2022-1-27
+---
+**API Changes:**
+
+- Refactor the `Message` component so it can be customizable easily by the user side, please check docs in Rainbow API HUB [MAKE AN IM CONVERSATION](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/make_im_conversation).
+- Exporting [Contact Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/ContactServices);
+- Exporting [Message Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/MessageServices);
+- Exporting [Conversation Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/ConversationServices);
+- Exporting [Conference Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/ConferenceServices);
+
+
+**Other Changes:**
+
+- Rename `sent` prop in [IMessage](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IMessage) to `isSent`
+- Change `onItemClick: (actionName: string, data?: IBubble) => void` to `onItemClick: (data?: IBubble) => void` in [Bubbles](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/bubbles) component.
+
 ## [0.3.7] - 2022-1-6
 ---
 **API Changes:**
