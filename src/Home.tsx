@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon, InvitationTabIcon } from 'react-native-rainbow-module';
-import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
+import { Badge, Button, Container, Content, Footer, FooterTab, Header, Icon, Text, View } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
 import { CallLogComponent } from './CallLogComponent';
@@ -36,13 +36,13 @@ export const Home: FunctionComponent<IProps> = ({
 		if (Platform.OS === 'android') {
 			startUpService.getAutoStartPermissions();
 		}
-		startUpService.getLocalContacts();
+		// startUpService.getLocalContacts();
 		startUpService.getRosterContacts();
 	}, [])
 	const openMenu = () => {
 		Actions.AppMenu();
 	}
-	const renderTab = () => {
+	const renderTab = (): Element => {
 		switch (selectedTab) {
 			case 'contacts':
 				return <ContactsComponent />
@@ -94,6 +94,7 @@ export const Home: FunctionComponent<IProps> = ({
 		}
 		return false;
 	};
+
 	const renderPendingTabCounter = (tabName: string) => {
 		switch (tabName) {
 			case 'bubbles':

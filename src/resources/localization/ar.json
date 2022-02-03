@@ -1,0 +1,13 @@
+{
+	"deletedMessage": "تم حذف هذه الرسالة",
+	"failedToDownload":"خطآ في التنزيل",
+	"deleteBubble": "مسح الفقاعة",
+	"leaveBubble": "مغادرة الفقاعة",
+	"archiveBubble": "أرشفة الفقاعه",
+	"editBubble": "تعديل الفقاعة",
+	"sendConversationByEmail": "أرسال المحادثة عن طريق الايميل",
+	"deleteAllMessages": "مسج جميع المسجات",
+	"conversations": "محادثاتي",
+	"participants": "مشارك (مشاركون)",
+	"addToMyNetwork": "أضف الي شبكتي"
+}

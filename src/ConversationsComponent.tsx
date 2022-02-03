@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { Conversations, IConversation } from 'react-native-rainbow-module';
+import { Conversations, IBubble, IConversation } from 'react-native-rainbow-module';
 
 export class ConversationsComponent extends Component {
     constructor(props: any) {
@@ -8,11 +8,18 @@ export class ConversationsComponent extends Component {
         this.onHandelClickEvent = this.onHandelClickEvent.bind(this);
     }
     public onHandelClickEvent = (conversation: IConversation) => {
-        Actions.messages({
-            conversation,
-            isBubble: conversation.isBubble,
-            bubble: conversation.bubble,
-        });
+        if (conversation.isBubble && conversation.bubble) {
+            const bubble: IBubble = conversation.bubble
+            Actions.BubbleChatView({
+                bubble
+            });
+        }
+        else {
+            Actions.PeerConversationChatView({
+                conversation,
+            });
+        }
+
     };
     public render() {
         return <Conversations onHandelClickEvent={this.onHandelClickEvent} />;

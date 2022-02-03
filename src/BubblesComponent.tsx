@@ -4,14 +4,11 @@ import { Actions } from 'react-native-router-flux';
 import { Bubbles, CreateBubble, BubbleErrorCode, IBubble, Strings } from 'react-native-rainbow-module';
 
 export const BubblesComponent: FunctionComponent = () => {
-    const onItemClick = (actionName: string, bubble?: IBubble) => {
-        if (Actions.currentScene !== actionName) {
-            console.log('onItemClick', actionName)
-            Actions[actionName]({
-                bubble,
-                isBubble: true,
-            });
-        }
+    const onItemClick = (bubble?: IBubble) => {
+        Actions.BubbleChatView({
+            bubble
+        });
+
     };
     return <Bubbles allBubbles={true} myBubbles={true} onItemClick={onItemClick} />;
 };

@@ -1,0 +1,13 @@
+{
+	"deletedMessage": "This message is deleted",
+	"failedToDownload":"Failed To Download",
+	"deleteBubble": "Delete bubble",
+	"leaveBubble": "Leave bubble",
+	"archiveBubble": "Archive bubble",
+	"editBubble": "Edit bubble",
+	"sendConversationByEmail": "Send Conversation by email",
+	"deleteAllMessages": "Remove All Messages",
+	"conversations": "Conversations",
+	"participants": "Participant(s)",
+	"addToMyNetwork": "AddTo my network"
+}
