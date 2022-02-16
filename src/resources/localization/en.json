@@ -9,5 +9,10 @@
 	"deleteAllMessages": "Remove All Messages",
 	"conversations": "Conversations",
 	"participants": "Participant(s)",
-	"addToMyNetwork": "AddTo my network"
+	"addToMyNetwork": "AddTo my network",
+	"all": "ALL",
+	"myBubbles": "MY BUBBLES",
+	"bubbleList": "Bubble List",
+	"Invitations": "INVITATIONS",
+	"noDataFound": "No Data Found"
 }

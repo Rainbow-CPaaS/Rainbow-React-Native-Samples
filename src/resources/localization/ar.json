@@ -9,5 +9,10 @@
 	"deleteAllMessages": "مسج جميع المسجات",
 	"conversations": "محادثاتي",
 	"participants": "مشارك (مشاركون)",
-	"addToMyNetwork": "أضف الي شبكتي"
+	"addToMyNetwork": "أضف الي شبكتي",
+	"myBubbles": "فقاعاتي",
+	"all": "الكل",
+	"bubbleList":"لائحة الفقاعات",
+	"Invitations": "الدعوات",
+	"noDataFound": "لاتوجد بيانات"
 }

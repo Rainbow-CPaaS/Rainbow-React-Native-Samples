@@ -5,6 +5,27 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [0.3.9] - 2022-2-17
+---
+**Breaking Changes:**
+- Refactor the `Bubbles` component so it can be customizable easily by the user side, please check docs in Rainbow API HUB [Bubbles Component](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubblesComponent).
+- Refactor the `Conversations` component so it can be customizable easily by the user side, please check docs in Rainbow API HUB [Retrieve Conversation](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/retrieve_conversations).
+
+**Added:**
+- Adding new item `WithBadge` for customized tab badges, where you can check how to use it by this example: [BubbleInvitationBadge](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/tree/main/src/Bubbles/BubblesComponent.tsx).
+- Adding [ConversationCard](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/retrieve_conversations#ConversationCard).
+
+**Fixed:**
+- Fixing Can't Opening the downloaded files for Android version >= 11.
+- Un mute participant get stuck.
+- Fixing Contact Presence not synced in the call Logs.
+- Fixing the Bubble Message View is not synced when edit bubble.
+- Fixing edit bubble is not synced in both conversations and bubbles list.
+
+**Other Changes:**
+- Remove `getMyBubbles` with the associated event `MyBubblesUpdated` in [Bubble Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/BubbleServices), where you can use `getBubbles` instead and filter them by `isUserOwner` flag.
+- Rename callback props `onBubbleCreationResult` From `(actionName: string,creationResult: BubbleErrorCode)` to `(creationResult: BubbleErrorCode)` in [CreateBubble Component](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubblesComponent).
+
 ## [0.3.8] - 2022-2-3
 ---
 **Breaking Changes:**

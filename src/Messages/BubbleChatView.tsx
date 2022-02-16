@@ -63,6 +63,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     const messagesMergedStyle = { ...styles, ...props.style }
     const [activeTab, setActiveTab] = useState(0);
     const [isConferenceJoinable, setIsConferenceJoinable] = useState<boolean>(false);
+    const [currentBubble, setCurrentBubble] = useState<IBubble>(props.bubble);
 
     useEffect(() => {
         conferenceService.CheckConferenceAvailability(props.bubble.id);
@@ -70,17 +71,23 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             logger.info(`addListener for ${EventType.ConferenceCapability} : ${eventData}`)
             setIsConferenceJoinable(eventData);
         });
+        // Listen for bubble change update
+        const onBubbleUpdated = eventEmitter.addListener(EventType.OnBubbleUpdated, (eventData: IBubble) => {
+            logger.info(`addListener for ${EventType.OnBubbleUpdated} : ${eventData}`)
+            setCurrentBubble(eventData);
+        });
 
         return () => {
             conferenceCapabilityUpdate.remove();
+            onBubbleUpdated.remove();
         }
     }, [props.bubble.id]);
 
     const openAddParticipants = () => {
-        Actions.AddParticipants({ bubbleId: props.bubble.id });
+        Actions.AddParticipants({ bubbleId: currentBubble.id });
     }
     const openBubbleInfo = () => {
-        Actions.editBubble({ bubble: props.bubble })
+        Actions.editBubble({ bubble: currentBubble })
     }
 
     const selectMenuItem = (value: string) => {
@@ -89,16 +96,16 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                 openBubbleInfo()
                 break;
             case BubbleMenuOptions.Delete:
-                bubblesService.deleteBubble(props.bubble.id)
+                bubblesService.deleteBubble(currentBubble.id)
                 break;
             case BubbleMenuOptions.Archive:
-                bubblesService.archiveBubble(props.bubble.id)
+                bubblesService.archiveBubble(currentBubble.id)
                 break;
             case BubbleMenuOptions.Leave:
-                bubblesService.leaveBubble(props.bubble.id)
+                bubblesService.leaveBubble(currentBubble.id)
                 break;
             case BubbleMenuOptions.SendEmail:
-                bubblesService.sendBubbleChatByEmail(props.bubble.id);
+                bubblesService.sendBubbleChatByEmail(currentBubble.id);
                 break;
 
         }
@@ -106,7 +113,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     }
     const renderBubbleMenuOptions = () => {
         const options = [];
-        if (props.bubble.isUserOwner) {
+        if (currentBubble.isUserOwner) {
             options.push(BubbleMenuOptions.Edit);
             options.push(BubbleMenuOptions.Delete);
             options.push(BubbleMenuOptions.Archive);
@@ -119,7 +126,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
         return options;
     }
     const renderBubbleOption = () => {
-        if (props.bubble.isUserModerator && activeTab === 1) {
+        if (currentBubble.isUserModerator && activeTab === 1) {
             return (
                 <Icon
                     name="add"
@@ -139,13 +146,13 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     };
 
     const startOrJoinConference = () => {
-        if (props.bubble.isUserModerator) {
+        if (currentBubble.isUserModerator) {
             // This means the user can start a conference call
             // isUserModerator mean is this user is the owner one of the bubble or he is one of the organizer
-            conferenceService.startConference(props.bubble.id);
+            conferenceService.startConference(currentBubble.id);
         }
         else {
-            conferenceService.joinConference(props.bubble.id);
+            conferenceService.joinConference(currentBubble.id);
         }
     }
 
@@ -156,7 +163,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                     <BackArrow />
                 </Left>
                 <Body style={messagesMergedStyle.titleBodyStyle}>
-                    <Title style={messagesMergedStyle.titleStyle}>{props.bubble?.name} </Title>
+                    <Title style={messagesMergedStyle.titleStyle}>{currentBubble?.name} </Title>
                 </Body>
                 <Right>
                     <View style={messagesMergedStyle.editBubbleView}>
@@ -180,7 +187,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                     activeTextStyle={messagesMergedStyle.titleStyle}
 
                 >
-                    <MessageComponent peer={props.bubble} />
+                    <MessageComponent peer={currentBubble} />
                 </Tab>
                 <Tab
                     heading={Strings.participants}
@@ -189,7 +196,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                     textStyle={messagesMergedStyle.tabText}
                     activeTextStyle={messagesMergedStyle.titleStyle}
                 >
-                    <BubbleParticipants bubble={props.bubble} />
+                    <BubbleParticipants bubble={currentBubble} />
                 </Tab>
             </Tabs>
 

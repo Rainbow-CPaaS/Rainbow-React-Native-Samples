@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon, InvitationTabIcon } from 'react-native-rainbow-module';
-import { Badge, Button, Container, Content, Footer, FooterTab, Header, Icon, Text, View } from 'native-base';
+import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
 import { CallLogComponent } from './CallLogComponent';
 import appStyleConfig from '../app-styles.json';
 import { Actions } from 'react-native-router-flux';
-import { BubblesComponent } from './BubblesComponent'
-import { ConversationsComponent } from './ConversationsComponent';
+import { BubblesComponent } from './Bubbles/BubblesComponent'
+import { ConversationsComponent } from './Conversations/ConversationsComponent';
 import { SearchComponent } from './SearchComponent'
 import { FunctionComponent } from 'react';
 
