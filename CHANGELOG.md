@@ -20,6 +20,7 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 - Un mute participant get stuck.
 - Fixing Contact Presence not synced in the call Logs.
 - Fixing the Bubble Message View is not synced when edit bubble.
+- Fixing edit bubble is not synced in both conversations and bubbles list.
 
 **Other Changes:**
 - Remove `getMyBubbles` with the associated event `MyBubblesUpdated` in [Bubble Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/BubbleServices), where you can use `getBubbles` instead and filter them by `isUserOwner` flag.
