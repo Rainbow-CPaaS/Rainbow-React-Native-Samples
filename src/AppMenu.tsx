@@ -65,7 +65,6 @@ const SignOutActionCreator = () => {
     return {
         type: 'signOut',
     }
-    authService.signOut();
 };
 
 export default AppMenuView;

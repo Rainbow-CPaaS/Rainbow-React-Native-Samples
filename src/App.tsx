@@ -19,7 +19,8 @@ import componentConfig from '../component-config.json'
 import appStyleConfig from '../app-styles.json';
 import { CallComponent } from './CallComponent';
 import AppMenuView from './AppMenu';
-import { CreateBubbleComponent, BubblesComponent } from './BubblesComponent';
+import { CreateBubbleComponent } from './Bubbles/CreateBubbleComponent';
+import {BubblesComponent} from './Bubbles/BubblesComponent'
 import { useEffect } from 'react';
 import { PeerConversationChatView } from './Messages/PeerConversationChatView'
 import { BubbleChatView } from './Messages/BubbleChatView';
