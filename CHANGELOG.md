@@ -5,17 +5,49 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
-## [0.3.9] - 2022-2-17
+## [0.3.10] - 2022-3-10
+
 ---
+
+**API Changes:**
+
+- Show the incoming screen sharing for P2P and conference call.
+- Show the screen sharing publisher in conference call [only Android].
+- Add enable/disable local video in P2P call.
+
+**Fixed:**
+
+- Fixing crash occurs when switching mobile to the 'Landscape' position.
+- Fixing wrong active conference call view, where its some time shows as incoming call, not active call!.
+- Fixing not showing the participant video stream, while joining conference.
+- Fixing time restart in [P2P, Conference] call, when peer call enable/disable his remote video [IOS].
+
+**Other Changes:**
+
+- Upgrade Android SDK version from `2.11.0-beta1` to `2.12.0-beta2`.
+- Upgrade IOS SDK version from `2.2.0` to `2.3.0`.
+- Adding `GetConferenceScreenSharingUpdate` event to listen for Conference Screen Sharing changes.
+- Adding props `wasInitiatedWithShare`, `videoRemoteStreamCount`, `isLocalVideoEnabled` in [ICall](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/ICall), and remove `isRemoteVideoCall`.
+- Create `ShareConferenceView.tsx` component.
+- Adding local video button in `CallActions.tsx`.
+- Adding screen sharing view in both `CallView.tsx` and `ConferenceCallContainer.tsx`.
+
+## [0.3.9] - 2022-2-17
+
+---
+
 **Breaking Changes:**
+
 - Refactor the `Bubbles` component so it can be customizable easily by the user side, please check docs in Rainbow API HUB [Bubbles Component](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubblesComponent).
 - Refactor the `Conversations` component so it can be customizable easily by the user side, please check docs in Rainbow API HUB [Retrieve Conversation](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/retrieve_conversations).
 
 **Added:**
+
 - Adding new item `WithBadge` for customized tab badges, where you can check how to use it by this example: [BubbleInvitationBadge](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/tree/main/src/Bubbles/BubblesComponent.tsx).
 - Adding [ConversationCard](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/retrieve_conversations#ConversationCard).
 
 **Fixed:**
+
 - Fixing Can't Opening the downloaded files for Android version >= 11.
 - Un mute participant get stuck.
 - Fixing Contact Presence not synced in the call Logs.
@@ -23,15 +55,17 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 - Fixing edit bubble is not synced in both conversations and bubbles list.
 
 **Other Changes:**
+
 - Remove `getMyBubbles` with the associated event `MyBubblesUpdated` in [Bubble Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/BubbleServices), where you can use `getBubbles` instead and filter them by `isUserOwner` flag.
 - Rename callback props `onBubbleCreationResult` From `(actionName: string,creationResult: BubbleErrorCode)` to `(creationResult: BubbleErrorCode)` in [CreateBubble Component](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubblesComponent).
 
 ## [0.3.8] - 2022-2-3
+
 ---
+
 **Breaking Changes:**
 
 - Refactor the `Message` component so it can be customizable easily by the user side, please check docs in Rainbow API HUB [MAKE AN IM CONVERSATION](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/make_im_conversation).
-
 
 **Other Changes:**
 
@@ -42,10 +76,10 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 - Adding [Conversation Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/ConversationServices);
 - Adding [Conference Services](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/ConferenceServices);
 
-
-
 ## [0.3.7] - 2022-1-6
+
 ---
+
 **API Changes:**
 
 - Add new API `createAutoAcceptedBubble(name: string, topic: string)` to create an auto accept bubble, check docs in Rainbow API HUB [BubbleServices](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleServices).
@@ -56,30 +90,32 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
 **Fixes:**
 
- - Fix bubble topic in conference object does not exist in IOS side.
+- Fix bubble topic in conference object does not exist in IOS side.
 
 **Other Changes:**
 
 - Change bubbles list event name from `EventType.BubblesUpdated` to `EventType.BubblesListUpdated`.
 
 ## [0.3.6] - 2021-12-15
+
 ---
+
 **API Changes:**
 
- - Add new property `customData ` for [IBubble](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IBubble) interface which includes customized data added by you to bubble.
- - Add new API `promoteContactFromBubble(bubbleId: string, contactJid: string)` to promote a member in a bubble(room) to be an organizer, check docs in Rainbow API HUB [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
+- Add new property `customData ` for [IBubble](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IBubble) interface which includes customized data added by you to bubble.
+- Add new API `promoteContactFromBubble(bubbleId: string, contactJid: string)` to promote a member in a bubble(room) to be an organizer, check docs in Rainbow API HUB [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
 - Add new API `demoteContactFromBubble(bubbleId: string, contactJid: string)` to demote an organizer in a bubble(room) to be a normal member, check docs in Rainbow API HUB [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
 - IM: A new property [IsTyping](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IMessage#ITyping) has been added in Im module which allows other contacts to know if the current user is composing or not.
 
 **Fixes:**
 
- - Fix organizer can't add participants.
- - Fix 'is typing' users are not shown.
- - Fix images are not shown on the .net server from IOS side.
+- Fix organizer can't add participants.
+- Fix 'is typing' users are not shown.
+- Fix images are not shown on the .net server from IOS side.
 
 **Other Changes:**
 
- - change `promoteOwner(bubbleId: string, contactJid: string)` method name to `giveOwnerShip(bubbleId: string, contactJid: string)` in [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
+- change `promoteOwner(bubbleId: string, contactJid: string)` method name to `giveOwnerShip(bubbleId: string, contactJid: string)` in [BubbleParticipants](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/BubbleParticipants).
 
 ## [0.3.5] - 2021-12-6
 
@@ -98,8 +134,7 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 - Bug Fixing.
 
 **Note**
- please make sure to upgrade Android Gradle version greater than 7 to guarantee a smooth development.
-
+please make sure to upgrade Android Gradle version greater than 7 to guarantee a smooth development.
 
 ## [0.3.4] - 2021-11-18
 
