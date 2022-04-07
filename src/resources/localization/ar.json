@@ -14,5 +14,7 @@
 	"all": "الكل",
 	"bubbleList":"لائحة الفقاعات",
 	"Invitations": "الدعوات",
-	"noDataFound": "لاتوجد بيانات"
+	"noDataFound": "لاتوجد بيانات",
+	"lockedConference" : "المؤتمر مقفل",
+	"lockedConferenceMessage": "تم قفل هذا المؤتمر، ولا يُسمح لك بدخول الاجتماع"
 }

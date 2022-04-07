@@ -5,6 +5,14 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [0.3.11] - 2022-4-7
+
+---
+
+**API Changes:**
+
+- Add new API lock/ unlock conference, please check docs in Rainbow API HUB [Managing Conferences](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/managing_conferences).
+
 ## [0.3.10] - 2022-3-10
 
 ---

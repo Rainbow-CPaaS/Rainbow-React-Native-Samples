@@ -24,6 +24,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
 import {
+    Alert,
     StyleSheet,
     TextStyle,
     View,
@@ -76,10 +77,16 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             logger.info(`addListener for ${EventType.OnBubbleUpdated} : ${eventData}`)
             setCurrentBubble(eventData);
         });
+        // Listen to the conference lock state
+        const conferenceLockState = eventEmitter.addListener(EventType.GetConferenceLockState, (eventData: boolean) => {
+            logger.info(`addListener for ${EventType.GetConferenceLockState} : ${eventData}`)
+            Alert.alert(Strings.lockedConference, Strings.lockedConferenceMessage);
+        });
 
         return () => {
             conferenceCapabilityUpdate.remove();
             onBubbleUpdated.remove();
+            conferenceLockState.remove();
         }
     }, [props.bubble.id]);
 
