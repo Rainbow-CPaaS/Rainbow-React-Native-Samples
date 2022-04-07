@@ -14,5 +14,7 @@
 	"myBubbles": "MY BUBBLES",
 	"bubbleList": "Bubble List",
 	"Invitations": "INVITATIONS",
-	"noDataFound": "No Data Found"
+	"noDataFound": "No Data Found",
+	"lockedConference" : "Locked Conference",
+	"lockedConferenceMessage": "This conference has been locked, you are not allowed to enter the meeting"
 }
