@@ -1,8 +1,8 @@
 import { Container } from 'native-base';
 import React, { useState } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { OpenCallDialogComponent } from './CallComponent';
-import { PbxActions, webRtcActions } from './CallComponent';
+import { DialogCallComponent } from './Calls/DialogCallComponent';
+import { PbxActions, webRtcActions } from './Calls/DialogCallComponent';
 import {
     CallLogs,
     createRedialCallLogAction,
@@ -60,7 +60,7 @@ export const CallLogComponent: React.FunctionComponent = () => {
                 voiceMailEnabled={true}
             />
             {contactToCall && (
-                <OpenCallDialogComponent
+                <DialogCallComponent
                     contact={contactToCall}
                     showDialog={showDialog}
                     openDialog={openDialog}

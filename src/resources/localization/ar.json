@@ -1,6 +1,6 @@
 {
 	"deletedMessage": "تم حذف هذه الرسالة",
-	"failedToDownload":"خطآ في التنزيل",
+	"failedToDownload": "خطآ في التنزيل",
 	"deleteBubble": "مسح الفقاعة",
 	"leaveBubble": "مغادرة الفقاعة",
 	"archiveBubble": "أرشفة الفقاعه",
@@ -12,9 +12,15 @@
 	"addToMyNetwork": "أضف الي شبكتي",
 	"myBubbles": "فقاعاتي",
 	"all": "الكل",
-	"bubbleList":"لائحة الفقاعات",
+	"bubbleList": "لائحة الفقاعات",
 	"Invitations": "الدعوات",
 	"noDataFound": "لاتوجد بيانات",
-	"lockedConference" : "المؤتمر مقفل",
-	"lockedConferenceMessage": "تم قفل هذا المؤتمر، ولا يُسمح لك بدخول الاجتماع"
+	"lockedConference": "المؤتمر مقفل",
+	"lockedConferenceMessage": "تم قفل هذا المؤتمر، ولا يُسمح لك بدخول الاجتماع",
+	"callInProgress": "المكالمه قيد التقدم",
+	"ConferenceCallInvitation": "يدعوك للانضمام إلى مؤتمر ويب في فقاعة",
+	"isSharing": "يشارك شاشته",
+	"IncomingCall": "مكالمة واردة",
+	"OutgoingCall": " مكالمة صادرة",
+	"OnHold": "قيد الانتظار"
 }

@@ -77,7 +77,6 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             logger.info(`addListener for ${EventType.OnBubbleUpdated} : ${eventData}`)
             setCurrentBubble(eventData);
         });
-        // Listen to the conference lock state
         const conferenceLockState = eventEmitter.addListener(EventType.GetConferenceLockState, (eventData: boolean) => {
             logger.info(`addListener for ${EventType.GetConferenceLockState} : ${eventData}`)
             Alert.alert(Strings.lockedConference, Strings.lockedConferenceMessage);

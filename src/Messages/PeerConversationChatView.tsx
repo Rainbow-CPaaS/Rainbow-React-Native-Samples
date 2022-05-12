@@ -25,7 +25,7 @@ import {
     View,
     ViewStyle,
 } from 'react-native';
-import { CallComponent } from '../CallComponent';
+import { MakeCallButton } from '../Calls/MakeCallButton';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
 
@@ -104,7 +104,7 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
                 </Body>
                 <Right>
                     <View style={messagesMergedStyle.rightHeaderView}>
-                        <CallComponent contact={props.conversation.contact} />
+                        <MakeCallButton contact={props.conversation.contact} />
                         <DropDownMenu menuItems={renderBubbleMenuOptions()} onSelectItem={selectMenuItem} />
                     </View>
                 </Right>

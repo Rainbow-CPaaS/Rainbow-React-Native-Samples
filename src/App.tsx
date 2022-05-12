@@ -11,20 +11,22 @@ import {
     IBackButtonHandler,
     ForwardedView,
     EditBubble,
-    AddParticipant
+    AddParticipant,
 } from 'react-native-rainbow-module';
 import { Actions, Router, Scene } from 'react-native-router-flux';
 import { Home } from './Home';
 import componentConfig from '../component-config.json'
 import appStyleConfig from '../app-styles.json';
-import { CallComponent } from './CallComponent';
+import { MakeCallButton } from './Calls/MakeCallButton';
 import AppMenuView from './AppMenu';
 import { CreateBubbleComponent } from './Bubbles/CreateBubbleComponent';
-import {BubblesComponent} from './Bubbles/BubblesComponent'
+import { BubblesComponent } from './Bubbles/BubblesComponent'
 import { useEffect } from 'react';
 import { PeerConversationChatView } from './Messages/PeerConversationChatView'
 import { BubbleChatView } from './Messages/BubbleChatView';
 import jsonRainbowConfig from './rainbow-config.json';
+import { DialogCallComponent } from './Calls/DialogCallComponent';
+import { ActiveCallBanner } from './Calls/ActiveCallBanner'
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
@@ -48,7 +50,8 @@ export default function App() {
         };
     };
     return (
-        <RainbowContainer>
+        <RainbowContainer >
+            <ActiveCallBanner />
             <BackHandlerListener />
             <Router>
                 <Scene key="root" headerMode="none">
@@ -62,7 +65,7 @@ export default function App() {
                     <Scene
                         key="contactInformation"
                         component={ContactInformation}
-                        callActionsComponent={CallComponent}
+                        MakeCallButton={MakeCallButton}
                         viewEmails={componentConfig.ContactInformation.viewEmails}
                         viewPhoneNumbers={componentConfig.ContactInformation.viewPhoneNumbers}
                         style={contactsInfoCustomStyle}
@@ -70,7 +73,7 @@ export default function App() {
                     <Scene key="Telephony" component={TelephonySettings} />
                     <Scene key="AppMenu" component={AppMenuView} />
                     <Scene key="createBubble" component={CreateBubbleComponent} />
-                    <Scene key="callHistory" component={CallHistory} callActionsComponent={CallComponent} />
+                    <Scene key="callHistory" component={CallHistory} callActionsComponent={DialogCallComponent} />
                     <Scene key="ForwardedView" component={ForwardedView} />
                     <Scene key="bubbles" component={BubblesComponent} />
                     <Scene key="editBubble" component={EditBubble} />

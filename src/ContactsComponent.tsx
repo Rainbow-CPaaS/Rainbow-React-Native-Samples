@@ -11,7 +11,7 @@ import {
 import componentConfig from '../component-config.json'
 import appStyleConfig from '../app-styles.json';
 import { StyleSheet } from 'react-native';
-import { CallComponent } from './CallComponent';
+import { MakeCallButton } from './Calls/MakeCallButton';
 
 const contactsStyle = StyleSheet.create(appStyleConfig.contacts);
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
@@ -27,7 +27,7 @@ export class ContactsComponent extends Component implements IActionsProvider {
                     style: contactsInfoCustomStyle,
                     viewEmails: componentConfig.ContactInformation.viewEmails,
                     viewPhoneNumbers: componentConfig.ContactInformation.viewPhoneNumbers,
-                    callActionsComponent: CallComponent
+                    callActionsComponent: MakeCallButton
                 });
             }
         })

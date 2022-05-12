@@ -1,6 +1,6 @@
 {
 	"deletedMessage": "This message is deleted",
-	"failedToDownload":"Failed To Download",
+	"failedToDownload": "Failed To Download",
 	"deleteBubble": "Delete bubble",
 	"leaveBubble": "Leave bubble",
 	"archiveBubble": "Archive bubble",
@@ -15,6 +15,12 @@
 	"bubbleList": "Bubble List",
 	"Invitations": "INVITATIONS",
 	"noDataFound": "No Data Found",
-	"lockedConference" : "Locked Conference",
-	"lockedConferenceMessage": "This conference has been locked, you are not allowed to enter the meeting"
+	"lockedConference": "Locked Conference",
+	"lockedConferenceMessage": "This conference has been locked, you are not allowed to enter the meeting",
+	"CallInProgress": "Call in progress",
+	"ConferenceCallInvitation": "invites you to join a web conference in bubble",
+	"isSharing": "is sharing",
+	"IncomingCall": "Incoming Call",
+	"OutgoingCall": " Outgoing Call",
+	"OnHold": "On Hold"
 }
