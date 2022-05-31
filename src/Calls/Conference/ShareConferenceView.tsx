@@ -10,7 +10,7 @@ interface IProps {
 export const ShareConferenceView: FunctionComponent<IProps> = ({ sharingParticipant }) => {
 
     // TODO:The sharingParticipant is not supported yet by the iOS side, this is why its may be undefined
-    const participantNameView = sharingParticipant && (<Text style={defaultStyle.participantName}>{sharingParticipant?.contact.name} {Strings.isSharing} </Text>);
+    const participantNameView = sharingParticipant && (<Text style={defaultStyle.participantName}>{sharingParticipant?.name} {Strings.isSharing} </Text>);
     return (
         <View style={defaultStyle.container}>
             <ConferenceScreenSharingView />

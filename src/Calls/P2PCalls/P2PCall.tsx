@@ -25,7 +25,10 @@ import {
     RemoteWebrtcVideo,
     MyLocalWebrtcVideo,
     CallTypeName,
-    CallState
+    CallState,
+    ImageHolder,
+    IImageHolderStyle,
+    Timer
 } from 'react-native-rainbow-module';
 
 const logger = new Logger('CallContainer');
@@ -56,7 +59,6 @@ interface IProps
 export const P2PCall: FunctionComponent<IProps> = ({ }) => {
 
     const [p2pCall, setP2PCall] = useState<IP2PCall>();
-
     const isPortrait = () => { return Dimensions.get('screen').height >= Dimensions.get('screen').width; };
     const [orientation, setOrientation] = useState(isPortrait() ? 'portrait' : 'landscape');
     const isCallActive = p2pCall?.callState === CallState.ACTIVE;
@@ -130,9 +132,12 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
 
     }
     const renderActiveCallView = (call: IP2PCall) => {
-        const { videoRemoteStreamCount, isLocalVideoEnabled } = call;
+        const { videoRemoteStreamCount, isLocalVideoEnabled, wasInitiatedWithVideo } = call;
+        const profilePictureView = <ImageHolder url={call.callPeer.imageURL} style={participantImageStyle} name={call.callPeer.name} />;
+
         return (
             <>
+                {!wasInitiatedWithVideo && videoRemoteStreamCount === 0 && profilePictureView}
                 {videoRemoteStreamCount > 0 && <SharingVideo call={call} />}
                 {videoRemoteStreamCount > 1 && <RemoteWebrtcVideo call={call} style={styles.remoteVideo} />}
                 {isLocalVideoEnabled && <MyLocalWebrtcVideo style={styles.myLocalWebrtcVideo} />}
@@ -148,6 +153,7 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
                     <Body style={styles.titleContainer}>
                         <Text style={styles.headerTitle}>{p2pCall.callPeer.name}</Text>
                         {!isCallActive && <Text style={[styles.headerTitle, styles.sateTextStyle]}>{callStateText}</Text>}
+                        {isCallActive && <Text style={[styles.headerTitle, styles.sateTextStyle]}><Timer startTime={p2pCall.startTime} /></Text>}
                     </Body>
                 </Header >
                 <View style={backgroundImageStyle}>
@@ -159,6 +165,11 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
         );
     } else return null;
 
+}
+const participantImageStyle: IImageHolderStyle = {
+    thumbnail: { top: 100, alignSelf: 'center', width: 140, height: 140, borderRadius: 100 },
+    thumbnailContainer: { position: 'absolute', top: 100, alignSelf: 'center', width: 140, height: 140, borderWidth: 1, borderColor: 'rgba(0,0,0,0.2)', borderRadius: 100, justifyContent: 'center', alignItems: 'center', backgroundColor: '#cf0071' },
+    imageTextStyle: { fontSize: 50, }
 }
 export const styles = StyleSheet.create({
     headerTitle: {
@@ -185,8 +196,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#005b96'
     },
-
     remoteVideo: { position: 'absolute', top: 40 },
-
 
 });

@@ -22,5 +22,12 @@
 	"isSharing": "is sharing",
 	"IncomingCall": "Incoming Call",
 	"OutgoingCall": " Outgoing Call",
-	"OnHold": "On Hold"
+	"OnHold": "On Hold",
+	"joinMsg": "An audio conversation is in progress, would you like to join it?",
+	"join": "Join",
+	"EndMeeting":"End Meeting",
+	"Delegate":"Delegate",
+	"DelegateMsg1" : "You cannot delegate the meeting before leaving the meeting, as no one owns a Rainbow Enterprise subscription to continue the conference",
+	"DelegateMsg2" :"Do you want to leave this meeting and delegate it to a participant or end this meeting for all participant?",
+	"cancel": "Cancel"
 }

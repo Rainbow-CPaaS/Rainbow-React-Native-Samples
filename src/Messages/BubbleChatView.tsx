@@ -7,6 +7,7 @@ import {
     RnViewStyleProp,
     Tab,
     Tabs,
+    Text,
     Title,
 } from 'native-base';
 import {
@@ -19,7 +20,8 @@ import {
     Logger,
     conferenceService,
     DropDownMenu,
-    bubblesService
+    bubblesService,
+    IConference
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
@@ -27,6 +29,7 @@ import {
     Alert,
     StyleSheet,
     TextStyle,
+    TouchableHighlight,
     View,
     ViewStyle,
 } from 'react-native';
@@ -63,18 +66,13 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
 ) => {
     const messagesMergedStyle = { ...styles, ...props.style }
     const [activeTab, setActiveTab] = useState(0);
-    const [isConferenceJoinable, setIsConferenceJoinable] = useState<boolean>(false);
     const [currentBubble, setCurrentBubble] = useState<IBubble>(props.bubble);
+    const [currentConferenceCall, setCurrentConferenceCall] = useState<IConference>();
 
     useEffect(() => {
-        conferenceService.CheckConferenceAvailability(props.bubble.id);
-        const conferenceCapabilityUpdate = eventEmitter.addListener(EventType.ConferenceCapability, (eventData: boolean) => {
-            logger.info(`addListener for ${EventType.ConferenceCapability} : ${eventData}`)
-            setIsConferenceJoinable(eventData);
-        });
         // Listen for bubble change update
         const onBubbleUpdated = eventEmitter.addListener(EventType.OnBubbleUpdated, (eventData: IBubble) => {
-            logger.info(`addListener for ${EventType.OnBubbleUpdated} : ${eventData}`)
+            logger.info(`addListener for ${EventType.OnBubbleUpdated} : ${eventData}`);
             setCurrentBubble(eventData);
         });
         const conferenceLockState = eventEmitter.addListener(EventType.GetConferenceLockState, (eventData: boolean) => {
@@ -82,12 +80,36 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             Alert.alert(Strings.lockedConference, Strings.lockedConferenceMessage);
         });
 
+        const currentConferenceUpdatedListener = eventEmitter.addListener(EventType.CurrentConferenceUpdated, (conferenceCall?: IConference) => {
+            logger.info(`CurrentConferenceUpdated with conference call: ${conferenceCall}`);
+            if (conferenceCall?.callPeer.id === props.bubble.jId) {
+                setCurrentConferenceCall(conferenceCall);
+            }
+            else {
+                setCurrentConferenceCall(undefined);
+            }
+        });
+
+
+
+        if (props.bubble.hasActiveConference && !currentConferenceCall) {
+            bubblesService.getActiveConferenceForBubble(props.bubble.id);
+        }
+        const getConferenceBubbleEvent = eventEmitter.addListener(
+            EventType.GetActiveConferenceForBubbleResult,
+            (eventData: IConference) => {
+                logger.info(`GetActiveConferenceForBubbleResult:  ${eventData}`);
+                setCurrentConferenceCall(eventData);
+            }
+        );
+
         return () => {
-            conferenceCapabilityUpdate.remove();
             onBubbleUpdated.remove();
             conferenceLockState.remove();
+            currentConferenceUpdatedListener.remove();
+            getConferenceBubbleEvent.remove();
         }
-    }, [props.bubble.id]);
+    }, [currentConferenceCall, props]);
 
     const openAddParticipants = () => {
         Actions.AddParticipants({ bubbleId: currentBubble.id });
@@ -119,7 +141,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     }
     const renderBubbleMenuOptions = () => {
         const options = [];
-        if (currentBubble.isUserOwner) {
+        if (currentBubble.isMyUserOwner) {
             options.push(BubbleMenuOptions.Edit);
             options.push(BubbleMenuOptions.Delete);
             options.push(BubbleMenuOptions.Archive);
@@ -132,7 +154,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
         return options;
     }
     const renderBubbleOption = () => {
-        if (currentBubble.isUserModerator && activeTab === 1) {
+        if (currentBubble.isMyUserModerator && activeTab === 1) {
             return (
                 <Icon
                     name="add"
@@ -151,15 +173,25 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
         setActiveTab(tab.i);
     };
 
-    const startOrJoinConference = () => {
-        if (currentBubble.isUserModerator) {
-            // This means the user can start a conference call
-            // isUserModerator mean is this user is the owner one of the bubble or he is one of the organizer
-            conferenceService.startConference(currentBubble.id);
-        }
-        else {
-            conferenceService.joinConference(currentBubble.id);
-        }
+    const startConferenceAction = () => {
+        conferenceService.startConference(currentBubble.id);
+    }
+
+    const joinConferenceAction = () => {
+        conferenceService.joinConference(currentBubble.id);
+    }
+
+    const renderJoinConferencePanner = () => {
+        return (
+            <View style={styles.joinContainer}>
+                <Text>
+                    {Strings.joinMsg}
+                </Text>
+                <TouchableHighlight style={styles.joinButtonView} onPress={joinConferenceAction}>
+                    <Text style={styles.joinText}>{Strings.join}</Text>
+                </TouchableHighlight>
+            </View>
+        );
     }
 
     return (
@@ -173,7 +205,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                 </Body>
                 <Right>
                     <View style={messagesMergedStyle.editBubbleView}>
-                        {isConferenceJoinable && <Icon name="ios-call-sharp" style={messagesMergedStyle.startConferenceIcon} onPress={startOrJoinConference} />}
+                        {(currentBubble.isMyUserModerator && !currentBubble.hasActiveConference) && <Icon name="ios-call-sharp" style={messagesMergedStyle.startConferenceIcon} onPress={startConferenceAction} />}
                         {renderBubbleOption()}
                     </View>
                 </Right>
@@ -194,6 +226,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
 
                 >
                     <MessageComponent peer={currentBubble} />
+                    {(currentBubble.hasActiveConference && !currentConferenceCall?.hasMyUserJoinedConferenceCall) && renderJoinConferencePanner()}
                 </Tab>
                 <Tab
                     heading={Strings.participants}
@@ -202,7 +235,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                     textStyle={messagesMergedStyle.tabText}
                     activeTextStyle={messagesMergedStyle.titleStyle}
                 >
-                    <BubbleParticipants bubble={currentBubble} />
+                    <BubbleParticipants bubble={currentBubble} conferenceCall={currentConferenceCall} />
                 </Tab>
             </Tabs>
 
@@ -211,7 +244,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
 
 
 };
-const styles: IBubbleChatStyleProps = StyleSheet.create({
+const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#ffffff', height: 'auto', },
     Thumbnail: { width: 30, height: 30, },
     headerBgColor: { backgroundColor: '#0086CF', },
@@ -230,5 +263,8 @@ const styles: IBubbleChatStyleProps = StyleSheet.create({
     tabText: { color: '#a5c0f3' },
     addParticipantsIcon: { fontSize: 35, color: 'white', marginTop: 10 },
     startConferenceIcon: { fontSize: 30, color: 'white', position: 'relative', right: 30 },
-    titleBodyStyle: { margin: 10 }
+    titleBodyStyle: { margin: 10 },
+    joinContainer: { flex: 1, flexDirection: 'column', position: 'absolute', top: 0, padding: 18, backgroundColor: '#e3e3e3', borderRadius: 5 },
+    joinButtonView: { backgroundColor: '#4ba42f', alignSelf: 'center', padding: 10, borderRadius: 3 },
+    joinText: { color: 'white' },
 });
