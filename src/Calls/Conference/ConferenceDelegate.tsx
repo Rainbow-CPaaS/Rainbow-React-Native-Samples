@@ -43,7 +43,12 @@ export const ConferenceDelegateContainer: React.FunctionComponent<IProps> = ({
 
 
   const onParticipantSelected = (selectedContact: IContact) => {
-    setSelectedParticipantToDelegate(selectedContact as IConferenceParticipants);
+    if (selectedContact.jId !== selectedParticipantToDelegate?.jId) {
+      setSelectedParticipantToDelegate(selectedContact as IConferenceParticipants);
+    } else {
+      // Check if its already had been selected, to unselect this contact
+      setSelectedParticipantToDelegate(undefined);
+    }
   }
 
   const onEndPress = () => {
@@ -103,12 +108,12 @@ export const ConferenceDelegateContainer: React.FunctionComponent<IProps> = ({
             <TouchableOpacity onPress={onClosePressed}>
               <Text style={defaultModalStyle.modalOptionsText}>{Strings.cancel}</Text>
             </TouchableOpacity>
-            {(delegateParticipants.length === 0 || !selectedParticipantToDelegate) && <TouchableOpacity onPress={onEndPress}>
+            <TouchableOpacity onPress={onEndPress}>
               <Text style={defaultModalStyle.endMeetingText}>{Strings.EndMeeting}</Text>
-            </TouchableOpacity>}
-            {selectedParticipantToDelegate && <TouchableOpacity onPress={onDelegatePress} style={selectedParticipantToDelegate === undefined ? { opacity: 0.2 } : { opacity: 1 }} disabled={selectedParticipantToDelegate === undefined}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onDelegatePress} style={selectedParticipantToDelegate === undefined ? { opacity: 0.2 } : { opacity: 1 }} disabled={selectedParticipantToDelegate === undefined}>
               <Text style={defaultModalStyle.modalOptionsText}>{Strings.Delegate}</Text>
-            </TouchableOpacity>}
+            </TouchableOpacity>
           </View>
         </View>
       </View>
