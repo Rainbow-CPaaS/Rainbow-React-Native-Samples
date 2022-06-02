@@ -45,7 +45,7 @@ export const BubblesComponent: FunctionComponent = ({
 
 
   const getMyBubble = () => {
-    const myBubble = allBubbles.filter((item: IBubble) => item.isUserOwner);
+    const myBubble = allBubbles.filter((item: IBubble) => item.isMyUserOwner);
     return myBubble
   }
 
