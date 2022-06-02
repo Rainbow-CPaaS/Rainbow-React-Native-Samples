@@ -8,6 +8,7 @@ import {
 import { ShareConferenceView } from './ShareConferenceView';
 import { ConferenceDelegateContainer } from './ConferenceDelegate';
 import { FlatGrid } from 'react-native-super-grid';
+import { Actions } from 'react-native-router-flux';
 
 const logger = new Logger('ConferenceCallComponent');
 
@@ -91,11 +92,18 @@ export const ConferenceCallComponent: FunctionComponent = () => {
                 conferenceCall.isMyUserStartConference ? setShowDelegateConference(true) : conferenceService.endConferenceCall(callPeer.id);
             }
         }
+        const goToBubbleChatView = () => {
+            const bubble = call.callPeer;
+            if (Actions.currentScene !== 'BubbleChatView') {
+                Actions.BubbleChatView({ bubble });
+            }
+        }
+        
         return (
             <View style={defaultStyle.buttonsViewStyle} >
                 <MicButton />
                 {isLocalVideoEnabled && <SwitchCameraButton />}
-                <HideConferenceCallViewButton call={call} />
+                <HideConferenceCallViewButton call={call} renderOnPress={goToBubbleChatView} />
                 <AddVideoToConfButton call={call} />
                 <LoudspeakerButton />
                 {callPeer.isMyUserModerator && <LockConfButton call={call} />}
@@ -124,7 +132,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
     }
     const renderCustomActiveCall = (call: IConference) => {
         const { isLocalVideoEnabled, attendees } = call;
-        const attendeesWithoutMyUser = attendees.filter((item: IConferenceParticipants)=>{return !item.isMyUser});
+        const attendeesWithoutMyUser = attendees.filter((item: IConferenceParticipants) => { return !item.isMyUser });
         return (
             <View style={defaultStyle.viewStyle}>
                 {isLocalVideoEnabled && <ConferenceLocalVideo />}
