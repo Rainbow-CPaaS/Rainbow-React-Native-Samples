@@ -5,6 +5,29 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.0.0] - 2022-5-30
+---
+**API Changes:**
+- Upgrade Android SDK version 2.15.0
+- Export a couple of a common components used in react-native-rainbow-module :`Timer`and  `ImageHolder`.
+- Update the example code to give more details on managing webrtc and Conference Calls. check [Sample Code](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/tree/main/src/Calls).
+
+**API Breaking changes:**
+
+Conference and Audio/Video webRTC calls:
+- Adding customizable call components for all the call types (conference, peer-to-peer call). check [ retrieve calls](https://developers.openrainbow.com/doc/sdk/reactnative/tutorials/retrieve_calls).
+- Provide a new `IP2P`, `IConference`, `IPBX`, and generic `ICall<T>` Interfaces types for webRTC, conference, and PBX calls. check [CallTypes](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/CallTypes)
+- Provide a new components that handle the Local video, screen-sharing, and remote video in webrtc calls. check [managing webRTC calls](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/managing_webrtc_calls).
+- Add new props to webRTC call view component to allow the user to customize the incoming, outgoing, and active call view based on his app needs. check [managing webRTC calls](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/managing_webrtc_calls).
+- Add new props to the WebrtcConference call view component to allow the user to customize the participant's view, and call view based on the call state( incoming, active, outgoing). check [managing webRTC calls](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/managing_conferences).
+- Export `ParticipantConferenceView` component to allow user to customize the view of the conference participants.
+- Provide a reusable components buttons for all the call actions and allow the user to customize the button icon and style
+
+**Fixed:**
+- Fix issues with join conference.
+- Fix issue with the speaker button.
+- Fix issue when adding video to webRTCConference call.
+
 ## [0.3.11] - 2022-4-7
 
 ---
