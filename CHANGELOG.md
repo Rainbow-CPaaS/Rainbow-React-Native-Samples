@@ -5,6 +5,14 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.0.2] - 2022-6-27
+
+---
+
+**API Changes:**
+
+- Expose new property `isBot`in [IConversation](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IConversation) object to identify one2one bot conversations.
+
 ## [1.0.1] - 2022-6-20
 
 ---
