@@ -3,6 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
+# Add you Notification Extension dependencies
+target 'notificationSetup' do
+  pod 'react-native-rainbow-module', :path => '../node_modules/react-native-rainbow-module'
+end
+
+# Add your application dependencies
 target 'RainbowModuleExample' do
   config = use_native_modules!
   use_react_native!(
@@ -26,7 +32,12 @@ target 'RainbowModuleExample' do
   # use_flipper!()
 
   post_install do |installer|
-    react_native_post_install(installer)
+      react_native_post_install(installer)
+      # Fix react-native libraries compatibility with the notification extension
+      installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'No'
+        end
+      end
   end
-
 end
