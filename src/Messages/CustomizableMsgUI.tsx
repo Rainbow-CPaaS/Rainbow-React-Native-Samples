@@ -1,8 +1,8 @@
 import { Icon } from 'native-base';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle, Image, ActivityIndicator } from 'react-native';
-import { IFile, ImageHolder, ITyping } from 'react-native-rainbow-module';
-import { Attached } from './MessageComponent';
+import { ImageHolder, ITyping } from 'react-native-rainbow-module';
+import { Attached, IAttachedFile } from './MessageComponent';
 import fileLogo from '../resources/images/attachedFile.png';
 import { Strings } from './../resources/localization/Strings';
 
@@ -57,7 +57,7 @@ export const contactsIsTypingView = (typingContacts: ITyping[]) => {
 };
 
 
-export const selectedAttachedFilesView = (filesToUpload: IFile[], isLoading: boolean, onCancel: (file: IFile) => () => void) => {
+export const selectedAttachedFilesView = (filesToUpload: IAttachedFile[], isLoading: boolean, onCancel: (file: IAttachedFile) => () => void) => {
     const files = filesToUpload.map((file) => {
         return (
             <View style={defaultInternalStyle.selectedAttachedFilesContainer} key={file.uri}>
@@ -91,20 +91,24 @@ export const sendingMsgTypesIcon = () => (<Icon style={defaultInternalStyle.msgA
 
 export const attachIcon = () => (<Icon name="attachment" type="Entypo" style={defaultInternalStyle.msgActionStyle} />);
 
-const fileAttachedView = (file: IFile) => (
-    <View>
-        <Image
-            resizeMode="cover"
-            resizeMethod="scale"
-            style={defaultInternalStyle.fileLogo}
-            source={fileLogo}
-            key={file.uri}
-        />
-        <Text style={defaultInternalStyle.fileName}>{file.name?.slice(0, 10) + ' ...'}</Text>
-    </View >
-);
+const fileAttachedView = (file: IAttachedFile) => {
+    const fileName = file.uri.split('/').pop() ?? '';
+    return (
+        <View>
+            <Image
+                resizeMode="cover"
+                resizeMethod="scale"
+                style={defaultInternalStyle.fileLogo}
+                source={fileLogo}
+                key={file.uri}
+            />
+            <Text style={defaultInternalStyle.fileName}>{fileName.slice(0, 10) + ' ...'}</Text>
+        </View >
+    );
 
-const imageAttachedView = (file: IFile) => (
+};
+
+const imageAttachedView = (file: IAttachedFile) => (
     <View>
         <Image
             resizeMode="cover"

@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Strings } from '../../resources/localization/Strings';
 import { ConferenceScreenSharingView, IConferenceParticipants } from 'react-native-rainbow-module';
 interface IProps {
-    sharingParticipant: IConferenceParticipants | undefined;
+    sharingParticipant?: IConferenceParticipants;
 }
 
 export const ShareConferenceView: FunctionComponent<IProps> = ({ sharingParticipant }) => {

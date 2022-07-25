@@ -1,5 +1,6 @@
-import { Body, Content, Icon, List, ListItem, Text, View } from 'native-base';
+import { Body, Icon, List, ListItem, Text, View } from 'native-base';
 import React from 'react';
+import { ImageStyle } from 'react-native';
 import { Dimensions, SafeAreaView, TextStyle, ViewStyle } from 'react-native';
 import { Logger, Telephony, IStyledProps, UserProfile, PresenceList, store, authService } from 'react-native-rainbow-module';
 import { Provider } from 'react-redux';
@@ -16,33 +17,37 @@ interface ISideMenuStyleProps {
     menuContentContainer?: ViewStyle;
     safeArea?: ViewStyle;
 }
+const presenceIconStyle: ImageStyle = {
+    width: 25,
+    height: 25,
+};
 class AppMenuView extends React.Component<IProps> {
     constructor(props: IProps) {
         super(props);
     }
+
     public render() {
         return (
             <Provider store={store}>
                 <SafeAreaView style={defaultStyle.safeArea}>
                     <UserProfile />
                     <View style={defaultStyle.menuContentContainer}>
-                        <Content>
-                            <List>
-                                <PresenceList />
-                                <Telephony />
-                                <ListItem onPress={this.onSendLogs}>
-                                    <Body>
-                                        <Text>Send Logs</Text>
-                                    </Body>
-                                </ListItem>
-                                <ListItem onPress={this.onLogout}>
-                                    <Icon style={defaultStyle.icon} name="ios-log-out" />
-                                    <Body>
-                                        <Text>Log out</Text>
-                                    </Body>
-                                </ListItem>
-                            </List>
-                        </Content>
+
+                        <List>
+                            <PresenceList presenceIconStyle={presenceIconStyle} />
+                            <Telephony />
+                            <ListItem onPress={this.onSendLogs}>
+                                <Body>
+                                    <Text>Send Logs</Text>
+                                </Body>
+                            </ListItem>
+                            <ListItem onPress={this.onLogout}>
+                                <Icon style={defaultStyle.icon} name="ios-log-out" />
+                                <Body>
+                                    <Text>Log out</Text>
+                                </Body>
+                            </ListItem>
+                        </List>
                     </View>
                 </SafeAreaView>
             </Provider >

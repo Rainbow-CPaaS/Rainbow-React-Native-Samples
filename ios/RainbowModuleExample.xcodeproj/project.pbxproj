@@ -12,13 +12,41 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		20F357B024636CDF00C146DC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F357AF24636CDF00C146DC /* File.swift */; };
+		278627E4A368F058EC01B362 /* libPods-notificationSetup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B047622A0847131656CDA053 /* libPods-notificationSetup.a */; };
 		44630C65256AE69900F7E93A /* components-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 44630C64256AE69900F7E93A /* components-config.json */; };
+		44770365288E82730069483A /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 44770364288E82730069483A /* NotificationService.m */; };
+		44770369288E82730069483A /* notificationSetup.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 44770361288E82730069483A /* notificationSetup.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4490D0E826E78B93001B507C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4490D0E626E78B93001B507C /* LaunchScreen.storyboard */; };
 		44C332D126943A32003F768B /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44C332D026943A32003F768B /* AppCenter-Config.plist */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		44770367288E82730069483A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44770360288E82730069483A;
+			remoteInfo = notificationSetup;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4477036A288E82730069483A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				44770369288E82730069483A /* notificationSetup.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		0BEFCACA6A97B35024105644 /* Pods-notificationSetup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-notificationSetup.release.xcconfig"; path = "Target Support Files/Pods-notificationSetup/Pods-notificationSetup.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* RainbowModuleExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowModuleExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RainbowModuleExample/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = RainbowModuleExample/AppDelegate.m; sourceTree = "<group>"; usesTabs = 0; };
@@ -32,17 +60,23 @@
 		20F357AF24636CDF00C146DC /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		2D5C48679EC049BCADC24142 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		44630C64256AE69900F7E93A /* components-config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "components-config.json"; sourceTree = "<group>"; };
+		44770361288E82730069483A /* notificationSetup.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = notificationSetup.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		44770363288E82730069483A /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		44770364288E82730069483A /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		44770366288E82730069483A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44841A1525F62D2A00FD1DF8 /* RainbowModuleExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RainbowModuleExample.entitlements; path = RainbowModuleExample/RainbowModuleExample.entitlements; sourceTree = "<group>"; };
 		4490D0E726E78B93001B507C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = RainbowModuleExample/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44C332D026943A32003F768B /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		4D7192F03A36A017E887435B /* Pods-RainbowModuleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RainbowModuleExample.release.xcconfig"; path = "Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample.release.xcconfig"; sourceTree = "<group>"; };
 		5658992B2557446080898025 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5745A93364DD409F9810BF94 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		6BFDBB94224B558D3DCA91D9 /* Pods-notificationSetup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-notificationSetup.debug.xcconfig"; path = "Target Support Files/Pods-notificationSetup/Pods-notificationSetup.debug.xcconfig"; sourceTree = "<group>"; };
 		6CC01741FD784964B3DFD00B /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		6CD01F628C634F0295D66A1F /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		76FAA0B5B0DE410EA8F49A40 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		871719007ECC5EAD276C345C /* Pods-RainbowModuleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RainbowModuleExample.debug.xcconfig"; path = "Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample.debug.xcconfig"; sourceTree = "<group>"; };
 		8B070BAC76424B4787D84C8C /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		B047622A0847131656CDA053 /* libPods-notificationSetup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-notificationSetup.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCEA90A70F4BEAD7E9FA28B2 /* libPods-RainbowModuleExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RainbowModuleExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE50323C0C06482383AB0500 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		C86AD035664140BABF796D04 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -63,6 +97,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D1336C0461A88D01186E375 /* libPods-RainbowModuleExample.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4477035E288E82730069483A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278627E4A368F058EC01B362 /* libPods-notificationSetup.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +133,8 @@
 			children = (
 				871719007ECC5EAD276C345C /* Pods-RainbowModuleExample.debug.xcconfig */,
 				4D7192F03A36A017E887435B /* Pods-RainbowModuleExample.release.xcconfig */,
+				6BFDBB94224B558D3DCA91D9 /* Pods-notificationSetup.debug.xcconfig */,
+				0BEFCACA6A97B35024105644 /* Pods-notificationSetup.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -100,8 +144,19 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				BCEA90A70F4BEAD7E9FA28B2 /* libPods-RainbowModuleExample.a */,
+				B047622A0847131656CDA053 /* libPods-notificationSetup.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44770362288E82730069483A /* notificationSetup */ = {
+			isa = PBXGroup;
+			children = (
+				44770363288E82730069483A /* NotificationService.h */,
+				44770364288E82730069483A /* NotificationService.m */,
+				44770366288E82730069483A /* Info.plist */,
+			);
+			path = notificationSetup;
 			sourceTree = "<group>";
 		};
 		7D992AF8EA6F4D9782DB5048 /* Resources */ = {
@@ -144,6 +199,7 @@
 				20F357AE24636CDF00C146DC /* RainbowModuleExample-Bridging-Header.h */,
 				13B07FAE1A68108700A75B9A /* RainbowModuleExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				44770362288E82730069483A /* notificationSetup */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				1CFFDEF7170271C97B8B7E5A /* Pods */,
@@ -159,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* RainbowModuleExample.app */,
+				44770361288E82730069483A /* notificationSetup.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -178,15 +235,36 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				68C13D206A83DC1E43518140 /* [CP] Copy Pods Resources */,
 				40A11565125B936C6131499D /* [CP] Embed Pods Frameworks */,
+				4477036A288E82730069483A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				44770368288E82730069483A /* PBXTargetDependency */,
 			);
 			name = RainbowModuleExample;
 			productName = RainbowModuleExample;
 			productReference = 13B07F961A680F5B00A75B9A /* RainbowModuleExample.app */;
 			productType = "com.apple.product-type.application";
+		};
+		44770360288E82730069483A /* notificationSetup */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4477036D288E82730069483A /* Build configuration list for PBXNativeTarget "notificationSetup" */;
+			buildPhases = (
+				FD07353B56B1180A07488441 /* [CP] Check Pods Manifest.lock */,
+				4477035D288E82730069483A /* Sources */,
+				4477035E288E82730069483A /* Frameworks */,
+				4477035F288E82730069483A /* Resources */,
+				7858D6EB21A54887ACDF0083 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = notificationSetup;
+			productName = notificationSetup;
+			productReference = 44770361288E82730069483A /* notificationSetup.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -200,6 +278,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = W49WNQ8F82;
 						LastSwiftMigration = 1110;
+						ProvisioningStyle = Automatic;
+					};
+					44770360288E82730069483A = {
+						CreatedOnToolsVersion = 13.4.1;
+						DevelopmentTeam = W49WNQ8F82;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -219,6 +302,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* RainbowModuleExample */,
+				44770360288E82730069483A /* notificationSetup */,
 			);
 		};
 /* End PBXProject section */
@@ -232,6 +316,13 @@
 				4490D0E826E78B93001B507C /* LaunchScreen.storyboard in Resources */,
 				44C332D126943A32003F768B /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4477035F288E82730069483A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +370,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core.common-CoreModulesHeaders/AccessibilityResources.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -295,10 +387,10 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -315,11 +407,28 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7858D6EB21A54887ACDF0083 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-notificationSetup/Pods-notificationSetup-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core.common/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-notificationSetup/Pods-notificationSetup-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CCCC07BCAFDEF1FCADC0D0C9 /* [CP] Check Pods Manifest.lock */ = {
@@ -338,6 +447,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-RainbowModuleExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD07353B56B1180A07488441 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-notificationSetup-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -376,7 +507,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4477035D288E82730069483A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44770365288E82730069483A /* NotificationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		44770368288E82730069483A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44770360288E82730069483A /* notificationSetup */;
+			targetProxy = 44770367288E82730069483A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4490D0E626E78B93001B507C /* LaunchScreen.storyboard */ = {
@@ -459,6 +606,74 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "RainbowModuleExample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		4477036B288E82730069483A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BFDBB94224B558D3DCA91D9 /* Pods-notificationSetup.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = W49WNQ8F82;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = notificationSetup/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = notificationSetup;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Facebook. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asaltech.rainbow.notificationSetup;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4477036C288E82730069483A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BEFCACA6A97B35024105644 /* Pods-notificationSetup.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = W49WNQ8F82;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = notificationSetup/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = notificationSetup;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Facebook. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asaltech.rainbow.notificationSetup;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -573,6 +788,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4477036D288E82730069483A /* Build configuration list for PBXNativeTarget "notificationSetup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4477036B288E82730069483A /* Debug */,
+				4477036C288E82730069483A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -46,7 +46,7 @@ export const ConversationsComponent: FunctionComponent = () => {
   }
 
   const renderItems = (item: IConversation) => {
-    return <ConversationCard conversation={item} onClickItem={onClickItem}  />
+    return <ConversationCard conversation={item} onClickItem={onClickItem} />
   }
 
   return (
