@@ -36,6 +36,7 @@ import {
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
 
+
 const logger = new Logger('BubbleChatView');
 
 export interface IBubbleChatProps extends IStyledProps<IBubbleChatStyleProps> {
@@ -58,7 +59,8 @@ const BubbleMenuOptions = {
     Leave: Strings.leaveBubble,
     Archive: Strings.archiveBubble,
     Edit: Strings.editBubble,
-    SendEmail: Strings.sendConversationByEmail
+    SendEmail: Strings.sendConversationByEmail,
+    SeeSharedFiles: Strings.seeSharedFiles
 }
 
 export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
@@ -135,6 +137,9 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             case BubbleMenuOptions.SendEmail:
                 bubblesService.sendBubbleChatByEmail(currentBubble.id);
                 break;
+            case BubbleMenuOptions.SeeSharedFiles:
+                Actions.SharedFiles({ peer: props.bubble });
+                break;
 
         }
 
@@ -149,7 +154,8 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
         else {
             options.push(BubbleMenuOptions.Leave);
         }
-        options.push(BubbleMenuOptions.SendEmail)
+        options.push(BubbleMenuOptions.SendEmail);
+        options.push(BubbleMenuOptions.SeeSharedFiles);
 
         return options;
     }
@@ -215,7 +221,6 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                 onChangeTab={setSelectedTab}
                 tabBarUnderlineStyle={messagesMergedStyle.tabBarUnderline}
                 locked={true}
-
             >
                 <Tab
                     heading={Strings.conversations}

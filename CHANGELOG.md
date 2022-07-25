@@ -5,6 +5,35 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.1.0] - 2022-7-25
+
+---
+
+**API Changes:**
+
+- Add new property `activeSpeaker?: IContact` to get the current active talker in [IConference](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/CallTypes) .
+- Add new method `fetchAllSharedFilesInPeer(peerJid: string, isBubble: boolean): void` to fetch all shared files (sent and received) in bubble and conversation. check [Shared files](https://developers.openrainbow.com/doc/sdk/reactnative/api/SharedFilesService).
+- Expose shared file info( name , size and the file viewers ) in [IFile](https://developers.openrainbow.com/doc/sdk/reactnative/api/IFile)
+- Add new property to IConference object: `(isSharingEnabled: boolean, sharingParticipant?: IConferenceParticipants)`to get the sharing participants updates.
+- Support previously unsupported features by the iOS Rainbow SDK including:
+
+1. custom data for the connected user [`userProfileService.updateCustomData(customData)`]
+2. the screen sharing participant in IConference object [`conferenceCall.sharingParticipant`]
+
+**Fixed:**
+
+- Fix a crash when tap on any contact from the search result list.
+- fix iOS message menu picker crash.
+
+**Other Changes:**
+
+- Upgrade Android SDK version from `2.16.0` to `2.18.1`.
+- Upgrade iOS SDK from `2.3.0` to `2.4.0`.
+- Handle push notification.
+- Refactor `DropDownMenu` component and make it customizable by adding new props: `iconName`, `onSelectItem` and `renderCustomItem`.
+- Expose a `renderSendButton` function to customize the "Send" text button with an icon to send messages.
+- Expose a style property for presence icon.
+
 ## [1.0.2] - 2022-6-27
 
 ---

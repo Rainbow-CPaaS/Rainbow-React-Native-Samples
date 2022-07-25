@@ -28,6 +28,7 @@ import {
 import { MakeCallButton } from '../Calls/MakeCallButton';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
+import { Actions } from 'react-native-router-flux';
 
 
 export interface IPeerChatProps extends IStyledProps<IPeerConversationStyleProps> {
@@ -43,7 +44,8 @@ export interface IPeerConversationStyleProps {
 
 const PeerConversationMenuOptions = {
     SendEmail: Strings.sendConversationByEmail,
-    DeleteAllMessages: Strings.deleteAllMessages
+    DeleteAllMessages: Strings.deleteAllMessages,
+    SeeSharedFiles: Strings.seeSharedFiles
 }
 
 const addButtonStyle: IFloatButtonStyleProps = {
@@ -77,10 +79,11 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
         contactsService.addContactToRoster(roosterId);
     }
 
-    const renderBubbleMenuOptions = () => {
+    const renderMenuOptions = () => {
         const options = [];
         options.push(PeerConversationMenuOptions.SendEmail);
-        options.push(PeerConversationMenuOptions.DeleteAllMessages)
+        options.push(PeerConversationMenuOptions.DeleteAllMessages);
+        options.push(PeerConversationMenuOptions.SeeSharedFiles);
         return options;
     }
     const selectMenuItem = (value: string) => {
@@ -90,6 +93,9 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
                 break;
             case PeerConversationMenuOptions.DeleteAllMessages:
                 conversationsService.deleteConversationMessages(props.conversation.jId);
+                break;
+            case PeerConversationMenuOptions.SeeSharedFiles:
+                Actions.SharedFiles({ peer: props.conversation });
                 break;
         }
     }
@@ -105,7 +111,7 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
                 <Right>
                     <View style={messagesMergedStyle.rightHeaderView}>
                         <MakeCallButton contact={props.conversation.contact} />
-                        <DropDownMenu menuItems={renderBubbleMenuOptions()} onSelectItem={selectMenuItem} />
+                        <DropDownMenu menuItems={renderMenuOptions()} onSelectItem={selectMenuItem} />
                     </View>
                 </Right>
             </Header>

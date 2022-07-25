@@ -9,9 +9,9 @@ import {
   IRoomEvent,
   messagesService,
   IMessageType,
-  IFile,
   ITyping,
-  ChatActions
+  ChatActions,
+  sharedFilesService
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
@@ -60,10 +60,15 @@ export enum Attached {
   FilesLibrary = 'FilesLibrary'
 }
 
+export interface IAttachedFile {
+  uri: string;
+  type: Attached;
+}
+
 export const MessageComponent: React.FunctionComponent<IMessageComponentProps> = (props: IMessageComponentProps) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [onTypingList, setOnTypingList] = useState<ITyping[]>([]);
-  const [filesToUpload, setFilesToUpload] = useState<IFile[]>([]);
+  const [filesToUpload, setFilesToUpload] = useState<IAttachedFile[]>([]);
   const [downloadedFileIds, setDownloadedFileIds] = useState<string[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<any>();
   const [showAttachedLoader, setShowAttachedLoader] = useState<boolean>(false);
@@ -83,8 +88,8 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     const uploadFilesResult = eventEmitter.addListener(
       EventType.FileAttachFinished,
       (eventData: { isSuccess: boolean, uri: string, errorMsg?: string }) => {
-        const filteredFilesToUpload = filesToUpload.filter((item: IFile) => item.uri !== eventData.uri);
-        setFilesToUpload([...filteredFilesToUpload])
+        const filteredFilesToUpload = filesToUpload.filter((item: IAttachedFile) => item.uri !== eventData.uri);
+        setFilesToUpload(filteredFilesToUpload);
         if (eventData.isSuccess === false) {
           Alert.alert(Strings.failedToDownload, eventData.errorMsg);
         }
@@ -94,7 +99,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       EventType.FileDownloadFinished,
       (eventData: { isSuccess: boolean, fileId: string, errorMsg?: string }) => {
         const filteredIds = downloadedFileIds.filter((id: string) => id !== eventData.fileId);
-        setDownloadedFileIds([...filteredIds])
+        setDownloadedFileIds(filteredIds);
         if (eventData.isSuccess === false) {
           Alert.alert(Strings.failedToDownload, eventData.errorMsg);
         }
@@ -139,7 +144,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
             // set the downloaded file Ids so you can show the loader on the message
             downloadedFileIds.push(message.fileDescriptorId);
             setDownloadedFileIds([...downloadedFileIds]);
-            messagesService.downloadFile(message.fileDescriptorId);
+            sharedFilesService.downloadFile(message.fileDescriptorId);
             break;
           case IMessageOption.Forward:
             if (Actions.currentScene !== 'ForwardedView') {
@@ -258,7 +263,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
           for (const res of results) {
             if (res.uri) {
               const fileType = res.type === DocumentPicker.types.images ? Attached.ImageLibrary : Attached.FilesLibrary;
-              const fileObj: IFile = { uri: res.uri, type: fileType, name: res.name }
+              const fileObj: IAttachedFile = { uri: res.uri, type: fileType }
               filesToUpload.push(fileObj)
               setFilesToUpload([...filesToUpload]);
             }
@@ -280,7 +285,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
           if (response.assets) {
             response.assets.map((uri) => {
               if (uri.uri) {
-                const fileObj: IFile = { uri: uri.uri, type: Attached.ImageLibrary }
+                const fileObj: IAttachedFile = { uri: uri.uri, type: Attached.ImageLibrary }
                 filesToUpload.push(fileObj)
                 setFilesToUpload([...filesToUpload]);
               }
@@ -300,7 +305,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
           if (response.assets) {
             response.assets.map((uri) => {
               if (uri.uri) {
-                const fileObj: IFile = { uri: uri.uri, type: Attached.ImageLibrary }
+                const fileObj: IAttachedFile = { uri: uri.uri, type: Attached.ImageLibrary }
                 filesToUpload.push(fileObj)
                 setFilesToUpload([...filesToUpload]);
               }
@@ -312,8 +317,8 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     }
   }
 
-  const cancelUpload = (file: IFile) => () => {
-    const remainingFiles = filesToUpload.filter((item: IFile) => item.uri !== file.uri);
+  const cancelUpload = (file: IAttachedFile) => () => {
+    const remainingFiles = filesToUpload.filter((item: IAttachedFile) => item.uri !== file.uri);
     setFilesToUpload([...remainingFiles])
   };
 
@@ -375,8 +380,8 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
         setShowAttachedLoader(true);
       }
       message.msgType = selectedMessage?.msgType ?? IMessageType.Default;
-      message.attachedFile = filesToUpload;
-      messagesService.sendMessage(message);
+      const fileUriArray = filesToUpload.map((item: IAttachedFile) => item.uri);
+      messagesService.sendMessage(message, fileUriArray);
     }
     resetToDefault();
   }
@@ -392,6 +397,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       renderChatActions={renderChatActions}
       renderMessageCustomView={renderMessageCustomView}
       renderMessageImage={renderMessageFileImage}
+    // renderSendButton={()=><Icon name='send' />}
     />
   );
 }

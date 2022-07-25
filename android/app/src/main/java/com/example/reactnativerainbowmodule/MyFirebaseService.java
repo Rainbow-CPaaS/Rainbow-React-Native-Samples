@@ -6,8 +6,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.ale.rainbow.rn.INotificationHandler;
-import com.ale.rainbow.rn.NotificationHandler;
+
+import com.ale.rainbow.rn.notifications.INotificationHandler;
+import com.ale.rainbow.rn.notifications.NotificationHandler;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -33,7 +34,7 @@ public class MyFirebaseService  extends FirebaseMessagingService{
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         Log.i("MyFirebaseService", "onMessageReceived: "+remoteMessage);
-        notificationHandler.onPushMessageReceived(remoteMessage);
+        notificationHandler.onPushMessageReceived(remoteMessage,this.getApplication());
         super.onMessageReceived(remoteMessage);
     }
 }

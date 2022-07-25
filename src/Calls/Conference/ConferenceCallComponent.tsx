@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { eventEmitter, EventType, IConference, Logger, ConferenceActionsView, ConferenceCallView, IConferenceParticipants, ISharingConference, CallTypeName, CallState, Timer, MicButton, SwitchCameraButton, HideConferenceCallViewButton, AddVideoToConfButton, LoudspeakerButton, LockConfButton, EndConferenceCallButton, conferenceService, AnswerConfCallButton, IParticipantViewStyleProps, IImageHolderStyle, ConferenceLocalVideo, ImageHolder, ParticipantConferenceView, Strings } from 'react-native-rainbow-module';
+import { eventEmitter, EventType, IConference, Logger, ConferenceActionsView, ConferenceCallView, IConferenceParticipants, CallTypeName, CallState, Timer, MicButton, SwitchCameraButton, HideConferenceCallViewButton, AddVideoToConfButton, LoudspeakerButton, LockConfButton, EndConferenceCallButton, conferenceService, AnswerConfCallButton, IParticipantViewStyleProps, IImageHolderStyle, ConferenceLocalVideo, ImageHolder, ParticipantConferenceView, Strings } from 'react-native-rainbow-module';
 import { Body, Container, Header, Left, Title, Right, Icon, Text } from 'native-base';
 import {
     StyleSheet,
@@ -15,7 +15,6 @@ const logger = new Logger('ConferenceCallComponent');
 export const ConferenceCallComponent: FunctionComponent = () => {
 
     const [conferenceCall, setConferenceCall] = useState<IConference>();
-    const [sharingInfo, setSharingInfo] = useState<ISharingConference>();
     const [switchToShareScreen, setSwitchToShareScreen] = useState<boolean>(true);
     const [showDelegateConference, setShowDelegateConference] = useState<boolean>(false);
     const delegateParticipants: IConferenceParticipants[] = conferenceCall?.attendees.filter((participant: IConferenceParticipants) => (participant.canBeConferenceDelegate === true && !participant.isMyUser)) ?? [];
@@ -37,13 +36,6 @@ export const ConferenceCallComponent: FunctionComponent = () => {
             setConferenceCall(call);
         });
 
-        const getSharingUpdate = eventEmitter.addListener(
-            EventType.GetConferenceScreenSharingUpdate,
-            (eventData: ISharingConference) => {
-                logger.info(`conference screen sharing update with isSharingEnabled: ${eventData.isSharingEnabled}`);
-                setSharingInfo(eventData);
-            }
-        );
 
         const confAttendeesUpdatesListener = eventEmitter.addListener(EventType.ConferenceAttendeesUpdates, (attendees: IConferenceParticipants[]) => {
             logger.info(`get conference participants with count ${attendees.length}`);
@@ -55,7 +47,6 @@ export const ConferenceCallComponent: FunctionComponent = () => {
         return () => {
             currentCallListener.remove();
             currentConferenceUpdatedListener.remove();
-            getSharingUpdate.remove();
             confAttendeesUpdatesListener.remove();
         }
     }, [conferenceCall]);
@@ -98,7 +89,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
                 Actions.BubbleChatView({ bubble });
             }
         }
-        
+
         return (
             <View style={defaultStyle.buttonsViewStyle} >
                 <MicButton />
@@ -150,7 +141,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
     if (conferenceCall) {
         const { name, id } = conferenceCall.callPeer;
         const SharingVideoView = (
-            <ShareConferenceView sharingParticipant={sharingInfo?.sharingParticipant} />
+            <ShareConferenceView sharingParticipant={conferenceCall.sharingParticipant} />
         );
         const CallView = (
             <ConferenceCallView conferenceCall={conferenceCall} renderIncomingCallView={renderCustomIncomingCall} renderActiveCallView={renderCustomActiveCall} />
@@ -161,7 +152,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
                 <Header style={defaultStyle.headerColor} hasSegment={true}>
                     <Left style={defaultStyle.leftStyle}>
                         {// Show or hide screen sharing button
-                            sharingInfo?.isSharingEnabled && <Icon
+                            conferenceCall.isSharingEnabled && <Icon
                                 name={switchToShareScreen ? 'stop-screen-share' : 'screen-share'}
                                 type="MaterialIcons"
                                 onPress={hideOrShowConferenceParticipant}
@@ -178,7 +169,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
                 </Header>
                 <View style={defaultStyle.backgroundImage}>
                     <ConferenceDelegateContainer showDelegateView={showDelegateConference} delegateParticipants={delegateParticipants} bubbleId={id} onClosePressed={() => setShowDelegateConference(false)} />
-                    {sharingInfo?.isSharingEnabled && switchToShareScreen ? SharingVideoView : CallView}
+                    {conferenceCall.isSharingEnabled && switchToShareScreen ? SharingVideoView : CallView}
                     <ConferenceActionsView call={conferenceCall} style={{ container: defaultStyle.callActionContainer }} renderIncomingConferenceActions={renderIncomingCallActionsButtons} renderActiveConferenceActions={renderActiveCallActionsButtons} />
                 </View>
 
