@@ -8,10 +8,10 @@ import {
   IMessage,
   IRoomEvent,
   messagesService,
-  IMessageType,
   ITyping,
   ChatActions,
-  sharedFilesService
+  sharedFilesService,
+  IUrgencyType
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
@@ -90,6 +90,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       (eventData: { isSuccess: boolean, uri: string, errorMsg?: string }) => {
         const filteredFilesToUpload = filesToUpload.filter((item: IAttachedFile) => item.uri !== eventData.uri);
         setFilesToUpload(filteredFilesToUpload);
+        setShowAttachedLoader(false);
         if (eventData.isSuccess === false) {
           Alert.alert(Strings.failedToDownload, eventData.errorMsg);
         }
@@ -153,7 +154,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
             break;
           case IMessageOption.Reply:
             // set message type to be replied
-            message.msgType = IMessageType.Replied;
+            message.isReplied = true;
             setSelectedMessage(message);
             break;
           case IMessageOption.Delete:
@@ -215,15 +216,16 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
         options={{
           'Important msg': () => {
             const msg = {
-              msgType: IMessageType.Important
+              urgency: IUrgencyType.MEDIUM
             }
             setSelectedMessage(msg);
           },
           'Information msg': () => {
             const msg = {
-              msgType: IMessageType.Information
+              urgency: IUrgencyType.LOW
             }
             setSelectedMessage(msg);
+
           },
           Cancel: () => {
             console.log('Cancel');
@@ -322,55 +324,55 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     setFilesToUpload([...remainingFiles])
   };
 
+  const renderIsTypingArea = () => {
+    return (onTypingList.length > 0) ? contactsIsTypingView(onTypingList) : null;
+
+  }
+  const renderAttachmentArea = () => {
+    return filesToUpload.length > 0 ? selectedAttachedFilesView(filesToUpload, showAttachedLoader, cancelUpload) : null;
+  }
+  const renderRepliedArea = () => {
+    return selectedMessage?.isReplied ? sendingExtraView(selectedMessage.user.name, resetToDefault, repliedViewStyle, selectedMessage.text) : null;
+  }
+
+  const renderUrgencyArea = () => {
+    switch (selectedMessage?.urgency) {
+      case IUrgencyType.MEDIUM:
+        return sendingExtraView('Send Important...', resetToDefault, importantMsgViewStyle);
+      case IUrgencyType.LOW:
+        return sendingExtraView('Send Information...', resetToDefault, infoMsgViewStyle);
+      case IUrgencyType.HIGH:
+        return sendingExtraView('Send Emergency...', resetToDefault, importantMsgViewStyle);
+      default:
+        return;
+    }
+
+  }
   const renderSendingExtraView = () => {
-    // show a custom view for the selected message type to Send
-    if (selectedMessage) {
-      switch (selectedMessage.msgType) {
-        case IMessageType.Replied:
-          return sendingExtraView(selectedMessage.user.name, resetToDefault, repliedViewStyle, selectedMessage.text,);
-        case IMessageType.Information:
-          return sendingExtraView('Send Information...', resetToDefault, infoMsgViewStyle);
-        case IMessageType.Important:
-          return sendingExtraView('Send Important...', resetToDefault, importantMsgViewStyle);
-      }
-    }
-    // show all the contacts whose is Typing in conversation
-    if (onTypingList.length > 0) {
-      return contactsIsTypingView(onTypingList);
-    }
-    // show files To Upload
-    if (filesToUpload.length > 0) {
-      return selectedAttachedFilesView(filesToUpload, showAttachedLoader, cancelUpload);
-    }
-    return;
+    return (
+      <>
+        {renderUrgencyArea()}
+        {renderRepliedArea()}
+        {renderIsTypingArea()}
+        {renderAttachmentArea()}
+      </>
+    )
   }
 
   const renderMessageCustomView = (currentMessage: IMessage) => {
-    switch (currentMessage.msgType) {
-      case IMessageType.Important:
-        return messageHeaderView('warning', importantHeaderViewStyle, currentMessage.msgType);
-
-      case IMessageType.Information:
-        return messageHeaderView('ios-information-circle-outline', infoHeaderViewStyle, currentMessage.msgType);
-
-      case IMessageType.Forwarded:
-        return messageHeaderView('ios-arrow-forward-circle-outline', forwardHeaderViewStyle, currentMessage.msgType);
-
-      case IMessageType.Deleted:
-        return deletedMessageView();
-
-      case IMessageType.Replied:
-        const filterMessage: IMessage[] = messages.filter(data => data._id === currentMessage.associatedMsgId);
-        if (filterMessage.length > 0) {
-          return repliedMessageView(filterMessage[0].text, filterMessage[0].user.name, null);
-        }
-        break;
-    }
-    return null;
+    const filterMessage: IMessage[] = messages.filter(data => data._id === currentMessage.associatedMsgId)
+    return (
+      <>
+        {currentMessage.urgency === IUrgencyType.MEDIUM ? messageHeaderView('warning', importantHeaderViewStyle, Strings.Important) : null}
+        {currentMessage.urgency === IUrgencyType.LOW ? messageHeaderView('ios-information-circle-outline', infoHeaderViewStyle, Strings.Information) : null}
+        {currentMessage.isDeleted ? deletedMessageView() : null}
+        {currentMessage.isForwarded ? messageHeaderView('ios-arrow-forward-circle-outline', forwardHeaderViewStyle, Strings.Forwarded) : null}
+        {(currentMessage.isReplied && filterMessage.length > 0) ? repliedMessageView(filterMessage[0].text, filterMessage[0].user.name, null) : null}
+      </>
+    )
   }
-
   const onSend = (message: IMessage) => {
-    if (selectedMessage?.msgType === IMessageType.Replied) {
+    if (selectedMessage && selectedMessage.isReplied) {
       message.associatedMsgId = selectedMessage?._id;
       messagesService.replyMessage(message);
     }
@@ -379,9 +381,9 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       if (filesToUpload.length > 0) {
         setShowAttachedLoader(true);
       }
-      message.msgType = selectedMessage?.msgType ?? IMessageType.Default;
+      message.urgency = (selectedMessage && selectedMessage.urgency) ?? IUrgencyType.NONE;
       const fileUriArray = filesToUpload.map((item: IAttachedFile) => item.uri);
-      messagesService.sendMessage(message, fileUriArray);
+      messagesService.sendMessage(message, message.urgency, fileUriArray);
     }
     resetToDefault();
   }

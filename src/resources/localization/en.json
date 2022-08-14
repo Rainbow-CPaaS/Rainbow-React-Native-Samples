@@ -32,5 +32,10 @@
 	"cancel": "Cancel",
 	"seeSharedFiles": "See shared files",
 	"showChatFilesTitle": "Shared Files",
-	"Files": "Files"
+	"Files": "Files",
+	"Important": "Important",
+	"Information": "Important",
+	"Deleted": "Deleted",
+	"Forwarded": "Forwarded",
+	"Replied": "Replied"
 }

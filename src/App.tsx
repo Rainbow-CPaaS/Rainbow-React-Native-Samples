@@ -27,8 +27,7 @@ import { BubbleChatView } from './Messages/BubbleChatView';
 import jsonRainbowConfig from './rainbow-config.json';
 import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { ActiveCallBanner } from './Calls/ActiveCallBanner';
-import { SharedFileComponent, FileDescription } from './SharedFile/';
-
+import { SharedFileComponent, FileDescription } from './SharedFile/'
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
@@ -84,7 +83,6 @@ export default function App() {
                     <Scene key="BubbleChatView" component={BubbleChatView} />
                     <Scene key="SharedFiles" component={SharedFileComponent} />
                     <Scene key="FileDescription" component={FileDescription} />
-
                 </Scene>
             </Router>
         </RainbowContainer>

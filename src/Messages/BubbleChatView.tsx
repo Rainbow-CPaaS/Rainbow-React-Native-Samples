@@ -81,7 +81,14 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             logger.info(`addListener for ${EventType.GetConferenceLockState} : ${eventData}`)
             Alert.alert(Strings.lockedConference, Strings.lockedConferenceMessage);
         });
-
+        const onBubbleArchive = eventEmitter.addListener(EventType.ArchiveBubbleResult, (eventData: string) => {
+            logger.info(`addListener for ${EventType.ArchiveBubbleResult} : ${eventData}`)
+            Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => Actions.pop() }]);
+        });
+        const onBubbleDeleted = eventEmitter.addListener(EventType.DeleteBubbleResult, (eventData: string) => {
+            logger.info(`addListener for ${EventType.ArchiveBubbleResult} : ${eventData}`)
+            Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => Actions.pop() }]);
+        });
         const currentConferenceUpdatedListener = eventEmitter.addListener(EventType.CurrentConferenceUpdated, (conferenceCall?: IConference) => {
             logger.info(`CurrentConferenceUpdated with conference call: ${conferenceCall}`);
             if (conferenceCall?.callPeer.id === props.bubble.jId) {
@@ -110,6 +117,8 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             conferenceLockState.remove();
             currentConferenceUpdatedListener.remove();
             getConferenceBubbleEvent.remove();
+            onBubbleArchive.remove();
+            onBubbleDeleted.remove();
         }
     }, [currentConferenceCall, props]);
 

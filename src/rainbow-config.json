@@ -1,17 +1,17 @@
 [
-    {
-        "HOST": "openrainbow.com",
-        "APP_ID": "YOUR APPLICATION IDENTIFIER",
-        "SEC_KEY": "YOUR APPLICATION SECRET"
+   {
+       "HOST":"openrainbow.com",
+       "APP_ID":"65c681c01c8f11e9add8932b358ef81d",
+       "SEC_KEY":"UYdu3wCXTdfyjImhURnIkZ0tac5J9XSLszIKBRUUWVB35b6nT3fWV2BhAGhojdBQ"
     },
     {
-        "HOST": "openrainbow.net",
-        "APP_ID": "YOUR APPLICATION IDENTIFIER",
-        "SEC_KEY": "YOUR APPLICATION SECRET"
+       "HOST":"openrainbow.net",
+       "APP_ID":"940ad8d000f011e88ce9e7ca1c2ea6f1",
+       "SEC_KEY":"ub34cEskQG4vnxl2liurNkrORC8hsjT6UMv5r3ulCTqUczCleQFw0Dpd0b9wGVqU"
     },
     {
-        "HOST": "sandbox.openrainbow.com",
-        "APP_ID": "YOUR APPLICATION IDENTIFIER",
-        "SEC_KEY": "YOUR APPLICATION SECRET"
+       "HOST":"sandbox.openrainbow.com",
+       "APP_ID":"450ed8a039dc11e9a7c0997308051c7d",
+       "SEC_KEY":"hb2XFta94gsoOsKKqR5gSic9vbDJIArbkmee6sHpo0pEzQuTAlts8j5I2cAeBxW3"
     }
 ]

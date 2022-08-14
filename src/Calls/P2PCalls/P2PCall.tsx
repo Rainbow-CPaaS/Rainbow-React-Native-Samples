@@ -117,7 +117,7 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
             callUpdatedListener.remove();
 
         };
-    });
+    }, []);
     const renderIncomingCallActions = () => {
 
         if (p2pCall) {
