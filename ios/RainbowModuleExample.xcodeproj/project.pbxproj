@@ -350,8 +350,8 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample-frameworks.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-rainbow-module/ios/Rainbow.framework",
-				"${PODS_ROOT}/../../node_modules/react-native-rainbow-module/ios/WebRTC.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/RainbowSDK/Rainbow.framework/Rainbow",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/RainbowWebRTC/WebRTC.framework/WebRTC",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (

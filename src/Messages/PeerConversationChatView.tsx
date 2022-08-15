@@ -15,8 +15,7 @@ import {
     IFloatButtonStyleProps,
     contactsService,
     DropDownMenu,
-    conversationsService
-} from 'react-native-rainbow-module';
+    conversationsService} from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
     Dimensions,
@@ -63,7 +62,7 @@ const addButtonStyle: IFloatButtonStyleProps = {
 export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> = (
     props: IPeerChatProps
 ) => {
-    const { peerIsInvited, peerIsRoster, name, } = props.conversation;
+    const { peerIsInvited, peerIsRoster, name, contact } = props.conversation;
     const messagesMergedStyle = { ...styles, ...props.style }
     const [isRoster, setIsRoster] = useState<boolean>(peerIsRoster);
 
@@ -110,7 +109,7 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
                 </Body>
                 <Right>
                     <View style={messagesMergedStyle.rightHeaderView}>
-                        <MakeCallButton contact={props.conversation.contact} />
+                        {contact && <MakeCallButton contact={contact} />}
                         <DropDownMenu menuItems={renderMenuOptions()} onSelectItem={selectMenuItem} />
                     </View>
                 </Right>

@@ -5,23 +5,54 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
-## [1.1.0] - 2022-7-25
+## [1.2.0] - 2022-8-15
+
 ---
+
 **API Changes:**
+
+- [SharedFile Services]: Android ONLY, adding new method `uploadFileToMyRainbowSharing`.
+- [Messages Services]: handle sending urgency, by replacing `sendMessage(message: IMessage, attachedFileUri:string[])` to `sendMessage(message: IMessage, urgency: string, attachedFileUri: string[]): void`.
+- [Messages Services]: adding send message with additional content: `sendMessageWithAdditionalContentAndUrgency(conversationJid: string,text: string, additionalCont?: string,additionalContType?: string, urgency?: IUrgencyType): void`.
+- [Fix Notification]: can't open the currently active call from the notification panner.
+
+**Break Changes:**
+
+- Refactor [IMessage](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IMessage), by adding new props: `urgency`, `alternativeContent`,`isDeleted`, `isForwarded`, `isReplied`, remove: `system` flag, change `msgType` contents types.
+- Refactor connected user type: [IUser](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IUser), by adding new props: `servicePlane` and `language` and replacing the `name`,`imageURL`, `presence` with [IContact](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/IContact) object.
+- Move method `getConnectedUser` from the `authService` and added it to `userProfileService`.
+- Remove `EventType.ConnectedUserPresenceUpdated`, and make `EventType.ConnectedUserUpdated` trigger for any changes occurs in the connected user, including the user presence.
+- adding new mandatory props to `<SharedFiles .../>` component: `sharedFileArray: IFile[]` and `isLoading: boolean`.
+
+**Other Changes:**
+
+- remove `mediaType` from [IRoomConfEndPoint](https://developers.openrainbow.com/doc/sdk/reactnative/api/IBubble#IRoomConfEndPoint).
+- [iOS] sorting the conversation list according to the last update date.
+- [Example App Side]: adding how to sort the shared files, either by date, name, size.
+- Update the `Android SDK` version from 2.18.1 to 2.19.0.
+
+## [1.1.0] - 2022-7-25
+
+---
+
+**API Changes:**
+
 - Add new property `activeSpeaker?: IContact` to get the current active talker in [IConference](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/api/CallTypes).
 - Add new method `fetchAllSharedFilesInPeer(peerJid: string, isBubble: boolean): void` to fetch all shared files (sent and received) in bubble and conversation. check [Shared files](https://developers.openrainbow.com/doc/sdk/reactnative/api/SharedFilesService).
 - Expose shared file info( name, size, and the file viewers ) in [IFile](https://developers.openrainbow.com/doc/sdk/reactnative/api/IFile)
 - Add a new property to the IConference object: `(isSharingEnabled: boolean, sharingParticipant?: IConferenceParticipants)`to get the sharing participant's updates.
-- Support  previously unsupported features by the iOS Rainbow SDK including:
+- Support previously unsupported features by the iOS Rainbow SDK including:
+
 1. custom data for the connected user [`userProfileService.updateCustomData(customData)`]
 2. the screen sharing participant in IConference object [`conferenceCall.sharingParticipant`]
 
 **Fixed:**
+
 - Fix a crash when tapping on any contact from the search result list.
 - Fix the iOS message menu picker crash.
 
-
 **Other Changes:**
+
 - Upgrade the Android SDK version from `2.16.0` to `2.18.1`.
 - Upgrade iOS SDK from `2.3.0` to `2.4.0`.
 - Handle push notifications.

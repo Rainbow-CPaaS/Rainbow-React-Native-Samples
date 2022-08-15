@@ -32,5 +32,10 @@
 	"cancel": "الغاء",
 	"seeSharedFiles": "الاطلاع على الملفات المشتركة",
 	"showChatFilesTitle": "الملفات المشتركة",
-	"Files": "الملفات"
+	"Files": "الملفات",
+	"Important": "مهم",
+	"Information": "معلومات",
+	"Deleted": "لقد حذفت الرسالة",
+	"Forwarded": "تمت إعادة التوجيه",
+	"Replied": "رد"
 }
