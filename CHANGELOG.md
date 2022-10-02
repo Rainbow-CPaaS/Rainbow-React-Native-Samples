@@ -19,17 +19,17 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
   - `IUpdateUserQuery`:interface for the query obj that contains the user profile info you want to update.
   - `IServicePlane`: enum for the account license type.
 
-- Add new `fileType`prop to` [IMessage](https://developers.openrainbow.com/doc/sdk/reactnative/api/IMessage#IMessageType)` interface to indicate the file type associated with a message.
+- Add new `fileType`prop to [IMessage](https://developers.openrainbow.com/doc/sdk/reactnative/api/IMessage#IMessageType)`interface to indicate the file type associated with a message.
 
-- **Break Changes:**
-  - update all the buttons and make its icons customizable, by providing users the option to pass their own icon
-    as png or any type they want.
+**Break Changes:**
+
+- update all the buttons and make its icons customizable, by providing users the option to pass their own icon
+  as png or any type they want.
 
 **Other Changes:**
 
 - Add a new `<Header />`common component, and expose the styles and content props to make it customizable.
 - Add new method `renderMessageText` to custom the standard message font style.See[MessageComponent](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx).
--
 
 ## [1.2.0] - 2022-8-15
 
