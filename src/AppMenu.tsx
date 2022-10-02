@@ -1,8 +1,9 @@
 import { Body, Icon, List, ListItem, Text, View } from 'native-base';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ImageStyle } from 'react-native';
 import { Dimensions, SafeAreaView, TextStyle, ViewStyle } from 'react-native';
-import { Logger, Telephony, IStyledProps, UserProfile, PresenceList, store, authService } from 'react-native-rainbow-module';
+import { Logger, Telephony, IStyledProps, UserProfile, PresenceList, store, authService, eventEmitter, EventType, IUser, userProfileService } from 'react-native-rainbow-module';
+import { Actions } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 
 const logger = new Logger('AppMenu');
@@ -21,27 +22,66 @@ const presenceIconStyle: ImageStyle = {
     width: 25,
     height: 25,
 };
-class AppMenuView extends React.Component<IProps> {
-    constructor(props: IProps) {
-        super(props);
+const AppMenuView: React.FunctionComponent<IProps> = () => {
+
+    const [connectedUser, setConnectedUser] = useState<IUser>();
+    // TODO: get the connected user here! since there is multi component depends on the UserProfile info
+
+    useEffect(() => {
+        userProfileService.getConnectedUser();
+        const connectedUserUpdated = eventEmitter.addListener(
+            EventType.ConnectedUserUpdated,
+            (eventData: IUser) => {
+                logger.info(`ConnectedUserUpdated${eventData}`);
+                if (eventData) {
+                    setConnectedUser(eventData);
+                }
+            }
+        );
+
+        return () => {
+            connectedUserUpdated.remove();
+        }
+    }, []);
+
+    const onSendLogs = () => {
+        logger.info(`sendLogs:`);
+        logger.sendLogs();
+    }
+    const onLogout = () => {
+        authService.signOut();
+        store.dispatch(SignOutActionCreator);
     }
 
-    public render() {
+
+
+    if (connectedUser) {
+        const goToMyProfileInfo = () => {
+            Actions.MyProfileInfo({
+                connectedUser
+            })
+        }
         return (
             <Provider store={store}>
                 <SafeAreaView style={defaultStyle.safeArea}>
                     <UserProfile />
                     <View style={defaultStyle.menuContentContainer}>
-
                         <List>
-                            <PresenceList presenceIconStyle={presenceIconStyle} />
+                            {connectedUser.isAllowedToChangePresence && <PresenceList presenceIconStyle={presenceIconStyle} />}
                             <Telephony />
-                            <ListItem onPress={this.onSendLogs}>
+                            <ListItem onPress={goToMyProfileInfo}>
+                                <Icon style={defaultStyle.icon} name="user-circle" type="FontAwesome" />
+                                <Body>
+                                    <Text>MyProfile</Text>
+                                </Body>
+                            </ListItem>
+                            <ListItem onPress={onSendLogs}>
+                                <Icon style={defaultStyle.icon} name="send" type="FontAwesome" />
                                 <Body>
                                     <Text>Send Logs</Text>
                                 </Body>
                             </ListItem>
-                            <ListItem onPress={this.onLogout}>
+                            <ListItem onPress={onLogout}>
                                 <Icon style={defaultStyle.icon} name="ios-log-out" />
                                 <Body>
                                     <Text>Log out</Text>
@@ -51,18 +91,10 @@ class AppMenuView extends React.Component<IProps> {
                     </View>
                 </SafeAreaView>
             </Provider >
-
         );
     }
-    private onLogout = () => {
-        authService.signOut();
-        store.dispatch(SignOutActionCreator);
-    };
-    private onSendLogs = () => {
-        logger.info(`sendLogs:`);
-        logger.sendLogs();
+    return null;
 
-    }
 }
 
 const SignOutActionCreator = () => {

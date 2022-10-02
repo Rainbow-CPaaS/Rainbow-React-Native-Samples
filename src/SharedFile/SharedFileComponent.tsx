@@ -1,12 +1,8 @@
 import {
-    Body,
     Container,
-    Header,
     Icon,
-    Left,
     ListItem,
     Radio,
-    Right,
     Text,
     Title,
 } from 'native-base';
@@ -18,7 +14,7 @@ import {
     View
 } from 'react-native';
 import { Strings } from '../resources/localization/Strings';
-import { IPeer, SharedFiles, BackArrow, IFile, sharedFilesService, EventType, eventEmitter, PeerType, SortFilters } from 'react-native-rainbow-module';
+import { IPeer, SharedFiles, IFile, sharedFilesService, EventType, eventEmitter, PeerType, SortFilters, Header } from 'react-native-rainbow-module';
 
 import { Actions } from 'react-native-router-flux';
 export interface IProps {
@@ -89,21 +85,15 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
         setSortOption(filter);
         showModalView();
     }
+    const renderCenterHeader = () => {
+        return <Title style={defaultStyle.headerTitle}> {Strings.showChatFilesTitle}</Title>;
+    }
+    const renderRightHeader = () => {
+        return <Icon name="sort" type="MaterialIcons" onPress={showModalView} style={defaultStyle.sortIcon} />
+    }
     return (
         <Container>
-            <Header hasSegment={true} style={defaultStyle.headerStyle}>
-                <Left>
-                    <BackArrow />
-                </Left>
-                <Body>
-                    <Title style={defaultStyle.headerTitle}>
-                        {Strings.showChatFilesTitle}
-                    </Title>
-                </Body>
-                <Right>
-                    <Icon name="sort" type="MaterialIcons" onPress={showModalView} style={defaultStyle.sortIcon} />
-                </Right>
-            </Header>
+            <Header containerStyle={defaultStyle.headerStyle} centerComponent={renderCenterHeader} rightComponent={renderRightHeader} />
             <View style={defaultStyle.container} >
                 <SharedFiles
                     peer={peer}

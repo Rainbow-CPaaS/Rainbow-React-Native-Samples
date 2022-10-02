@@ -1,21 +1,17 @@
-import {
-    Body,
-    Header,
-    Left,
-    Right,
-    Title,
-} from 'native-base';
+/* eslint-disable react-native/no-inline-styles */
+import { Title, } from 'native-base';
 import {
     eventEmitter,
     EventType,
     IConversation,
     IStyledProps,
-    BackArrow,
     FloatButton,
     IFloatButtonStyleProps,
     contactsService,
     DropDownMenu,
-    conversationsService} from 'react-native-rainbow-module';
+    conversationsService,
+    Header
+} from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
     Dimensions,
@@ -98,22 +94,28 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
                 break;
         }
     }
+    const renderHeaderCenter = () => {
+        return (
+            <Title style={messagesMergedStyle.titleStyle}>{name}</Title>
+        );
+    }
+    const renderHeaderRightIcon = () => {
+        return (
+            <View style={messagesMergedStyle.rightHeaderView}>
+                {contact && <MakeCallButton contact={contact} />}
+                <DropDownMenu menuItems={renderMenuOptions()} onSelectItem={selectMenuItem} />
+            </View>
+        );
+    }
     return (
         <View style={messagesMergedStyle.container}>
-            <Header style={messagesMergedStyle.headerBgColor} hasSegment={true}>
-                <Left>
-                    <BackArrow />
-                </Left>
-                <Body>
-                    <Title style={messagesMergedStyle.titleStyle}>{name}</Title>
-                </Body>
-                <Right>
-                    <View style={messagesMergedStyle.rightHeaderView}>
-                        {contact && <MakeCallButton contact={contact} />}
-                        <DropDownMenu menuItems={renderMenuOptions()} onSelectItem={selectMenuItem} />
-                    </View>
-                </Right>
-            </Header>
+
+            <Header
+                containerStyle={messagesMergedStyle.headerBgColor}
+                centerComponent={renderHeaderCenter}
+                rightComponent={renderHeaderRightIcon}
+                centerContainerStyle={{ alignItems: 'flex-end' }}
+            />
             {(!isRoster && !peerIsInvited) && <FloatButton title={Strings.addToMyNetwork} style={addButtonStyle} onPress={addToRoster(props.conversation.jId)} />}
             <MessageComponent peer={props.conversation} />
         </View>
@@ -125,7 +127,8 @@ const styles: IPeerConversationStyleProps = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#ffffff', height: 'auto', },
     headerBgColor: { backgroundColor: '#0086CF', },
     titleStyle: {
-        color: 'white'
+        color: 'white',
+        textAlign: 'center'
     },
     rightHeaderView: {
         display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: 100

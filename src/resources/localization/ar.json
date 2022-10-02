@@ -37,5 +37,43 @@
 	"Information": "معلومات",
 	"Deleted": "لقد حذفت الرسالة",
 	"Forwarded": "تمت إعادة التوجيه",
-	"Replied": "رد"
+	"Replied": "رد",
+	"emailStrings": {
+		"HOME": "البريد الإلكتروني (المنزل)",
+		"WORK": "البريد الإلكتروني (العمل)",
+		"MOBILE": "البريد الإلكتروني (شخصي)",
+		"OTHER": "البريد الإلكتروني (أخرى)",
+		"CUSTOM": "CUSTOM",
+		"UNKNOWN": "غير معروف"
+	},
+	"phoneStrings": {
+		"WORK": "رقم الملحق",
+		"FAX_WORK": "فاكس العمل",
+		"FAX_HOME": "الفاكس الشخصي",
+		"WORK_MOBILE": "هاتف العمل المحمول",
+		"MAIN": "MAIN",
+		"OFFICE": "المكتب",
+		"COMPANY_MAIN": "هاتف العمل",
+		"MOBILE": "الهاتف المحمول الشخصي",
+		"HOME": "الهاتف الشخصي",
+		"ASSISTANT": "ASSISTANT",
+		"OTHER": "اخرى",
+		"CUSTOM": "CUSTOM",
+		"UNKNOWN": "غير معروف"
+	},
+	"presenceOption": {
+		"online": "متصل",
+		"mobile_online": "متصل عبر الهاتف المحمول",
+		"offline": "غير متصل",
+		"busy": "مشغول",
+		"DoNotDisturb": "عدم الازعاج",
+		"away": "بالخارج",
+		"xa": "غير متصل"
+	},
+	"updateMyInfo": "تحديث معلوماتي",
+	"firstName": "الاسم الاول",
+	"lastName": "الاسم الاخير",
+	"avatar": "الصوره الشخصيه",
+	"myProfileInfo": "معلومات ملف التعريف الخاص بي",
+	"servicePlane": "خطة الخدمة"
 }

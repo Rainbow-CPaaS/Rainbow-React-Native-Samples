@@ -37,5 +37,43 @@
 	"Information": "Important",
 	"Deleted": "Deleted",
 	"Forwarded": "Forwarded",
-	"Replied": "Replied"
+	"Replied": "Replied",
+	"emailStrings": {
+		"HOME": "HOME",
+		"WORK": "WORK",
+		"MOBILE": "MOBILE",
+		"OTHER": "OTHER",
+		"CUSTOM": "CUSTOM",
+		"UNKNOWN": "UNKNOWN"
+	},
+	"phoneStrings": {
+		"WORK": "Extension number",
+		"FAX_WORK": "Work Fax",
+		"FAX_HOME": "Personal Fax",
+		"WORK_MOBILE": "Work mobile",
+		"MAIN": "MAIN",
+		"OFFICE": "Office",
+		"COMPANY_MAIN": "Work Phone",
+		"MOBILE": "Personal Mobile",
+		"HOME": "Personal Home",
+		"ASSISTANT": "ASSISTANT",
+		"OTHER": "OTHER",
+		"CUSTOM": "CUSTOM",
+		"UNKNOWN": "UNKNOWN"
+	},
+	"presenceOption": {
+		"online": "Online",
+		"mobile_online": "mobile online",
+		"offline": "Offline",
+		"busy": "busy",
+		"DoNotDisturb": "Do not disturb",
+		"away": "Away",
+		"xa": "Invisible"
+	},
+	"updateMyInfo": "Update My Info",
+	"firstName": "First Name",
+	"lastName": "Last Name",
+	"avatar": "Avatar",
+	"myProfileInfo": "My Profile Info",
+	"servicePlane": "Service Plane"
 }

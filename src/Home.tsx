@@ -1,19 +1,19 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon, InvitationTabIcon } from 'react-native-rainbow-module';
-import { Button, Container, Content, Footer, FooterTab, Header, Icon, Text } from 'native-base';
+import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon, InvitationTabIcon, Header } from 'react-native-rainbow-module';
+import { Button, Container, Content, Footer, FooterTab, Icon, Text } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
 import { CallLogComponent } from './CallLogComponent';
-import appStyleConfig from '../app-styles.json';
 import { Actions } from 'react-native-router-flux';
 import { BubblesComponent } from './Bubbles/BubblesComponent'
 import { ConversationsComponent } from './Conversations/ConversationsComponent';
 import { SearchComponent } from './SearchComponent'
 import { FunctionComponent } from 'react';
 
+
 const logger = new Logger('Home');
-const homeStyle = StyleSheet.create(appStyleConfig.home);
 interface IProps extends IBackButtonHandlerProps {
 	registerBackButtonHandler: (handler: IBackButtonHandler) => () => void
 }
@@ -110,33 +110,35 @@ export const Home: FunctionComponent<IProps> = ({
 		return (
 			<Button vertical={true} onPress={switchTab(tabName)}  >
 				{renderPendingTabCounter(tabName)}
-				<Icon name={iconName} style={selectedTab === tabName ? styles.selectedTabIcon : homeStyle.tabIcon} />
+				<Icon name={iconName} style={selectedTab === tabName ? styles.selectedTabIcon : styles.tabIcon} />
 			</Button>
 		);
 	};
 
 	const searchComponent = <SearchComponent />;
+	const renderHeaderCenter = () => {
+		return <SearchBarInput onSearchUpdated={updateHomeSearchState} onCancelSearch={cancelSearch} registerBackButtonHandler={registerBackButtonHandler} />
+	}
+	const renderHeaderLeftIcon = () => {
+		return !isSearchMode && (<Icon name="ios-menu" style={styles.menuIcon} onPress={openMenu} />);
+	}
 	return (
 		<React.Fragment>
 			<Container>
-				<Header style={[homeStyle.tabBackground, styles.header]}>
-					{!isSearchMode && (<Icon
-						name="ios-menu"
-						style={styles.menuIcon}
-						onPress={openMenu}
-					/>)}
+				<Header
+					leftComponent={renderHeaderLeftIcon}
+					centerComponent={renderHeaderCenter}
+					containerStyle={styles.header}
+					leftContainerStyle={{ alignSelf: 'flex-start', marginRight: 5, flexGrow: 2 }}
+					rightContainerStyle={{ flexGrow: 0 }}
+					centerContainerStyle={{ flexGrow: 10 }}
 
-					<SearchBarInput
-						onSearchUpdated={updateHomeSearchState}
-						onCancelSearch={cancelSearch}
-						registerBackButtonHandler={registerBackButtonHandler}
+				/>
 
-					/>
-				</Header>
 				{isSearchMode && searchComponent}
 				{!isSearchMode && renderTab()}
 				{!isSearchMode && (<Footer>
-					<FooterTab style={homeStyle.tabBackground}>
+					<FooterTab style={styles.tabBackground}>
 						{renderButtonTab('contacts', 'person')}
 						{renderButtonTab('conversations', 'ios-chatbox')}
 						{renderButtonTab('bubbles', 'ios-chatbubbles')}
@@ -155,7 +157,7 @@ export const Home: FunctionComponent<IProps> = ({
 }
 
 const styles = StyleSheet.create({
-	header: { borderBottomWidth: 0 },
+	header: { borderBottomWidth: 0, backgroundColor: '#0086CF' },
 	headerIcon: { fontSize: 40 },
 	tabBackground: { backgroundColor: '#0086CF' },
 	selectedTabIcon: { color: '#ffffff' },

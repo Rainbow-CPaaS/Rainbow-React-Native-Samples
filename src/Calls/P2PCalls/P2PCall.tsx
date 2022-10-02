@@ -123,7 +123,7 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
         if (p2pCall) {
             return (
                 <>
-                    <AnswerAudioCallButton call={p2pCall} iconCallName="call" style={{ container: { width: 60, height: 60 }, icon: { color: 'white', fontSize: 40, opacity: 1 } }} />
+                    <AnswerAudioCallButton call={p2pCall} />
                     <EndP2PCallButton call={p2pCall} />
                 </>
             )

@@ -1,5 +1,5 @@
 import { Icon } from 'native-base';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle, Image, ActivityIndicator } from 'react-native';
 import { ImageHolder, ITyping } from 'react-native-rainbow-module';
 import { Attached, IAttachedFile } from './MessageComponent';
@@ -79,10 +79,10 @@ export const selectedAttachedFilesView = (filesToUpload: IAttachedFile[], isLoad
     );
 };
 
-export const messageHeaderView = (iconName: string, style: IStyleHeaderView, msgType: string) => {
+export const messageHeaderView = (icon: ReactNode, style: IStyleHeaderView, msgType: string) => {
     return (
         <View style={style.containerStyle}>
-            <Icon name={iconName} style={style.iconStyle} />
+            {icon}
             <Text style={style.textStyle}>{msgType}</Text>
         </View>
     );

@@ -11,7 +11,9 @@ import {
   ITyping,
   ChatActions,
   sharedFilesService,
-  IUrgencyType
+  IUrgencyType,
+  CustomMessageText,
+  MessageTextProps
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
@@ -20,6 +22,7 @@ import {
   Clipboard,
   ImageBackground,
   StyleSheet,
+  TextStyle,
   View,
 } from 'react-native';
 import {
@@ -189,6 +192,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     const image = currentMessage.image;
     const downloadedId = downloadedFileIds.find(id => id === currentMessage.fileDescriptorId);
     const showLoadingIndicator = downloadedId !== undefined;
+    console.log(currentMessage.fileType)
     return (
       <View >
         {currentMessage.image === 'icon' ?
@@ -361,12 +365,16 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
 
   const renderMessageCustomView = (currentMessage: IMessage) => {
     const filterMessage: IMessage[] = messages.filter(data => data._id === currentMessage.associatedMsgId)
+    const warningIcon = <Icon name="warning" type="Ionicons" style={importantHeaderViewStyle.iconStyle} />;
+    const infoIcon = <Icon name="ios-information-circle-outline" type="Ionicons" style={infoHeaderViewStyle.iconStyle} />;
+    const arrowForwardIcon = () => (<Icon name="ios-arrow-forward-circle-outline" type="Ionicons" />);
+
     return (
       <>
-        {currentMessage.urgency === IUrgencyType.MEDIUM ? messageHeaderView('warning', importantHeaderViewStyle, Strings.Important) : null}
-        {currentMessage.urgency === IUrgencyType.LOW ? messageHeaderView('ios-information-circle-outline', infoHeaderViewStyle, Strings.Information) : null}
+        {currentMessage.urgency === IUrgencyType.MEDIUM ? messageHeaderView(warningIcon, importantHeaderViewStyle, Strings.Important) : null}
+        {currentMessage.urgency === IUrgencyType.LOW ? messageHeaderView(infoIcon, infoHeaderViewStyle, Strings.Information) : null}
         {currentMessage.isDeleted ? deletedMessageView() : null}
-        {currentMessage.isForwarded ? messageHeaderView('ios-arrow-forward-circle-outline', forwardHeaderViewStyle, Strings.Forwarded) : null}
+        {currentMessage.isForwarded ? messageHeaderView(arrowForwardIcon, forwardHeaderViewStyle, Strings.Forwarded) : null}
         {(currentMessage.isReplied && filterMessage.length > 0) ? repliedMessageView(filterMessage[0].text, filterMessage[0].user.name, null) : null}
       </>
     )
@@ -387,6 +395,27 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     }
     resetToDefault();
   }
+  const renderCustomMessageText = (Props: MessageTextProps<IMessage>) => {
+    /**
+     * This function is used to customize the font style for standard message:
+     * You can uncommitted the line 425 to customize the default font style.
+     */
+    const textStyle: TextStyle = {
+      fontSize: 18, fontWeight: 'bold', fontFamily: 'AvenirNext-Regular', color: 'lightgray'
+    };
+    const linkStyle = { fontSize: 18, color: 'green' };
+    const customTextStyle = { color: 'red' }
+    const containerStyle = { backgroundColor: 'pink' }
+
+    return (
+      <CustomMessageText
+        textStyle={{ left: textStyle, right: textStyle }}
+        linkStyle={{ left: linkStyle, right: linkStyle }}
+        customTextStyle={customTextStyle}
+        containerStyle={{ left: containerStyle, right: { backgroundColor: 'gray' } }}
+        {...Props} />
+    )
+  }
 
   return (
     <Messages
@@ -399,6 +428,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       renderChatActions={renderChatActions}
       renderMessageCustomView={renderMessageCustomView}
       renderMessageImage={renderMessageFileImage}
+      renderMessageText={renderCustomMessageText}
     // renderSendButton={()=><Icon name='send' />}
     />
   );
