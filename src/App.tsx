@@ -11,7 +11,7 @@ import {
     IBackButtonHandler,
     ForwardedView,
     EditBubble,
-    AddParticipant,
+    AddParticipant
 } from 'react-native-rainbow-module';
 import { Actions, Router, Scene } from 'react-native-router-flux';
 import { Home } from './Home';
@@ -27,7 +27,8 @@ import { BubbleChatView } from './Messages/BubbleChatView';
 import jsonRainbowConfig from './rainbow-config.json';
 import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { ActiveCallBanner } from './Calls/ActiveCallBanner';
-import { SharedFileComponent, FileDescription } from './SharedFile/'
+import { SharedFileComponent, FileDescription } from './SharedFile/';
+import { MyProfileInfo, UserInfoFrom } from './MyProfile/'
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
@@ -83,6 +84,8 @@ export default function App() {
                     <Scene key="BubbleChatView" component={BubbleChatView} />
                     <Scene key="SharedFiles" component={SharedFileComponent} />
                     <Scene key="FileDescription" component={FileDescription} />
+                    <Scene key="MyProfileInfo" component={MyProfileInfo} />
+                    <Scene key="UserInfoFrom" component={UserInfoFrom} />
                 </Scene>
             </Router>
         </RainbowContainer>

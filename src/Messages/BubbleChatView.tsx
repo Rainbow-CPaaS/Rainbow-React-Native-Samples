@@ -1,9 +1,5 @@
 import {
-    Body,
-    Header,
     Icon,
-    Left,
-    Right,
     RnViewStyleProp,
     Tab,
     Tabs,
@@ -14,14 +10,14 @@ import {
     eventEmitter,
     EventType,
     IStyledProps,
-    BackArrow,
     IBubble,
     BubbleParticipants,
     Logger,
     conferenceService,
     DropDownMenu,
     bubblesService,
-    IConference
+    IConference,
+    Header
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
@@ -208,23 +204,26 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             </View>
         );
     }
-
+    const renderHeaderCenter = () => {
+        return (
+            <Title style={messagesMergedStyle.titleStyle}>{currentBubble?.name}</Title>
+        );
+    }
+    const renderHeaderRightIcon = () => {
+        return (
+            <View style={messagesMergedStyle.editBubbleView}>
+                {(currentBubble.isMyUserModerator && !currentBubble.hasActiveConference) && <Icon name="ios-call-sharp" style={messagesMergedStyle.startConferenceIcon} onPress={startConferenceAction} />}
+                {renderBubbleOption()}
+            </View>
+        );
+    }
     return (
         <View style={messagesMergedStyle.container}>
-            <Header style={messagesMergedStyle.headerBgColor} hasSegment={true}>
-                <Left>
-                    <BackArrow />
-                </Left>
-                <Body style={messagesMergedStyle.titleBodyStyle}>
-                    <Title style={messagesMergedStyle.titleStyle}>{currentBubble?.name} </Title>
-                </Body>
-                <Right>
-                    <View style={messagesMergedStyle.editBubbleView}>
-                        {(currentBubble.isMyUserModerator && !currentBubble.hasActiveConference) && <Icon name="ios-call-sharp" style={messagesMergedStyle.startConferenceIcon} onPress={startConferenceAction} />}
-                        {renderBubbleOption()}
-                    </View>
-                </Right>
-            </Header>
+            <Header
+                containerStyle={messagesMergedStyle.headerBgColor}
+                centerComponent={renderHeaderCenter}
+                rightComponent={renderHeaderRightIcon}
+            />
             <Tabs
                 initialPage={0}
                 onChangeTab={setSelectedTab}

@@ -64,12 +64,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
                 <AnswerConfCallButton call={call} />
                 <EndConferenceCallButton
                     call={call}
-                    style={{
-                        container: {
-                            width: 60,
-                            height: 60,
-                        }
-                    }}
+                    style={{ container: { width: 60, height: 60 } }}
                 />
             </View>
         );

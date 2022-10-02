@@ -1,9 +1,5 @@
 import {
-    Body,
     Container,
-    Header,
-    Left,
-    Right,
     Title,
 } from 'native-base';
 import React, { } from 'react';
@@ -13,7 +9,7 @@ import {
     Text
 } from 'react-native';
 import { Strings } from '../resources/localization/Strings';
-import { IFile, BackArrow } from 'react-native-rainbow-module';
+import { Header, IFile } from 'react-native-rainbow-module';
 
 export interface IProps {
     file: IFile
@@ -22,21 +18,14 @@ export interface IProps {
 export const FileDescription: React.FunctionComponent<IProps> = ({
     file
 }) => {
+    console.log(file.name + " " + file.viewers.length)
 
-
+    const renderBodyHeader = () => {
+        return <Title style={defaultStyle.headerTitle}> {Strings.Files}</Title>;
+    }
     return (
         <Container>
-            <Header hasSegment={true} style={defaultStyle.headerStyle}>
-                <Left>
-                    <BackArrow />
-                </Left>
-                <Body>
-                    <Title style={defaultStyle.headerTitle}>
-                        {Strings.Files}
-                    </Title>
-                </Body>
-                <Right />
-            </Header>
+            <Header containerStyle={defaultStyle.headerStyle} centerComponent={renderBodyHeader} />
             <View style={defaultStyle.container} >
                 <Text>{file.name}</Text>
                 <Text>{file.date}</Text>
