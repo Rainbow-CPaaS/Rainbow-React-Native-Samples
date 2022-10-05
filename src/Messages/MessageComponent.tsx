@@ -13,7 +13,9 @@ import {
   sharedFilesService,
   IUrgencyType,
   CustomMessageText,
-  MessageTextProps
+  MessageTextProps,
+  MessageTimeProps,
+  CustomMessageTime
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
@@ -416,7 +418,14 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
         {...Props} />
     )
   }
+  const dateCustomStyle: TextStyle = { color: 'red', fontWeight: 'bold', fontStyle: 'italic', backgroundColor: '#B2D7DA' }
 
+  const renderCustomMessageTime = (Props: MessageTimeProps<IMessage>) => {
+    const timeTextStyle: TextStyle = { fontSize: 18, color: 'yellow', fontWeight: 'bold' }
+    return (
+      <CustomMessageTime timeTextStyle={{ left: timeTextStyle, right: timeTextStyle }} {...Props} />
+    )
+  }
   return (
     <Messages
       conversation={props.peer}
@@ -429,6 +438,8 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       renderMessageCustomView={renderMessageCustomView}
       renderMessageImage={renderMessageFileImage}
       renderMessageText={renderCustomMessageText}
+      dateCustomStyle={dateCustomStyle}
+      renderCustomTime={renderCustomMessageTime}
     // renderSendButton={()=><Icon name='send' />}
     />
   );
