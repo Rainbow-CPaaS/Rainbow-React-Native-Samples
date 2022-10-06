@@ -5,11 +5,29 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.3.2] - 2022-10-6
+
+---
+
+**Other Changes:**
+
+- Add new method ` renderCustomMessageContainer = (messageProps: CustomMessageContainerProps<IMessage>)` to [Messages component ](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx) to custom the style of standard message container.
+
+## [1.3.1] - 2022-10-5
+
+---
+
+**Other Changes:**
+
+- Add new props to [Messages component](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx) to custom the background and container style of standard message date/Time .
+  - New method `renderCustomTime:(Props: MessageTimeProps<IMessage>)=>;` to custom container background and the text style for the message time.
+  - New prop `renderCustomTime:TextStyle ` to custom container background and the text style for the message date.
+
 ## [1.3.0] - 2022-10-2
 
 ---
 
-## **API Changes:**
+**API Changes:**
 
 - [user Profile Service]: adding new method `updateUserInfo(updateUserRequest: IUpdateUserQuery):void` to update the connected user information. check docs here [managing profile](https://hub.openrainbow.com/#/documentation/doc/sdk/reactnative/tutorials/managing_personal_profile).and [sample code](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/tree/main/src/MyProfile) for more info.
 - Adding new props to [IUser](https://developers.openrainbow.com/doc/sdk/reactnative/api/IUser) obj:
@@ -19,17 +37,16 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
   - `IUpdateUserQuery`:interface for the query obj that contains the user profile info you want to update.
   - `IServicePlane`: enum for the account license type.
 
-- Add new `fileType`prop to [IMessage](https://developers.openrainbow.com/doc/sdk/reactnative/api/IMessage#IMessageType)`interface to indicate the file type associated with a message.
+- Add new `fileType`prop to [IMessage](https://developers.openrainbow.com/doc/sdk/reactnative/api/IMessage#IMessageType) interface to indicate the file type associated with a message.
 
-**Break Changes:**
-
-- update all the buttons and make its icons customizable, by providing users the option to pass their own icon
-  as png or any type they want.
+- **Break Changes:**
+  - update all the buttons and make its icons customizable, by providing users the option to pass their own icon
+    as png or any type they want.
 
 **Other Changes:**
 
 - Add a new `<Header />`common component, and expose the styles and content props to make it customizable.
-- Add new method `renderMessageText` to custom the standard message font style.See[MessageComponent](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx).
+- Add new method `renderMessageText` to custom the standard message font style.See[MessageComponent](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx)
 
 ## [1.2.0] - 2022-8-15
 

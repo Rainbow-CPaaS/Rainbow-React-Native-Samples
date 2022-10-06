@@ -14,8 +14,10 @@ import {
   IUrgencyType,
   CustomMessageText,
   MessageTextProps,
+  CustomMessageTime,
   MessageTimeProps,
-  CustomMessageTime
+  CustomMessageContainer,
+  CustomMessageContainerProps
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
@@ -45,6 +47,7 @@ import DocumentPicker from 'react-native-document-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Strings } from './../resources/localization/Strings';
 import { Icon } from 'native-base';
+
 
 interface IMessageComponentProps {
   peer: IPeer,
@@ -194,7 +197,6 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     const image = currentMessage.image;
     const downloadedId = downloadedFileIds.find(id => id === currentMessage.fileDescriptorId);
     const showLoadingIndicator = downloadedId !== undefined;
-    console.log(currentMessage.fileType)
     return (
       <View >
         {currentMessage.image === 'icon' ?
@@ -406,7 +408,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       fontSize: 18, fontWeight: 'bold', fontFamily: 'AvenirNext-Regular', color: 'lightgray'
     };
     const linkStyle = { fontSize: 18, color: 'green' };
-    const customTextStyle = { color: 'red' }
+    const customTextStyle = { color: 'red' } // text style for both messages(left & right)
     const containerStyle = { backgroundColor: 'pink' }
 
     return (
@@ -414,7 +416,6 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
         textStyle={{ left: textStyle, right: textStyle }}
         linkStyle={{ left: linkStyle, right: linkStyle }}
         customTextStyle={customTextStyle}
-        containerStyle={{ left: containerStyle, right: { backgroundColor: 'gray' } }}
         {...Props} />
     )
   }
@@ -422,8 +423,34 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
 
   const renderCustomMessageTime = (Props: MessageTimeProps<IMessage>) => {
     const timeTextStyle: TextStyle = { fontSize: 18, color: 'yellow', fontWeight: 'bold' }
+
     return (
       <CustomMessageTime timeTextStyle={{ left: timeTextStyle, right: timeTextStyle }} {...Props} />
+    )
+  }
+
+  const renderCustomMessageContainer = (messageProps: CustomMessageContainerProps<IMessage>) => {
+    /**
+     * wrapperStyle: style of the whole message container(including the bottom time container)
+     * containerStyle: message container style, top left and right(without bottom time container)
+     * containerToNextStyle: next message container style
+     * containerToPreviousStyle: previous  message container style
+     * bottomContainerStyle: message time container in the bottom
+     *
+     *  *Note*: You have to set the borderRadius for each corner separately (e.g. borderBottomRightRadius) ,
+     *          setting borderRadius won't work because the borderBottomRightRadius, borderTopRightRadius etc. in the
+     *          react-native-gifted-chat code overrides it, since the more exact style (separate for each corner) always
+     *          overrides the more general style
+     */
+    return (
+      <CustomMessageContainer
+        {...messageProps}
+        wrapperStyle={{ left: { backgroundColor: '#497EF9' }, right: { backgroundColor: '#B09CF9' } }}
+        containerStyle={{ left: { borderRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
+        containerToNextStyle={{ left: { borderTopLeftRadius: 20, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
+        containerToPreviousStyle={{ left: { borderTopLeftRadius: 20, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
+        bottomContainerStyle={{ left: { backgroundColor: '#A569BD', borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }, right: { backgroundColor: 'green', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
+      />
     )
   }
   return (
@@ -437,9 +464,10 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       renderChatActions={renderChatActions}
       renderMessageCustomView={renderMessageCustomView}
       renderMessageImage={renderMessageFileImage}
-      renderMessageText={renderCustomMessageText}
-      dateCustomStyle={dateCustomStyle}
-      renderCustomTime={renderCustomMessageTime}
+      // dateCustomStyle={dateCustomStyle} // to custom the message time text style
+      // renderCustomTime={renderCustomMessageTime} // to custom the system message date
+      // renderMessageText={renderCustomMessageText} // custom the text style and text background inside the message container
+      renderCustomMessageContainer={renderCustomMessageContainer}
     // renderSendButton={()=><Icon name='send' />}
     />
   );
