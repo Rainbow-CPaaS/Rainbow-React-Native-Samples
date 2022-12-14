@@ -86,8 +86,8 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => Actions.pop() }]);
         });
         const currentConferenceUpdatedListener = eventEmitter.addListener(EventType.CurrentConferenceUpdated, (conferenceCall?: IConference) => {
-            logger.info(`CurrentConferenceUpdated with conference call: ${conferenceCall}`);
-            if (conferenceCall?.callPeer.id === props.bubble.jId) {
+            logger.info(`CurrentConferenceUpdated with conference call: ${conferenceCall} : Am I Connected ${conferenceCall?.callPeer.jId === currentBubble.jId}`);
+            if (conferenceCall?.callPeer.jId === currentBubble.jId) {
                 setCurrentConferenceCall(conferenceCall);
             }
             else {
@@ -97,7 +97,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
 
 
 
-        if (props.bubble.hasActiveConference && !currentConferenceCall) {
+        if (currentBubble.hasActiveConference && !currentConferenceCall) {
             bubblesService.getActiveConferenceForBubble(props.bubble.id);
         }
         const getConferenceBubbleEvent = eventEmitter.addListener(
@@ -239,7 +239,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
 
                 >
                     <MessageComponent peer={currentBubble} />
-                    {(currentBubble.hasActiveConference && !currentConferenceCall?.hasMyUserJoinedConferenceCall) && renderJoinConferencePanner()}
+                    {(currentBubble.hasActiveConference && !currentBubble.amIConnected) && renderJoinConferencePanner()}
                 </Tab>
                 <Tab
                     heading={Strings.participants}
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     addParticipantsIcon: { fontSize: 35, color: 'white', marginTop: 10 },
     startConferenceIcon: { fontSize: 30, color: 'white', position: 'relative', right: 30 },
     titleBodyStyle: { margin: 10 },
-    joinContainer: { flex: 1, flexDirection: 'column', position: 'absolute', top: 0, padding: 18, backgroundColor: '#e3e3e3', borderRadius: 5 },
+    joinContainer: { flex: 1, flexDirection: 'column', position: 'absolute', top: 0, padding: 12, backgroundColor: '#e3e3e3', borderRadius: 5 },
     joinButtonView: { backgroundColor: '#4ba42f', alignSelf: 'center', padding: 10, borderRadius: 3 },
     joinText: { color: 'white' },
 });
