@@ -5,13 +5,29 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.3.3] - 2022-12-14
+
+---
+**API Changes:**
+
+- Add new boolean property  `amIconnected ` to [IBubble](https://developers.openrainbow.com/doc/sdk/reactnative/api/IBubble) to check if the connected user is connected to the active conference call.
+
+**Fixes:**
+
+- The contact's presence is not updated in the conversations list.
+
+**Other Changes:**
+
+- Upgrade the Rainbow Android SDK to version 2.22.0 and solve all the break changes.
+- Upgrade all third-party libraries versions to the latest in [sample code on GitHub](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/package.json).
+
 ## [1.3.2] - 2022-10-6
 
 ---
 
 **Other Changes:**
 
-- Add new method ` renderCustomMessageContainer = (messageProps: CustomMessageContainerProps<IMessage>)` to [Messages component ](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx) to custom the style of standard message container.
+- Add new method `renderCustomMessageContainer = (messageProps: CustomMessageContainerProps<IMessage>)` to [Messages component](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx) to custom the style of standard message container.
 
 ## [1.3.1] - 2022-10-5
 
@@ -21,7 +37,7 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
 - Add new props to [Messages component](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx) to custom the background and container style of standard message date/Time .
   - New method `renderCustomTime:(Props: MessageTimeProps<IMessage>)=>;` to custom container background and the text style for the message time.
-  - New prop `renderCustomTime:TextStyle ` to custom container background and the text style for the message date.
+  - New prop `renderCustomTime:TextStyle` to custom container background and the text style for the message date.
 
 ## [1.3.0] - 2022-10-2
 
@@ -134,7 +150,7 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
 Conference and Audio/Video webRTC calls:
 
-- Adding customizable call components for all the call types (conference, peer-to-peer call). check [ retrieve calls](https://developers.openrainbow.com/doc/sdk/reactnative/tutorials/retrieve_calls).
+- Adding customizable call components for all the call types (conference, peer-to-peer call). check [retrieve calls](https://developers.openrainbow.com/doc/sdk/reactnative/tutorials/retrieve_calls).
 - Provide a new `IP2P`, `IConference`, `IPBX`, and generic `ICall<T>` Interfaces types for webRTC, conference, and PBX calls. check [CallTypes](/doc/sdk/reactnative/api/CallTypes)
 - Provide a new components that handle the Local video, screen-sharing, and remote video in webrtc calls. check [managing webRTC calls](/doc/sdk/reactnative/tutorials/managing_webrtc_calls).
 - Add new props to webRTC call view component to allow the user to customize the incoming, outgoing, and active call view based on his app needs. check [managing webRTC calls](/doc/sdk/reactnative/tutorials/managing_webrtc_calls).
@@ -248,7 +264,7 @@ Conference and Audio/Video webRTC calls:
 
 **API Changes:**
 
-- Add new property `customData ` for [IBubble](/doc/sdk/reactnative/api/IBubble) interface which includes customized data added by you to bubble.
+- Add new property `customData` for [IBubble](/doc/sdk/reactnative/api/IBubble) interface which includes customized data added by you to bubble.
 - Add new API `promoteContactFromBubble(bubbleId: string, contactJid: string)` to promote a member in a bubble(room) to be an organizer, check docs in Rainbow API HUB [BubbleParticipants](/doc/sdk/reactnative/tutorials/BubbleParticipants).
 - Add new API `demoteContactFromBubble(bubbleId: string, contactJid: string)` to demote an organizer in a bubble(room) to be a normal member, check docs in Rainbow API HUB [BubbleParticipants](/doc/sdk/reactnative/tutorials/BubbleParticipants).
 - IM: A new property [IsTyping](/doc/sdk/reactnative/api/IMessage#ITyping) has been added in Im module which allows other contacts to know if the current user is composing or not.
@@ -290,8 +306,8 @@ Conference and Audio/Video webRTC calls:
 - API Changes:
 
 - Add new api `BubbleParticipants.removeContactFromBubble(bubbleId:string, contactJid:string)` for remove contact from a bubble, check docs in Rainbow API HUB [BubbleParticipants](/doc/sdk/reactnative/tutorials/BubbleParticipants).
-- Add new property `roomEvent ` for [IMessage](/doc/sdk/reactnative/api/IMessage) interface to indicate if the message contains a room event (new invitation, leave and join bubble).
-- Add new property `conference ` for [IMessage](/doc/sdk/reactnative/api/IMessage) interface to indicate if the message contains a webrtc conference event (someone add/remove conference call)
+- Add new property `roomEvent` for [IMessage](/doc/sdk/reactnative/api/IMessage) interface to indicate if the message contains a room event (new invitation, leave and join bubble).
+- Add new property `conference` for [IMessage](/doc/sdk/reactnative/api/IMessage) interface to indicate if the message contains a webrtc conference event (someone add/remove conference call)
 
 - Other Changes:
 

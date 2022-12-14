@@ -14,6 +14,7 @@ import {
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
+    Alert,
     Dimensions,
     StyleSheet,
     TextStyle,
@@ -67,6 +68,7 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
             if (eventData === 'success') {
                 setIsRoster(true)
             }
+            Alert.alert('Invite contact to my network', eventData);
         })
     }, []);
 
