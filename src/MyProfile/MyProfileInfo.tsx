@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Body, Container, Title, ListItem, Icon } from 'native-base';
+import { View, Text, Container, HStack, VStack, Center, Heading } from 'native-base';
 import { FlatList, ImageBackground, StyleSheet } from 'react-native';
-import { IUser, ImageHolder, PresenceIcon, EmailType, IEmail, IPhoneNumber, PhoneType, eventEmitter, EventType, IImageHolderStyle, Header } from 'react-native-rainbow-module';
+import { IUser, EmailType, IEmail, IPhoneNumber, PhoneType, eventEmitter, EventType, Header, AvatarPresenceBadge } from 'react-native-rainbow-module';
 import { Actions } from 'react-native-router-flux';
 import { Strings } from '../resources/localization/Strings';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 export interface IProps {
@@ -32,18 +33,17 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
     }
     const renderEmailItem = ({ item }: { item: IEmail }) => {
         return (
-            <ListItem avatar={true}>
-                <Icon name="ios-mail" style={defaultStyle.icon} />
-                <Body>
-                    <View style={defaultStyle.itemBody}>
-                        <Text note={true}>
-                            {' '}
-                            {Strings.emailStrings[item.type as keyof typeof EmailType]}{' '}
-                        </Text>
-                        <Text >{item.value}</Text>
-                    </View>
-                </Body>
-            </ListItem>
+            <HStack space={2}>
+                <Icon name="mail" size={35} color='gray' />
+                <VStack justifyContent="center"  >
+                    <Text size="sm">
+                        {' '}
+                        {Strings.emailStrings[item.type as keyof typeof EmailType]}{' '}
+                    </Text>
+                    <Text >{item.value}</Text>
+                </VStack>
+            </HStack>
+
         );
     }
     const renderPhoneItem = ({ item }: { item: IPhoneNumber }) => {
@@ -51,18 +51,17 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
             return null;
         } else {
             return (
-                <ListItem avatar={true} >
-                    <Icon name="ios-call" style={defaultStyle.icon} />
-                    <Body>
-                        <View style={defaultStyle.itemBody}>
-                            <Text note={true}>
-                                {' '}
-                                {Strings.phoneStrings[item.type as keyof typeof PhoneType]}{' '}
-                            </Text>
-                            <Text >{item.value}</Text>
-                        </View>
-                    </Body>
-                </ListItem>
+                <HStack space={2}>
+                    <Icon name="call" size={35} color='white' />
+                    <VStack justifyContent="center"  >
+                        <Text size="sm">
+                            {' '}
+                            {Strings.phoneStrings[item.type as keyof typeof PhoneType]}{' '}
+                        </Text>
+                        <Text >{item.value}</Text>
+                    </VStack>
+                </HStack>
+
             );
         }
     }
@@ -70,14 +69,11 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
         Actions.UserInfoFrom({ connectedUser: user });
     }
     const renderCenterHeader = () => {
-        return (
-            <Title style={defaultStyle.headerTitle}>
-                {Strings.myProfileInfo}
-            </Title>
-        );
+        return <Text color="white" fontSize="md"> {Strings.myProfileInfo}</Text>
+
     }
     const renderRightHeader = () => {
-        return <Icon name="mode-edit" type="MaterialIcons" style={defaultStyle.editIcon} onPress={openEditMyInfoPage} />;
+        return <Icon name="mode-edit" size={35} color='white' onPress={openEditMyInfoPage} />;
     }
     return (
         <Container >
@@ -89,24 +85,18 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
                     source={{
                         uri: contact.imageURL,
                     }}
-                >
-                    <View style={defaultStyle.detailsInfo}>
-                        <View style={defaultStyle.imageHolderContainer}>
-                            <ImageHolder url={contact.imageURL} name={contact.name} style={imageHolderStyle} />
-                        </View>
-                        <PresenceIcon
-                            presence={contact.presence}
-                            style={defaultStyle.presenceIcon}
-                        />
-                        <View style={defaultStyle.titleContainer}>
-                            <Text style={defaultStyle.contactName}>
+                >   <HStack space={2} justifyContent="flex-start" p="10">
+                        <AvatarPresenceBadge peer={contact} avatarSize="100px" presenceIconSize="20px" presence={contact.presence} />
+                        <VStack p="3" space={3}>
+                            <Heading size="md" ml="-1">
                                 {contact.name}
-                            </Text>
-                            <Text style={defaultStyle.text}>{contact.jobTitle}</Text>
-                            <Text style={defaultStyle.text}>{contact.companyName}</Text>
-                            <Text style={defaultStyle.text}>{Strings.presenceOption[contact.presence]}</Text>
-                        </View>
-                    </View>
+                            </Heading>
+                            <Text fontSize="xs" fontWeight="500" ml="-0.5" mt="-1">{contact.jobTitle}</Text>
+                            <Text fontSize="xs" fontWeight="500" ml="-0.5" mt="-1" >{contact.companyName}</Text>
+                            <Text fontSize="xs" fontWeight="500" ml="-0.5" mt="-1" >{Strings.presenceOption[contact.presence]}</Text>
+                        </VStack>
+
+                    </HStack>
                 </ImageBackground>
             </View>
             <View>
@@ -120,16 +110,14 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
                     renderItem={renderPhoneItem}
                     keyExtractor={setKeyExtractor}
                 />
-                <ListItem style={defaultStyle.listItem}>
-                    <Body>
-                        <View style={defaultStyle.itemBody}>
-                            <Text note={true}>
-                                {Strings.servicePlane}
-                            </Text>
-                            <Text >{servicePlane}</Text>
-                        </View>
-                    </Body>
-                </ListItem>
+                <HStack space={2}>
+                    <VStack justifyContent="center"  >
+                        <Text>
+                            {Strings.servicePlane}
+                        </Text>
+                        <Text >{servicePlane}</Text>
+                    </VStack>
+                </HStack>
             </View>
         </Container>
     );
@@ -137,115 +125,20 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
 
 
 const defaultStyle = StyleSheet.create({
-    presenceIcon: {
-        width: 15,
-        height: 15,
-        position: 'absolute',
-        zIndex: 2,
-        top: 90,
-        marginLeft: 90,
-    },
     backgroundImg: {
         width: '100%',
         height: '100%',
-    },
-    detailsInfo: {
-        display: 'flex',
-        flexDirection: 'row',
-        zIndex: 2,
-    },
-    text: {
-        color: '#FFFFFF',
-        fontSize: 15,
-        margin: 2
     },
     imageView: {
         width: '100%',
         height: 150,
         backgroundColor: '#808080',
     },
-    titleContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        flexShrink: 1,
-        margin: 10
-    },
-    profilePic: {
-        width: 100,
-        height: 100,
-        margin: 25,
-        borderRadius: 50,
-    },
-    itemBody: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-    },
-    icon: {
-        fontSize: 30,
-        color: 'gray',
-    },
-    contactName: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: '#ffffff',
-    },
-    headerTitle: {
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontSize: 16,
-        color: '#ffffff',
-    },
     headerBgColor: {
         backgroundColor: '#0086CF'
     },
-    removeText: {
-        color: 'white',
-        fontWeight: 'bold'
-    },
     imageBackgroundStyle: {
         opacity: 0.2
-    },
-    imageHolderContainer: {
-        width: 60, height: 70, margin: 25,
-    },
-    editIcon: {
-        color: '#ffffff',
-    },
-    listItem: {
-        margin: 5, backgroundColor: '#FFFFFF'
     }
 });
-
-const imageHolderStyle: IImageHolderStyle = {
-    thumbnail: {
-        position: 'absolute',
-        zIndex: 2,
-        width: 80,
-        height: 80,
-        borderRadius: 60
-    },
-    thumbnailContainer: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 60,
-        width: 80,
-        height: 80,
-        padding: 10
-    },
-    imageTextStyle: {
-        color: 'white',
-        fontSize: 30,
-        fontWeight: 'bold'
-    }
-}
-
 

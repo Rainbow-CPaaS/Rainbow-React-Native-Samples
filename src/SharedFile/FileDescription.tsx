@@ -1,15 +1,10 @@
-import {
-    Container,
-    Title,
-} from 'native-base';
+import { Text, VStack } from 'native-base';
 import React, { } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text
-} from 'react-native';
+import { Image } from 'react-native';
 import { Strings } from '../resources/localization/Strings';
-import { Header, IFile } from 'react-native-rainbow-module';
+import { Header, IFile, } from 'react-native-rainbow-module';
+import fileLogo from '../resources/images/attachedFile.png';
+import moment from 'moment';
 
 export interface IProps {
     file: IFile
@@ -18,51 +13,35 @@ export interface IProps {
 export const FileDescription: React.FunctionComponent<IProps> = ({
     file
 }) => {
-    console.log(file.name + " " + file.viewers.length)
 
     const renderBodyHeader = () => {
-        return <Title style={defaultStyle.headerTitle}> {Strings.Files}</Title>;
+        return <Text fontSize="md" color="white"> {Strings.Files}</Text>;
     }
-    return (
-        <Container>
-            <Header containerStyle={defaultStyle.headerStyle} centerComponent={renderBodyHeader} />
-            <View style={defaultStyle.container} >
-                <Text>{file.name}</Text>
-                <Text>{file.date}</Text>
-                <Text>{file.size}</Text>
-                <Text>{file.owner.name}</Text>
-            </View>
+    const displayPreview = (imagePreview: string) => {
+        if (imagePreview == null)
+            return fileLogo;
+        else
+            return { uri: `data:image/png;base64,${imagePreview}` }
+    }
 
-        </Container>
+    return (
+        <>
+            <Header containerStyle={{ backgroundColor: '#0086CF' }} centerComponent={renderBodyHeader} />
+            <VStack space={5} justifyContent="space-between" p="5" alignItems="center">
+
+                <Image resizeMode="cover" resizeMethod="scale" style={{ width: 60, height: 60 }} source={displayPreview(file.ImagePreview)} />
+
+                <Text>{file.name}</Text>
+                <Text>{file.owner.name}</Text>
+                <Text>{moment(Number(file.date)).format('MMM DD, YYYY')}</Text>
+
+                <Text fontSize="xs">{file.size}</Text>
+            </VStack>
+
+        </>
     );
 };
 
 
 
 
-const defaultStyle = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    headerTitle: {
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontSize: 16,
-        color: '#ffffff',
-    },
-    headerStyle: {
-        backgroundColor: '#0086CF'
-    },
-    fileItemContainer: {
-        flexDirection: 'row', margin: 10
-    },
-    fileItemImage: {
-        width: 50, height: 50
-    },
-    fileItemInfoView: {
-        flexDirection: 'column', justifyContent: 'space-between', padding: 10
-    },
-    fileItemName: { fontSize: 18 },
-    fileItemDate: { fontSize: 14, color: 'gray' }
-
-});

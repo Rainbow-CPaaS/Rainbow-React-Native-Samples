@@ -1,16 +1,7 @@
 import { Strings } from '../../resources/localization/Strings';
-import { Body, Container, Header, Text } from 'native-base';
+import { HStack, Text, VStack } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import {
-    Dimensions,
-    ImageStyle,
-    SafeAreaView,
-    StyleSheet,
-    TextStyle,
-    View,
-    ViewStyle,
-} from 'react-native';
-
+import { Dimensions, ImageStyle, SafeAreaView, StyleSheet, TextStyle, View, ViewStyle, } from 'react-native';
 import {
     P2PCallView,
     IP2PCall,
@@ -28,7 +19,8 @@ import {
     CallState,
     ImageHolder,
     IImageHolderStyle,
-    Timer
+    Timer,
+    Header
 } from 'react-native-rainbow-module';
 
 const logger = new Logger('CallContainer');
@@ -40,7 +32,6 @@ export interface ICallViewStyleProps {
     thumbnail?: ImageStyle;
     textStyle?: TextStyle;
     backgroundImage: ImageStyle;
-    headerTitle: TextStyle;
 }
 interface IProps
     extends IStyledProps<{
@@ -63,15 +54,15 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
     const [orientation, setOrientation] = useState(isPortrait() ? 'portrait' : 'landscape');
     const isCallActive = p2pCall?.callState === CallState.ACTIVE;
     let callStateText = (p2pCall?.callState === undefined || p2pCall?.callState === null) ? '' : p2pCall?.callState.toString();
-    let backgroundImageStyle;
+    let backgroundStyle;
     if (orientation === 'portrait') {
-        backgroundImageStyle = {
-            ...styles.backgroundImage,
+        backgroundStyle = {
+            ...styles.container,
             ...Dimensions.get('screen'),
         };
     } else {
-        backgroundImageStyle = {
-            ...styles.backgroundImage,
+        backgroundStyle = {
+            ...styles.container,
             ...Dimensions.get('screen'),
         };
     }
@@ -92,6 +83,7 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
             const orientationChanges = isPortrait() ? 'portrait' : 'landscape';
             setOrientation(orientationChanges);
         });
+
         const handleCurrentCallEvent = (call: IP2PCall) => {
             if (call?.currentTypeName === CallTypeName.P2P) {
                 logger.info('CurrentCall event received: call is active');
@@ -144,24 +136,30 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
             </>
         )
     }
+
     if (p2pCall) {
-
+        const renderCenterHeader = () => {
+            return (
+                <VStack justifyContent="space-around" alignItems="center" space={3}>
+                    <Text color="white" fontSize="md" >{p2pCall.callPeer.name}</Text>
+                    {!isCallActive && <Text color="white" fontSize="xs">{callStateText}</Text>}
+                    {isCallActive && <Text color="white" fontSize="xs"><Timer startTime={p2pCall.startTime} /></Text>}
+                </VStack>
+            )
+        }
         return (
-            <Container>
+            <React.Fragment>
                 <SafeAreaView style={styles.headerColor} />
-                <Header style={styles.headerColor} >
-                    <Body style={styles.titleContainer}>
-                        <Text style={styles.headerTitle}>{p2pCall.callPeer.name}</Text>
-                        {!isCallActive && <Text style={[styles.headerTitle, styles.sateTextStyle]}>{callStateText}</Text>}
-                        {isCallActive && <Text style={[styles.headerTitle, styles.sateTextStyle]}><Timer startTime={p2pCall.startTime} /></Text>}
-                    </Body>
-                </Header >
-                <View style={backgroundImageStyle}>
-                    <P2PCallView call={p2pCall} renderActiveCallView={renderActiveCallView} />
-                    <P2PCallActions call={p2pCall} renderIncomingP2PCallActions={renderIncomingCallActions} />
-                </View>
+                <Header centerComponent={renderCenterHeader} />
 
-            </Container>
+                <VStack bg="#005b96" minH="100%" justifyContent="space-evenly">
+                    <P2PCallView call={p2pCall} renderActiveCallView={renderActiveCallView} />
+                    <HStack justifyContent="space-between" alignItems="center" p="5"   >
+                        <P2PCallActions call={p2pCall} renderIncomingP2PCallActions={renderIncomingCallActions} />
+                    </HStack>
+                </VStack>
+
+            </React.Fragment>
         );
     } else return null;
 
@@ -172,27 +170,16 @@ const participantImageStyle: IImageHolderStyle = {
     imageTextStyle: { fontSize: 50, }
 }
 export const styles = StyleSheet.create({
-    headerTitle: {
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontSize: 16,
-        color: 'white',
-    },
-    titleContainer: { display: 'flex', flexDirection: 'column', justifyContent: 'space-between' },
-    sateTextStyle: { fontSize: 12, fontWeight: 'normal' },
-    headerColor: {
-        backgroundColor: '#0086CF',
-    },
-    TransferButton: {
-        backgroundColor: '#FFFFFF',
-    },
     myLocalWebrtcVideo: {
         top: 50,
     },
-    backgroundImage: {
+    headerColor: {
+        backgroundColor: '#0086CF',
+    },
+    container: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        // justifyContent: 'space-around',
         flex: 1,
         backgroundColor: '#005b96'
     },

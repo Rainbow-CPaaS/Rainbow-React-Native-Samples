@@ -1,22 +1,11 @@
-import {
-    Container,
-    Icon,
-    ListItem,
-    Radio,
-    Text,
-    Title,
-} from 'native-base';
+import { Radio, Text, } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import {
-    Modal,
-    StyleSheet,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Strings } from '../resources/localization/Strings';
-import { IPeer, SharedFiles, IFile, sharedFilesService, EventType, eventEmitter, PeerType, SortFilters, Header } from 'react-native-rainbow-module';
-
+import { IPeer, SharedFiles, IFile, sharedFilesService, EventType, eventEmitter, PeerType, SortFilters, Header, Logger } from 'react-native-rainbow-module';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+const logger = new Logger('SharedFileComponent');
 export interface IProps {
     peer: IPeer
 }
@@ -35,7 +24,7 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
         const sharedFileWithPeerResult = eventEmitter.addListener(
             EventType.GetAllSharedFileWithPeerResult,
             (eventData: IFile[]) => {
-                console.log(`GetAllSharedFileWithPeerResult with file count ${eventData.length}`);
+                logger.info(`GetAllSharedFileWithPeerResult with file count ${eventData.length}`);
                 setSharedFileArray(eventData);
                 setIsLoading(false);
 
@@ -52,7 +41,6 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
 
     const sortByName = () => {
         sharedFileArray.sort((a: IFile, b: IFile) => a.name.localeCompare(b.name))
-        console.log(sharedFileArray.length)
 
     }
     const sortBySize = () => {
@@ -86,19 +74,19 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
         showModalView();
     }
     const renderCenterHeader = () => {
-        return <Title style={defaultStyle.headerTitle}> {Strings.showChatFilesTitle}</Title>;
+        return <Text fontSize="md" color="white">{Strings.showChatFilesTitle} </Text>;
     }
     const renderRightHeader = () => {
-        return <Icon name="sort" type="MaterialIcons" onPress={showModalView} style={defaultStyle.sortIcon} />
+        return <Icon name="sort" onPress={showModalView} style={defaultStyle.sortIcon} size={40} />
     }
     return (
-        <Container>
+        <>
             <Header containerStyle={defaultStyle.headerStyle} centerComponent={renderCenterHeader} rightComponent={renderRightHeader} />
-            <View style={defaultStyle.container} >
-                <SharedFiles
-                    peer={peer}
-                    onFileItemClicked={renderOnFileClicked} sharedFileArray={sharedFileArray} isLoading={isLoading} />
-            </View>
+            <SharedFiles
+                peer={peer}
+                onFileItemClicked={renderOnFileClicked}
+                sharedFileArray={sharedFileArray}
+                isLoading={isLoading} />
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -109,32 +97,25 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
                     <View style={defaultStyle.modalView}>
                         <Text style={defaultStyle.modalTitleText}>Sort order: </Text>
                         <View >
-                            {sortOptions.map((option: string) => {
-                                return (
-                                    <ListItem
-                                        onPress={onSortFilterSelected(option)}
-                                        key={option}
-                                        style={defaultStyle.radioContainer}
-                                    >
-                                        <Radio
-                                            style={defaultStyle.radioButton}
-                                            selectedColor="#0086CF"
-                                            onPress={onSortFilterSelected(option)}
-                                            selected={sortOption === option}
-                                        />
-                                        <Text >
-                                            {option}
-                                        </Text>
-                                    </ListItem>
-                                );
-                            })}
+
+                            <Radio.Group name="sortOptions" accessibilityLabel="select an option" value={sortOption} onChange={option => {
+                                onSortFilterSelected(option);
+                            }}>
+                                <Radio value={sortOptions[0]} my={1}>
+                                    {sortOptions[0]}
+                                </Radio>
+                                <Radio value={sortOptions[1]} my={1}>
+                                    {sortOptions[1]}
+                                </Radio>
+                                <Radio value={sortOptions[2]} my={1}>
+                                    {sortOptions[2]}
+                                </Radio>
+                            </Radio.Group>
                         </View>
                     </View>
                 </TouchableOpacity>
-
-
             </Modal>
-        </Container>
+        </>
     );
 };
 
@@ -142,7 +123,6 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
 
 
 const defaultStyle = StyleSheet.create({
-    container: { flex: 1, },
     headerTitle: { textAlign: 'center', alignSelf: 'center', fontSize: 16, color: '#ffffff', },
     headerStyle: { backgroundColor: '#0086CF' },
     fileItemContainer: { flexDirection: 'row', margin: 10 },
@@ -172,9 +152,5 @@ const defaultStyle = StyleSheet.create({
     modalTitleText: { textAlign: 'center', fontSize: 22, color: '#3B3B3B', margin: 10 },
     BodyContainer: { marginLeft: 20 },
     radioButton: { alignSelf: 'flex-start', margin: 10 },
-    radioContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-    },
     sortIcon: { fontSize: 30, color: '#ffffff', }
 });

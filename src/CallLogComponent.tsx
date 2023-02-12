@@ -1,8 +1,7 @@
-import { Container } from 'native-base';
 import React, { useState } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { DialogCallComponent } from './Calls/DialogCallComponent';
-import { PbxActions, webRtcActions } from './Calls/DialogCallComponent';
+import { webRtcActions } from './Calls/DialogCallComponent';
 import {
     CallLogs,
     createRedialCallLogAction,
@@ -52,7 +51,7 @@ export const CallLogComponent: React.FunctionComponent = () => {
         };
     }();
     return (
-        <Container>
+        <>
             <CallLogs
                 allCallsEnabled={true}
                 missedCallsEnabled={true}
@@ -64,10 +63,8 @@ export const CallLogComponent: React.FunctionComponent = () => {
                     contact={contactToCall}
                     showDialog={showDialog}
                     openDialog={openDialog}
-                    callDialogPbxActions={PbxActions}
-                    callDialogWebRtcActions={webRtcActions}
-                />
+                    callDialogWebRtcActions={webRtcActions} />
             )}
-        </Container>
+        </>
     );
 };

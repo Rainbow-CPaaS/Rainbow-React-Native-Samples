@@ -1,24 +1,41 @@
-import { Body, Container, Left, ListItem, Tab, TabHeading, Tabs, Text } from 'native-base';
+import { Box, Circle, Divider, HStack, Text, VStack, Pressable } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import { IBubble, bubblesService, eventEmitter, EventType, Bubbles, ImageHolder, WithBadge } from 'react-native-rainbow-module';
+import { Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { IBubble, bubblesService, eventEmitter, EventType, Bubbles, AvatarPresenceBadge } from 'react-native-rainbow-module';
 import { Actions } from 'react-native-router-flux';
+import { NavigationState, Route, SceneMap, SceneRendererProps, TabBar, TabView } from 'react-native-tab-view';
 import addBubble from '../resources/images/addBubble.png';
 import { Strings } from './../resources/localization/Strings';
 import { BubbleInvitations } from './BubbleInvitations';
 
 
+type State = NavigationState<Route>;
 export const BubblesComponent: FunctionComponent = ({
 
 }) => {
 
   const [allBubbles, setAllBubbles] = useState<IBubble[]>([]);
   const [bubbleInvitationCounter, setBubbleInvitationCounter] = useState<number>(0);
-  const [activeTab, setActiveTab] = useState(0);
-  const BubbleInvitationBadge = WithBadge(bubbleInvitationCounter, {
-    right: -3,
-    top: -4,
-  })(Text);
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([{
+    key: 'first',
+    title: Strings.all
+  }, {
+    key: 'second',
+    title: Strings.myBubbles
+  }, {
+    key: 'third',
+    title: Strings.Invitations
+  },]);
+  const initialLayout = { width: Dimensions.get('window').width };
+  const FirstRoute = () => <Bubbles bubbles={allBubbles} renderItems={renderBubblesList} />;
+  const SecondRoute = () => <Bubbles bubbles={getMyBubble()} renderItems={renderBubblesList} />;
+  const ThirdRoute = () => <BubbleInvitations />;
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute
+  });
 
   useEffect(() => {
     // Call the bubble list from the bubble services.
@@ -43,7 +60,6 @@ export const BubblesComponent: FunctionComponent = ({
     };
   }, []);
 
-
   const getMyBubble = () => {
     const myBubble = allBubbles.filter((item: IBubble) => item.isMyUserOwner);
     return myBubble
@@ -54,20 +70,22 @@ export const BubblesComponent: FunctionComponent = ({
       bubble
     })
   }
-
   const renderBubblesList = (item: IBubble) => {
     return (
-      <TouchableWithoutFeedback onPress={onItemClick(item)} >
-        <ListItem avatar={true} style={defaultStyle.listItem}>
-          <Left style={defaultStyle.leftItem}>
-            <ImageHolder url={item.imageURL} name={item.name} />
-          </Left>
-          <Body>
-            <Text>{item.name}</Text>
-            <Text note={true}>{item.topic}</Text>
-          </Body>
-        </ListItem>
-      </TouchableWithoutFeedback>
+      <Box borderBottomWidth="0" pl={["0", "4"]} pr={["0", "5"]} py="2"  >
+        <Pressable onPress={onItemClick(item)} overflow="hidden" >
+          <HStack px={5} width="100%" justifyContent="space-between" >
+            <HStack space={4}>
+              <AvatarPresenceBadge peer={item} presence={undefined} />
+              <VStack justifyContent="center"  >
+                <Text>{item.name}</Text>
+                <Text >{item.topic}</Text>
+              </VStack>
+            </HStack>
+          </HStack >
+          <Divider mx="75" my="2" bg="muted.200" thickness="1" />
+        </Pressable>
+      </Box>
     );
   };
 
@@ -75,60 +93,38 @@ export const BubblesComponent: FunctionComponent = ({
     Actions.createBubble();
   };
 
-  const setSelectedTab = (tab: { i: number; ref: Element; from: number }) => {
-    setActiveTab(tab.i);
+  const renderInvitationBadge = ({ route, color }: { route: Route; color: string }) => {
+    if (route.key === 'third' && bubbleInvitationCounter > 0)
+      return (
+        <Circle size='16px' bg="red.600" zIndex={2} ml="20" mt="-2">
+          <Text color="white" fontSize="xs" bold alignSelf="center">{bubbleInvitationCounter}</Text>
+        </Circle>
+      )
+    else return null;
   };
-
+  const renderTabBar = (props: SceneRendererProps & { navigationState: State }) => (
+    <TabBar {...props} style={{ backgroundColor: '#0086CF' }} renderIcon={renderInvitationBadge} />
+  );
   return (
-    <Container>
-      <Tabs initialPage={0} tabBarUnderlineStyle={defaultStyle.tabBarUnderline} onChangeTab={setSelectedTab}>
-        <Tab
-          heading={Strings.all}
-          tabStyle={defaultStyle.TabsColor}
-          activeTabStyle={defaultStyle.TabsColor}
-          textStyle={defaultStyle.tabText}
-          activeTextStyle={defaultStyle.tabActiveText}
-        >
-          <Bubbles bubbles={allBubbles} renderItems={renderBubblesList} />
-        </Tab>
-        <Tab
-          heading={Strings.myBubbles}
-          tabStyle={defaultStyle.TabsColor}
-          activeTabStyle={defaultStyle.TabsColor}
-          textStyle={defaultStyle.tabText}
-          activeTextStyle={defaultStyle.tabActiveText}
-        >
-          <Bubbles bubbles={getMyBubble()} renderItems={renderBubblesList} />
-        </Tab>
-        <Tab
-          heading={
-            <TabHeading style={defaultStyle.TabsColor}>
-              <BubbleInvitationBadge style={activeTab === 2 ? defaultStyle.tabActiveText : defaultStyle.tabText}>
-                {Strings.Invitations}
-              </BubbleInvitationBadge>
+    <>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={initialLayout}
+        renderTabBar={renderTabBar} />
 
-            </TabHeading>
-          }
-          tabStyle={defaultStyle.TabsColor}
-          activeTextStyle={defaultStyle.tabActiveText}
-        >
-
-          <BubbleInvitations />
-        </Tab>
-
-      </Tabs>
       <TouchableOpacity
         onPress={createBubble}
-        style={defaultStyle.iconContainer}
+        style={defaultStyle.addIcon}
       >
         <Image source={addBubble} style={defaultStyle.icon} />
       </TouchableOpacity>
-    </Container>
+    </>
   );
 };
 const defaultStyle = StyleSheet.create({
-  TabsColor: { backgroundColor: '#0086CF' },
-  iconContainer: {
+  addIcon: {
     position: 'absolute',
     bottom: 60,
     end: 20,
@@ -144,23 +140,5 @@ const defaultStyle = StyleSheet.create({
     height: 40,
     alignSelf: 'center',
   },
-  tabBarUnderline: {
-    backgroundColor: '#ffffff',
-  },
-  tabActiveText: {
-    color: '#ffffff',
-  },
-  tabText: { color: '#a5c0f3' },
-  listItem: { paddingTop: 10 },
-  leftItem: { width: 60, height: 60 },
-  sectionHeader: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#0086CF',
-    backgroundColor: '#eeeded',
-  },
+
 });

@@ -1,7 +1,4 @@
 package com.example.reactnativerainbowmodule;
-
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -18,10 +15,7 @@ public class MyFirebaseService  extends FirebaseMessagingService{
     @Override
     public void onCreate() {
         super.onCreate();
-        Intent notificationIntent =  new Intent(this, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        notificationHandler = new NotificationHandler(this,intent);
+        notificationHandler = new NotificationHandler(this);
     }
 
     @Override

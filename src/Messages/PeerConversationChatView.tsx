@@ -1,5 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
-import { Title, } from 'native-base';
 import {
     eventEmitter,
     EventType,
@@ -17,27 +15,18 @@ import {
     Alert,
     Dimensions,
     StyleSheet,
-    TextStyle,
-    View,
-    ViewStyle,
+    Text
 } from 'react-native';
 import { MakeCallButton } from '../Calls/MakeCallButton';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
 import { Actions } from 'react-native-router-flux';
+import { HStack } from 'native-base';
 
 
-export interface IPeerChatProps extends IStyledProps<IPeerConversationStyleProps> {
+export interface IPeerChatProps {
     conversation: IConversation;
 }
-
-export interface IPeerConversationStyleProps {
-    container: ViewStyle;
-    headerBgColor: ViewStyle;
-    titleStyle?: TextStyle;
-    rightHeaderView?: ViewStyle;
-}
-
 const PeerConversationMenuOptions = {
     SendEmail: Strings.sendConversationByEmail,
     DeleteAllMessages: Strings.deleteAllMessages,
@@ -60,8 +49,8 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
     props: IPeerChatProps
 ) => {
     const { peerIsInvited, peerIsRoster, name, contact } = props.conversation;
-    const messagesMergedStyle = { ...styles, ...props.style }
     const [isRoster, setIsRoster] = useState<boolean>(peerIsRoster);
+    const viewInviteBtn = (!isRoster && !peerIsInvited);
 
     useEffect(() => {
         eventEmitter.addListener(EventType.AddContactToRoster, (eventData: string) => {
@@ -69,6 +58,7 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
                 setIsRoster(true)
             }
             Alert.alert('Invite contact to my network', eventData);
+
         })
     }, []);
 
@@ -98,36 +88,34 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
     }
     const renderHeaderCenter = () => {
         return (
-            <Title style={messagesMergedStyle.titleStyle}>{name}</Title>
+            <Text style={styles.titleStyle}>{name}</Text>
         );
     }
     const renderHeaderRightIcon = () => {
         return (
-            <View style={messagesMergedStyle.rightHeaderView}>
+            <HStack space={2} justifyContent="space-between" alignItems="center">
                 {contact && <MakeCallButton contact={contact} />}
                 <DropDownMenu menuItems={renderMenuOptions()} onSelectItem={selectMenuItem} />
-            </View>
+            </HStack>
         );
     }
     return (
-        <View style={messagesMergedStyle.container}>
-
+        <React.Fragment>
             <Header
-                containerStyle={messagesMergedStyle.headerBgColor}
                 centerComponent={renderHeaderCenter}
                 rightComponent={renderHeaderRightIcon}
-                centerContainerStyle={{ alignItems: 'flex-end' }}
+                containerStyle={{ paddingTop: 5, paddingBottom: 5 }}
+
             />
-            {(!isRoster && !peerIsInvited) && <FloatButton title={Strings.addToMyNetwork} style={addButtonStyle} onPress={addToRoster(props.conversation.jId)} />}
+            {viewInviteBtn && <FloatButton title={Strings.addToMyNetwork} style={addButtonStyle} onPress={addToRoster(props.conversation.contact.corporateId)} />}
             <MessageComponent peer={props.conversation} />
-        </View>
+        </React.Fragment>
+
     );
 
 
 };
-const styles: IPeerConversationStyleProps = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#ffffff', height: 'auto', },
-    headerBgColor: { backgroundColor: '#0086CF', },
+const styles = StyleSheet.create({
     titleStyle: {
         color: 'white',
         textAlign: 'center'

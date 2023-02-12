@@ -15,7 +15,6 @@ import {
 } from 'react-native-rainbow-module';
 import { Actions, Router, Scene } from 'react-native-router-flux';
 import { Home } from './Home';
-import componentConfig from '../component-config.json'
 import appStyleConfig from '../app-styles.json';
 import { MakeCallButton } from './Calls/MakeCallButton';
 import AppMenuView from './AppMenu';
@@ -27,13 +26,12 @@ import { BubbleChatView } from './Messages/BubbleChatView';
 import jsonRainbowConfig from './rainbow-config.json';
 import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { ActiveCallBanner } from './Calls/ActiveCallBanner';
-import { SharedFileComponent, FileDescription } from './SharedFile/';
-import { MyProfileInfo, UserInfoFrom } from './MyProfile/'
+import { SharedFileComponent, FileDescription } from './SharedFile/'
+import { NativeBaseProvider } from 'native-base';
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
-const contactsInfoCustomStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
-
+const customStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
 const handlers: IBackButtonHandler[] = [];
 RainbowContainer.setAppSecretKey(jsonRainbowConfig);
 
@@ -52,43 +50,34 @@ export default function App() {
         };
     };
     return (
+
         <RainbowContainer >
-            <ActiveCallBanner />
-            <BackHandlerListener />
-            <Router>
-                <Scene key="root" headerMode="none">
-                    <Scene key="home" component={Home}
-                        registerBackButtonHandler={registerBackButtonHandler} />
-                    <Scene
-                        key="dialPad"
-                        component={DialPad}
-                        showCallButton={true}
-                    />
-                    <Scene
-                        key="contactInformation"
-                        component={ContactInformation}
-                        MakeCallButton={MakeCallButton}
-                        viewEmails={componentConfig.ContactInformation.viewEmails}
-                        viewPhoneNumbers={componentConfig.ContactInformation.viewPhoneNumbers}
-                        style={contactsInfoCustomStyle}
-                    />
-                    <Scene key="Telephony" component={TelephonySettings} />
-                    <Scene key="AppMenu" component={AppMenuView} />
-                    <Scene key="createBubble" component={CreateBubbleComponent} />
-                    <Scene key="callHistory" component={CallHistory} callActionsComponent={DialogCallComponent} />
-                    <Scene key="ForwardedView" component={ForwardedView} />
-                    <Scene key="bubbles" component={BubblesComponent} />
-                    <Scene key="editBubble" component={EditBubble} />
-                    <Scene key="AddParticipants" component={AddParticipant} />
-                    <Scene key="PeerConversationChatView" component={PeerConversationChatView} />
-                    <Scene key="BubbleChatView" component={BubbleChatView} />
-                    <Scene key="SharedFiles" component={SharedFileComponent} />
-                    <Scene key="FileDescription" component={FileDescription} />
-                    <Scene key="MyProfileInfo" component={MyProfileInfo} />
-                    <Scene key="UserInfoFrom" component={UserInfoFrom} />
-                </Scene>
-            </Router>
+            <NativeBaseProvider>
+                <ActiveCallBanner />
+                <BackHandlerListener />
+                <Router>
+                    <Scene key="root" headerMode="none" hideNavBar={true} >
+                        <Scene key="home" component={Home} registerBackButtonHandler={registerBackButtonHandler} />
+                        <Scene key="contactInformation" component={ContactInformation} MakeCallButton={MakeCallButton} style={customStyle} />
+                        <Scene key="AppMenu" component={AppMenuView} />
+                        <Scene key="PeerConversationChatView" component={PeerConversationChatView} />
+                        <Scene key="editBubble" component={EditBubble} />
+                        <Scene key="BubbleChatView" component={BubbleChatView} />
+                        <Scene key="AddParticipants" component={AddParticipant} />
+                        <Scene key="callHistory" component={CallHistory} callActionsComponent={DialogCallComponent} />
+                        <Scene key="bubbles" component={BubblesComponent} />
+                        <Scene key="createBubble" component={CreateBubbleComponent} />
+                        <Scene key="SharedFiles" component={SharedFileComponent} />
+                        <Scene key="FileDescription" component={FileDescription} />
+                        <Scene key="ForwardedView" component={ForwardedView} />
+                        <Scene key="dialPad" component={DialPad} showCallButton={true} />
+                        <Scene key="Telephony" component={TelephonySettings} />
+                    </Scene>
+                </Router>
+            </NativeBaseProvider>
         </RainbowContainer>
+
+
     );
 }
 

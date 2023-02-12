@@ -1,5 +1,5 @@
 
-import { Content, Text } from 'native-base';
+import { Center, Text } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { IBubble, conversationsService, IConversation, eventEmitter, EventType, Conversations, ConversationCard } from 'react-native-rainbow-module';
@@ -37,11 +37,11 @@ export const ConversationsComponent: FunctionComponent = () => {
 
   const renderEmptyList = () => {
     return (
-      <Content>
-        <Text note={true} style={defaultStyle.NoDataMessages}>
+      <Center>
+        <Text style={defaultStyle.NoDataMessages}>
           {Strings.noDataFound}
         </Text>
-      </Content>
+      </Center>
     );
   }
 

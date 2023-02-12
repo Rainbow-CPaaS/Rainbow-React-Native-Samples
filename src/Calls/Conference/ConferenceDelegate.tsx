@@ -1,6 +1,4 @@
-import {
-  Text,
-} from 'native-base';
+import { Text, } from 'native-base';
 import React, { useState } from 'react';
 import {
   View,
@@ -13,7 +11,6 @@ import {
 } from 'react-native';
 import { IConferenceParticipants, ContactCardView, IContact, conferenceService } from 'react-native-rainbow-module';
 import { Strings } from '../../resources/localization/Strings';
-
 export interface IProps {
   showDelegateView: boolean;
   delegateParticipants: IConferenceParticipants[];
@@ -65,7 +62,7 @@ export const ConferenceDelegateContainer: React.FunctionComponent<IProps> = ({
     const renderItems = ({ item }: { item: IConferenceParticipants }) => {
       const style = item.jId === selectedParticipantToDelegate?.jId ? defaultModalStyle.selectedContactItem : defaultModalStyle.centeredView;
       return (
-        <ContactCardView contact={item} onPressed={onParticipantSelected} style={{ listItem: style }} />
+        <ContactCardView contact={item} onPressed={onParticipantSelected} style={style} />
       );
     }
     const renderKeyExtractor = (item: IConferenceParticipants) => {
@@ -128,6 +125,7 @@ const defaultModalStyle = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 10
   },
   contactItem: {
     display: 'flex',

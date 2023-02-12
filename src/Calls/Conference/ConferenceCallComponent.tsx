@@ -1,15 +1,12 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { eventEmitter, EventType, IConference, Logger, ConferenceActionsView, ConferenceCallView, IConferenceParticipants, CallTypeName, CallState, Timer, MicButton, SwitchCameraButton, HideConferenceCallViewButton, AddVideoToConfButton, LoudspeakerButton, LockConfButton, EndConferenceCallButton, conferenceService, AnswerConfCallButton, IParticipantViewStyleProps, IImageHolderStyle, ConferenceLocalVideo, ImageHolder, ParticipantConferenceView, Strings } from 'react-native-rainbow-module';
-import { Body, Container, Header, Left, Title, Right, Icon, Text } from 'native-base';
-import {
-    StyleSheet,
-    View
-} from 'react-native';
+import { eventEmitter, EventType, IConference, Logger, ConferenceActionsView, ConferenceCallView, IConferenceParticipants, CallTypeName, CallState, Timer, MicButton, SwitchCameraButton, HideConferenceCallViewButton, AddVideoToConfButton, LoudspeakerButton, LockConfButton, EndConferenceCallButton, conferenceService, AnswerConfCallButton, IParticipantViewStyleProps, ConferenceLocalVideo, ParticipantConferenceView, Strings, Header, AvatarPresenceBadge } from 'react-native-rainbow-module';
+import { Text, VStack } from 'native-base';
+import { StyleSheet, View } from 'react-native';
 import { ShareConferenceView } from './ShareConferenceView';
 import { ConferenceDelegateContainer } from './ConferenceDelegate';
 import { FlatGrid } from 'react-native-super-grid';
 import { Actions } from 'react-native-router-flux';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 const logger = new Logger('ConferenceCallComponent');
 
 export const ConferenceCallComponent: FunctionComponent = () => {
@@ -59,6 +56,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
     // Customize Conference Action Buttons
 
     const renderIncomingCallActionsButtons = (call: IConference) => {
+
         return (
             <View style={defaultStyle.buttonsViewStyle} >
                 <AnswerConfCallButton call={call} />
@@ -103,10 +101,11 @@ export const ConferenceCallComponent: FunctionComponent = () => {
     const renderCustomIncomingCall = (call: IConference) => {
         const { callPeer } = call;
         return (
-            <View style={defaultStyle.viewStyle}>
+            <VStack justifyContent="space-between" space={2} alignItems="center">
                 <Text style={defaultStyle.incomingCallInvitedMsg}>{`${callPeer.bubbleOwner.name} ${Strings.ConferenceCallInvitation} ${callPeer.name} `}</Text>
-                <ImageHolder url={callPeer.imageURL} style={conferenceBubbleImageStyle} name={callPeer.name} />
-            </View>
+                <AvatarPresenceBadge peer={callPeer} avatarSize="140" presence={undefined} />
+
+            </VStack>
         );
     }
     const renderParticipantItem = ({ item }: { item: IConferenceParticipants }) => {
@@ -120,7 +119,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
         const { isLocalVideoEnabled, attendees } = call;
         const attendeesWithoutMyUser = attendees.filter((item: IConferenceParticipants) => { return !item.isMyUser });
         return (
-            <View style={defaultStyle.viewStyle}>
+            <View style={{ flex: 1, position: 'absolute' }}>
                 {isLocalVideoEnabled && <ConferenceLocalVideo />}
                 <FlatGrid
                     itemDimension={140}
@@ -135,40 +134,42 @@ export const ConferenceCallComponent: FunctionComponent = () => {
 
     if (conferenceCall) {
         const { name, id } = conferenceCall.callPeer;
-        const SharingVideoView = (
-            <ShareConferenceView sharingParticipant={conferenceCall.sharingParticipant} />
-        );
-        const CallView = (
-            <ConferenceCallView conferenceCall={conferenceCall} renderIncomingCallView={renderCustomIncomingCall} renderActiveCallView={renderCustomActiveCall} />
-        );
+        const renderLeftHeader = () => {
+            return (
+                conferenceCall.isSharingEnabled && <Icon
+                    name={switchToShareScreen ? 'stop-screen-share' : 'screen-share'}
+                    onPress={hideOrShowConferenceParticipant}
+                    style={defaultStyle.hideShowParticipant}
+                />
 
+            )
+        }
+        const renderHeaderCenter = () => {
+            return (
+                <VStack justifyContent="space-around" py="2">
+                    <Text color="white" fontSize="md">{name}</Text>
+                    {conferenceCall.callState === CallState.ACTIVE && <Text color="white" fontSize="xs"><Timer startTime={conferenceCall.startTime} /></Text>}
+                </VStack>
+            )
+        }
         return (
-            <Container >
-                <Header style={defaultStyle.headerColor} hasSegment={true}>
-                    <Left style={defaultStyle.leftStyle}>
-                        {// Show or hide screen sharing button
-                            conferenceCall.isSharingEnabled && <Icon
-                                name={switchToShareScreen ? 'stop-screen-share' : 'screen-share'}
-                                type="MaterialIcons"
-                                onPress={hideOrShowConferenceParticipant}
-                                style={defaultStyle.hideShowParticipant}
-                                active={true}
-                            />}
-                    </Left>
-                    <Body>
-                        <Title style={defaultStyle.headerTitle}>{name}</Title>
-                        {conferenceCall.callState === CallState.ACTIVE && <Text style={defaultStyle.callDuration}><Timer startTime={conferenceCall.startTime} /></Text>}
+            < >
 
-                    </Body>
-                    <Right />
-                </Header>
-                <View style={defaultStyle.backgroundImage}>
-                    <ConferenceDelegateContainer showDelegateView={showDelegateConference} delegateParticipants={delegateParticipants} bubbleId={id} onClosePressed={() => setShowDelegateConference(false)} />
-                    {conferenceCall.isSharingEnabled && switchToShareScreen ? SharingVideoView : CallView}
-                    <ConferenceActionsView call={conferenceCall} style={{ container: defaultStyle.callActionContainer }} renderIncomingConferenceActions={renderIncomingCallActionsButtons} renderActiveConferenceActions={renderActiveCallActionsButtons} />
-                </View>
+                <VStack bg="#005b96" paddingBottom="10" mb="30">
+                    <Header centerComponent={renderHeaderCenter} leftComponent={renderLeftHeader} />
+                    <VStack justifyContent="space-between" h="95%" p="5" >
+                        <ConferenceDelegateContainer showDelegateView={showDelegateConference} delegateParticipants={delegateParticipants} bubbleId={id} onClosePressed={() => setShowDelegateConference(false)} />
+                        {conferenceCall.isSharingEnabled && switchToShareScreen ?
+                            <ShareConferenceView sharingParticipant={conferenceCall.sharingParticipant} />
+                            :
+                            <ConferenceCallView conferenceCall={conferenceCall} renderIncomingCallView={renderCustomIncomingCall} renderActiveCallView={renderCustomActiveCall} />
+                        }
+                        <ConferenceActionsView call={conferenceCall} style={{ container: defaultStyle.callActionContainer }} renderIncomingConferenceActions={renderIncomingCallActionsButtons} renderActiveConferenceActions={renderActiveCallActionsButtons} />
 
-            </Container>
+                    </VStack>
+                </VStack>
+
+            </>
         );
     }
     else {
@@ -177,37 +178,13 @@ export const ConferenceCallComponent: FunctionComponent = () => {
 }
 
 const defaultStyle = StyleSheet.create({
-    headerTitle: {
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontSize: 20,
-        color: 'white',
-    },
-    headerColor: {
-        backgroundColor: '#0086CF',
-    },
-    leftStyle: { margin: 10 },
-    backgroundImage: {
-        resizeMode: 'cover',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        flex: 1,
-        backgroundColor: '#005b96'
-    },
     hideShowParticipant: {
         fontSize: 30,
         color: '#ffffff',
     },
-    callAction: { position: 'absolute', bottom: 10, left: 0, width: '100%', },
     callActionContainer: {
-        position: 'absolute',
-        bottom: 25,
+        justifyContent: "space-between",
         width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        alignContent: 'center',
-        justifyContent: 'space-around',
         backgroundColor: '#02a2ff',
         opacity: 0.8
     },
@@ -229,7 +206,6 @@ const defaultStyle = StyleSheet.create({
         flexWrap: 'wrap',
         flexDirection: 'column'
     },
-    viewStyle: { flex: 1 },
     callDuration: {
         textAlign: 'center',
         alignSelf: 'center',
@@ -238,35 +214,6 @@ const defaultStyle = StyleSheet.create({
         fontWeight: 'normal'
     },
 });
-
-const conferenceBubbleImageStyle: IImageHolderStyle = {
-    thumbnail: {
-        position: 'absolute',
-        top: 100,
-        alignSelf: 'center',
-        width: 140,
-        height: 140,
-        borderRadius: 100
-    },
-    thumbnailContainer: {
-        position: 'absolute',
-        top: 100,
-        alignSelf: 'center',
-        width: 140,
-        height: 140,
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0.2)',
-        borderRadius: 100,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#cf0071'
-    },
-    imageTextStyle: {
-        color: 'white',
-        fontSize: 25,
-        fontWeight: 'bold'
-    }
-};
 
 const participantViewStyle: IParticipantViewStyleProps = StyleSheet.create({
     container: {

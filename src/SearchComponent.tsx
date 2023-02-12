@@ -1,7 +1,6 @@
-import { Container } from 'native-base';
 import React, { useState } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { DialogCallComponent, PbxActions } from './Calls/DialogCallComponent';
+import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { createCallPbxContactAction, IAction, IActionsProvider, IContact, Logger, Search } from 'react-native-rainbow-module';
 
 const logger = new Logger('SearchComponent');
@@ -33,7 +32,7 @@ export const SearchComponent: React.FunctionComponent = () => {
         }
     };
     return (
-        <Container>
+        <>
             <Search searchPeople={true} contactActionsProvider={contactActionsProvider} onClickItem={handleClickItem} />
             {contactToCall && (
                 <DialogCallComponent
@@ -41,9 +40,8 @@ export const SearchComponent: React.FunctionComponent = () => {
                     showDialog={showDialog}
                     openDialog={openDialog}
                     callDialogWebRtcActions={[]}
-                    callDialogPbxActions={PbxActions}
                 />
             )}
-        </Container>
+        </>
     );
 };
