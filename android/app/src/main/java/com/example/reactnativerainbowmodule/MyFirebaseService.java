@@ -17,7 +17,6 @@ public class MyFirebaseService  extends FirebaseMessagingService{
         super.onCreate();
         notificationHandler = new NotificationHandler(this);
     }
-
     @Override
     public void onNewToken(@NonNull String refreshedToken) {
         super.onNewToken(refreshedToken);
