@@ -28,6 +28,7 @@ import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { ActiveCallBanner } from './Calls/ActiveCallBanner';
 import { SharedFileComponent, FileDescription } from './SharedFile/'
 import { NativeBaseProvider } from 'native-base';
+import { MyProfileInfo, UserInfoFrom } from './MyProfile/'
 
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
@@ -72,6 +73,8 @@ export default function App() {
                         <Scene key="ForwardedView" component={ForwardedView} />
                         <Scene key="dialPad" component={DialPad} showCallButton={true} />
                         <Scene key="Telephony" component={TelephonySettings} />
+                        <Scene key="MyProfileInfo" component={MyProfileInfo} />
+                        <Scene key="UserInfoFrom" component={UserInfoFrom} />
                     </Scene>
                 </Router>
             </NativeBaseProvider>
