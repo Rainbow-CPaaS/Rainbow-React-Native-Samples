@@ -1,7 +1,7 @@
-import { Body, Left, ListItem, Text } from 'native-base';
+import { Box, Divider, HStack, Text, VStack } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Alert, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { IBubble, eventEmitter, EventType, Bubbles, ImageHolder, ImageButton, bubblesService } from 'react-native-rainbow-module';
+import { Alert, Pressable, StyleSheet } from 'react-native';
+import { IBubble, eventEmitter, EventType, Bubbles, AvatarPresenceBadge, bubblesService, ImageButton } from 'react-native-rainbow-module';
 import accept from '../resources/images/acceptFeed.png';
 import remove from '../resources/images/removeFeed.png';
 
@@ -41,16 +41,16 @@ export const BubbleInvitations: FunctionComponent = () => {
 
     const renderBubbleInvitation = (item: IBubble) => {
         return (
-            <TouchableWithoutFeedback>
-                <ListItem avatar={true}>
-                    <Left style={defaultStyle.leftItem}>
-                        <ImageHolder url={item.imageURL} name={item.name} />
-                    </Left>
-                    <Body>
-                        <Text>{item.name}</Text>
-                        <Text note={true}>{item.topic}</Text>
-                    </Body>
-                    <View style={defaultStyle.viewButton}>
+            <Box borderBottomWidth="0" pl={["0", "4"]} pr={["0", "5"]} py="2"  >
+                <HStack px={5} width="100%" justifyContent="space-between" >
+                    <HStack space={3}>
+                        <AvatarPresenceBadge peer={item} presence={undefined} />
+                        <VStack justifyContent="center"  >
+                            <Text>{item.name}</Text>
+                            <Text >{item.topic}</Text>
+                        </VStack>
+                    </HStack>
+                    <HStack>
                         <ImageButton
                             imageSource={accept}
                             onPress={acceptBubbleInvitation(item.id)}
@@ -61,9 +61,10 @@ export const BubbleInvitations: FunctionComponent = () => {
                             onPress={declineBubbleInvitation(item.id)}
                             style={{ image: defaultStyle.image }}
                         />
-                    </View>
-                </ListItem>
-            </TouchableWithoutFeedback>
+                    </HStack>
+                </HStack >
+                <Divider mx="75" my="2" bg="muted.200" thickness="1" />
+            </Box>
         );
     }
 

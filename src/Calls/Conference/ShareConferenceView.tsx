@@ -1,4 +1,4 @@
-import { Text } from 'native-base';
+import { Text, VStack } from 'native-base';
 import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Strings } from '../../resources/localization/Strings';
@@ -12,10 +12,10 @@ export const ShareConferenceView: FunctionComponent<IProps> = ({ sharingParticip
     // TODO:The sharingParticipant is not supported yet by the iOS side, this is why its may be undefined
     const participantNameView = sharingParticipant && (<Text style={defaultStyle.participantName}>{sharingParticipant?.name} {Strings.isSharing} </Text>);
     return (
-        <View style={defaultStyle.container}>
+        <VStack justifyContent="space-between" h="60%" >
             <ConferenceScreenSharingView />
             {participantNameView}
-        </View>
+        </VStack>
     );
 };
 

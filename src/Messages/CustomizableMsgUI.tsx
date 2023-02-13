@@ -1,11 +1,12 @@
-import { Icon } from 'native-base';
 import React, { ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle, Image, ActivityIndicator } from 'react-native';
 import { ImageHolder, ITyping } from 'react-native-rainbow-module';
-import { Attached, IAttachedFile } from './MessageComponent';
+import { IAttachedFile } from './MessageComponent';
 import fileLogo from '../resources/images/attachedFile.png';
 import { Strings } from './../resources/localization/Strings';
-
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import Icon from 'react-native-vector-icons/Ionicons';
 export interface IStyleSendingExtraView {
     containerStyle: ViewStyle;
     textStyle: TextStyle;
@@ -14,7 +15,13 @@ export interface IStyleSendingExtraView {
 export interface IStyleHeaderView {
     containerStyle: ViewStyle;
     textStyle: TextStyle;
-    iconStyle: TextStyle;
+    iconStyle: any;
+}
+
+export enum Attached {
+    Capture = 'Capture',
+    ImageLibrary = 'ImageLibrary',
+    FilesLibrary = 'FilesLibrary'
 }
 
 export const systemMessageView = (msg: string) => (
@@ -27,12 +34,8 @@ export const sendingExtraView = (title: string, onClose: () => void, style: ISty
     <View style={style.containerStyle}>
         <Text style={style.textStyle}>{title}</Text>
         <Text style={style.msgStyle ?? style.textStyle}>{msg}</Text>
-        {closeIcon(onClose)}
+        <Icon name="md-close-circle" style={defaultInternalStyle.closeIconStyle} onPress={onClose} />
     </View>
-);
-
-const closeIcon = (onClose: () => void) => (
-    <Icon name="md-close-circle" style={defaultInternalStyle.closeIconStyle} onPress={onClose} />
 );
 
 export const contactsIsTypingView = (typingContacts: ITyping[]) => {
@@ -62,7 +65,7 @@ export const selectedAttachedFilesView = (filesToUpload: IAttachedFile[], isLoad
         return (
             <View style={defaultInternalStyle.selectedAttachedFilesContainer} key={file.uri}>
                 {!isLoading && <TouchableOpacity onPress={onCancel(file)} style={defaultInternalStyle.cancelUploadIcon}>
-                    <Icon name="md-close-circle" />
+                    <Icon name="md-close-circle" size={30} color="white" />
                 </TouchableOpacity>}
                 {file.type === Attached.FilesLibrary ? fileAttachedView(file) : imageAttachedView(file)}
                 {isLoading && <ActivityIndicator size="large" color="blue" style={defaultInternalStyle.attachedLoading} />}
@@ -87,9 +90,9 @@ export const messageHeaderView = (icon: ReactNode, style: IStyleHeaderView, msgT
         </View>
     );
 };
-export const sendingMsgTypesIcon = () => (<Icon style={defaultInternalStyle.msgActionStyle} name="exclamation" type="FontAwesome" />);
+export const sendingMsgTypesIcon = () => (<FontAwesomeIcon style={defaultInternalStyle.msgActionStyle} name="exclamation" />);
 
-export const attachIcon = () => (<Icon name="attachment" type="Entypo" style={defaultInternalStyle.msgActionStyle} />);
+export const attachIcon = () => (<EntypoIcon name="attachment" style={defaultInternalStyle.msgActionStyle} />);
 
 const fileAttachedView = (file: IAttachedFile) => {
     const fileName = file.uri.split('/').pop() ?? '';
@@ -151,7 +154,7 @@ const defaultInternalStyle = StyleSheet.create({
     attachedImage: { width: 100, height: 100, marginEnd: 10 },
     systemMessageView: { justifyContent: 'center', alignItems: 'center', margin: 5 },
     systemMessageText: { fontSize: 12, color: '#C0C0C0' },
-    closeIconStyle: { color: 'gray', position: 'absolute', top: -10, right: 0 },
+    closeIconStyle: { color: 'gray', position: 'absolute', top: -10, right: 0, fontSize: 30 },
     filesToUploadContainer: { backgroundColor: '#DCDCDC', minHeight: 40, padding: 10, flexDirection: 'row' },
     deletedMessageView: { padding: 10, borderRadius: 10 },
     deletedMessageText: { color: '#C0C0C0', fontWeight: 'bold', fontSize: 15 },

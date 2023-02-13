@@ -1,15 +1,7 @@
-import {
-    Icon,
-    RnViewStyleProp,
-    Tab,
-    Tabs,
-    Text,
-    Title,
-} from 'native-base';
+import { Button, Text } from 'native-base';
 import {
     eventEmitter,
     EventType,
-    IStyledProps,
     IBubble,
     BubbleParticipants,
     Logger,
@@ -21,33 +13,17 @@ import {
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
-import {
-    Alert,
-    StyleSheet,
-    TextStyle,
-    TouchableHighlight,
-    View,
-    ViewStyle,
-} from 'react-native';
+import { Alert, StyleSheet, useWindowDimensions, View, } from 'react-native';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 
 
 const logger = new Logger('BubbleChatView');
 
-export interface IBubbleChatProps extends IStyledProps<IBubbleChatStyleProps> {
+export interface IBubbleChatProps {
     bubble: IBubble;
-}
-export interface IBubbleChatStyleProps {
-    container: ViewStyle;
-    headerBgColor: ViewStyle;
-    editBubbleView?: ViewStyle;
-    titleStyle?: TextStyle;
-    tabText?: TextStyle;
-    tabBarUnderline?: RnViewStyleProp;
-    addParticipantsIcon?: ViewStyle;
-    startConferenceIcon?: ViewStyle;
-    titleBodyStyle?: ViewStyle
 }
 
 const BubbleMenuOptions = {
@@ -62,10 +38,14 @@ const BubbleMenuOptions = {
 export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     props: IBubbleChatProps
 ) => {
-    const messagesMergedStyle = { ...styles, ...props.style }
-    const [activeTab, setActiveTab] = useState(0);
+
+    const [index, setIndex] = useState(0);
     const [currentBubble, setCurrentBubble] = useState<IBubble>(props.bubble);
     const [currentConferenceCall, setCurrentConferenceCall] = useState<IConference>();
+    const [routes] = useState([
+        { key: 'conversations', title: `${Strings.conversations}` },
+        { key: 'participants', title: `${Strings.participants}` },
+    ]);
 
     useEffect(() => {
         // Listen for bubble change update
@@ -94,8 +74,6 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                 setCurrentConferenceCall(undefined);
             }
         });
-
-
 
         if (currentBubble.hasActiveConference && !currentConferenceCall) {
             bubblesService.getActiveConferenceForBubble(props.bubble.id);
@@ -165,24 +143,20 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
         return options;
     }
     const renderBubbleOption = () => {
-        if (currentBubble.isMyUserModerator && activeTab === 1) {
+        if (currentBubble.isMyUserModerator && index === 1) {
             return (
                 <Icon
                     name="add"
-                    style={messagesMergedStyle.addParticipantsIcon}
-                    onPress={openAddParticipants}
-                />
+                    style={styles.addParticipantsIcon}
+                    size={35}
+                    color='white'
+                    onPress={openAddParticipants} />
             );
         }
         else {
-            return (
-                <DropDownMenu menuItems={renderBubbleMenuOptions()} onSelectItem={selectMenuItem} />
-            );
+            return <DropDownMenu menuItems={renderBubbleMenuOptions()} onSelectItem={selectMenuItem} />
         }
     }
-    const setSelectedTab = (tab: { i: number; ref: Element; from: number }) => {
-        setActiveTab(tab.i);
-    };
 
     const startConferenceAction = () => {
         conferenceService.startConference(currentBubble.id);
@@ -195,89 +169,66 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     const renderJoinConferencePanner = () => {
         return (
             <View style={styles.joinContainer}>
-                <Text>
-                    {Strings.joinMsg}
-                </Text>
-                <TouchableHighlight style={styles.joinButtonView} onPress={joinConferenceAction}>
-                    <Text style={styles.joinText}>{Strings.join}</Text>
-                </TouchableHighlight>
+                <Text> {Strings.joinMsg}</Text>
+                <Button colorScheme="success" onPress={joinConferenceAction}>{Strings.join}</Button>
             </View>
         );
     }
     const renderHeaderCenter = () => {
-        return (
-            <Title style={messagesMergedStyle.titleStyle}>{currentBubble?.name}</Title>
-        );
+        return <Text color="white">{currentBubble?.name}</Text>;
     }
     const renderHeaderRightIcon = () => {
         return (
-            <View style={messagesMergedStyle.editBubbleView}>
-                {(currentBubble.isMyUserModerator && !currentBubble.hasActiveConference) && <Icon name="ios-call-sharp" style={messagesMergedStyle.startConferenceIcon} onPress={startConferenceAction} />}
+            <View style={styles.editBubbleView}>
+                {(currentBubble.isMyUserModerator && !currentBubble.hasActiveConference) && <Icon name="ios-call-sharp" style={styles.startConferenceIcon} onPress={startConferenceAction} />}
                 {renderBubbleOption()}
             </View>
         );
     }
+    const FirstTab = () => (
+        <>
+            <MessageComponent peer={currentBubble} />
+            {(currentBubble.hasActiveConference && !currentConferenceCall?.hasMyUserJoinedConferenceCall) && renderJoinConferencePanner()}
+        </>
+
+    );
+    const SecondTab = () => (
+        <BubbleParticipants bubble={currentBubble} conferenceCall={currentConferenceCall} />
+
+    );
+
+    const renderScene = SceneMap({
+        conversations: FirstTab,
+        participants: SecondTab,
+    });
     return (
-        <View style={messagesMergedStyle.container}>
+        <>
             <Header
-                containerStyle={messagesMergedStyle.headerBgColor}
                 centerComponent={renderHeaderCenter}
                 rightComponent={renderHeaderRightIcon}
+                containerStyle={{ paddingTop: 10, paddingBottom: 10 }}
             />
-            <Tabs
-                initialPage={0}
-                onChangeTab={setSelectedTab}
-                tabBarUnderlineStyle={messagesMergedStyle.tabBarUnderline}
-                locked={true}
-            >
-                <Tab
-                    heading={Strings.conversations}
-                    tabStyle={messagesMergedStyle.headerBgColor}
-                    activeTabStyle={messagesMergedStyle.headerBgColor}
-                    textStyle={messagesMergedStyle.tabText}
-                    activeTextStyle={messagesMergedStyle.titleStyle}
+            <TabView
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                renderTabBar={props => <TabBar {...props} style={{ backgroundColor: '#0086CF' }} />}
+            />
+        </>
 
-                >
-                    <MessageComponent peer={currentBubble} />
-                    {(currentBubble.hasActiveConference && !currentBubble.amIConnected) && renderJoinConferencePanner()}
-                </Tab>
-                <Tab
-                    heading={Strings.participants}
-                    tabStyle={messagesMergedStyle.headerBgColor}
-                    activeTabStyle={messagesMergedStyle.headerBgColor}
-                    textStyle={messagesMergedStyle.tabText}
-                    activeTextStyle={messagesMergedStyle.titleStyle}
-                >
-                    <BubbleParticipants bubble={currentBubble} conferenceCall={currentConferenceCall} />
-                </Tab>
-            </Tabs>
-
-        </View>
     );
 
 
 };
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#ffffff', height: 'auto', },
-    Thumbnail: { width: 30, height: 30, },
-    headerBgColor: { backgroundColor: '#0086CF', },
-    tabBarUnderline: {
-        backgroundColor: '#ffffff',
-    },
     editBubbleView: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
     },
-    titleStyle: {
-        color: 'white'
-    },
-    tabText: { color: '#a5c0f3' },
-    addParticipantsIcon: { fontSize: 35, color: 'white', marginTop: 10 },
+
+    addParticipantsIcon: { marginTop: 10 },
     startConferenceIcon: { fontSize: 30, color: 'white', position: 'relative', right: 30 },
-    titleBodyStyle: { margin: 10 },
-    joinContainer: { flex: 1, flexDirection: 'column', position: 'absolute', top: 0, padding: 12, backgroundColor: '#e3e3e3', borderRadius: 5 },
-    joinButtonView: { backgroundColor: '#4ba42f', alignSelf: 'center', padding: 10, borderRadius: 3 },
-    joinText: { color: 'white' },
+    joinContainer: { flex: 1, flexDirection: 'column', position: 'absolute', top: 0, padding: 18, backgroundColor: '#e3e3e3', borderRadius: 5 },
 });

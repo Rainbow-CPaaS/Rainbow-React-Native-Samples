@@ -5,7 +5,6 @@ import {
     IAction,
     IActionsProvider,
     Contacts,
-    IContactsStyleProps,
     IContactInfoStyleProps
 } from 'react-native-rainbow-module';
 import componentConfig from '../component-config.json'
@@ -13,10 +12,8 @@ import appStyleConfig from '../app-styles.json';
 import { StyleSheet } from 'react-native';
 import { MakeCallButton } from './Calls/MakeCallButton';
 
-const contactsStyle = StyleSheet.create(appStyleConfig.contacts);
 const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const contactsInfoCustomStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
-const customStyle: IContactsStyleProps = { tabBackground: { backgroundColor: contactsStyle.tabBackground.backgroundColor } }
 
 export class ContactsComponent extends Component implements IActionsProvider {
     private actions: IAction[] = [
@@ -44,7 +41,6 @@ export class ContactsComponent extends Component implements IActionsProvider {
                 networkContactsEnabled={componentConfig.Contacts.networkContactsEnabled}
                 localContactsEnabled={componentConfig.Contacts.localContactsEnabled}
                 actionsProvider={this}
-                style={customStyle}
             />
         );
     }

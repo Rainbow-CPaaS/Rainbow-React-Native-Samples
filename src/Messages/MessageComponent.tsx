@@ -40,14 +40,14 @@ import {
   messageHeaderView,
   repliedMessageView,
   deletedMessageView,
-  IStyleHeaderView
+  IStyleHeaderView,
+  Attached
 } from './CustomizableMsgUI';
 import { Actions } from 'react-native-router-flux';
 import DocumentPicker from 'react-native-document-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Strings } from './../resources/localization/Strings';
-import { Icon } from 'native-base';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface IMessageComponentProps {
   peer: IPeer,
@@ -62,11 +62,6 @@ enum IMessageOption {
   Download = 'Download file'
 }
 
-export enum Attached {
-  Capture = 'Capture',
-  ImageLibrary = 'ImageLibrary',
-  FilesLibrary = 'FilesLibrary'
-}
 
 export interface IAttachedFile {
   uri: string;
@@ -80,7 +75,6 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
   const [downloadedFileIds, setDownloadedFileIds] = useState<string[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<any>();
   const [showAttachedLoader, setShowAttachedLoader] = useState<boolean>(false);
-
   useEffect(() => {
     const onMessagesUpdatedEvent = eventEmitter.addListener(
       EventType.MessagesUpdated,
@@ -368,11 +362,11 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
   }
 
   const renderMessageCustomView = (currentMessage: IMessage) => {
-    const filterMessage: IMessage[] = messages.filter(data => data._id === currentMessage.associatedMsgId)
-    const warningIcon = <Icon name="warning" type="Ionicons" style={importantHeaderViewStyle.iconStyle} />;
-    const infoIcon = <Icon name="ios-information-circle-outline" type="Ionicons" style={infoHeaderViewStyle.iconStyle} />;
-    const arrowForwardIcon = () => (<Icon name="ios-arrow-forward-circle-outline" type="Ionicons" />);
 
+    const filterMessage: IMessage[] = messages.filter(data => data._id === currentMessage.associatedMsgId)
+    const warningIcon = <Icon name="warning" color="#c85c2c" size={25} />;
+    const infoIcon = <Icon name="ios-information-circle-outline" size={25} style={infoHeaderViewStyle.iconStyle} />;
+    const arrowForwardIcon = <Icon name="ios-arrow-forward-circle-outline" size={25} />;
     return (
       <>
         {currentMessage.urgency === IUrgencyType.MEDIUM ? messageHeaderView(warningIcon, importantHeaderViewStyle, Strings.Important) : null}
@@ -449,7 +443,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
         containerStyle={{ left: { borderRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
         containerToNextStyle={{ left: { borderTopLeftRadius: 20, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
         containerToPreviousStyle={{ left: { borderTopLeftRadius: 20, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
-        bottomContainerStyle={{ left: { backgroundColor: '#A569BD', borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }, right: { backgroundColor: 'green', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
+        bottomContainerStyle={{ left: { backgroundColor: '#A569BD', borderTopRightRadius: 40, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { backgroundColor: 'green', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
       />
     )
   }
@@ -464,10 +458,10 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       renderChatActions={renderChatActions}
       renderMessageCustomView={renderMessageCustomView}
       renderMessageImage={renderMessageFileImage}
-      // dateCustomStyle={dateCustomStyle} // to custom the message time text style
-      // renderCustomTime={renderCustomMessageTime} // to custom the system message date
-      // renderMessageText={renderCustomMessageText} // custom the text style and text background inside the message container
-      renderCustomMessageContainer={renderCustomMessageContainer}
+    // dateCustomStyle={dateCustomStyle} // to custom the message time text style
+    // renderCustomTime={renderCustomMessageTime} // to custom the system message date
+    // renderMessageText={renderCustomMessageText} // custom the text style and text background inside the message container
+    // renderCustomMessageContainer={renderCustomMessageContainer}
     // renderSendButton={()=><Icon name='send' />}
     />
   );

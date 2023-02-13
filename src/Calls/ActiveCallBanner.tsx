@@ -1,13 +1,5 @@
 import React, { FunctionComponent, useEffect, useState, } from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TextStyle,
-    TouchableHighlight,
-    ViewStyle,
-} from 'react-native';
-
+import { SafeAreaView, StyleSheet, Text, TextStyle, TouchableHighlight, ViewStyle, } from 'react-native';
 import { Strings } from '../resources/localization/Strings';
 import { eventEmitter, EventType, CallState, Logger, currentCallService, ICall, Timer, IConference, IP2PCall } from 'react-native-rainbow-module';
 
@@ -15,8 +7,6 @@ interface IProps {
     style?: ViewStyle;
     textStyle?: TextStyle;
 }
-
-
 
 const logger = new Logger('ActiveCallBanner');
 

@@ -1,0 +1,72 @@
+diff --git a/node_modules/react-native-router-flux/src/Router.js b/node_modules/react-native-router-flux/src/Router.js
+index 6f595e4..5037e97 100644
+--- a/node_modules/react-native-router-flux/src/Router.js
++++ b/node_modules/react-native-router-flux/src/Router.js
+@@ -1,5 +1,6 @@
+ import React from 'react';
+-import { ViewPropTypes, BackHandler, Linking } from 'react-native';
++import { BackHandler, Linking } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+ import PropTypes from 'prop-types';
+ import NavigationStore from './Store';
+ import defaultStore from './defaultStore';
+@@ -27,12 +28,12 @@ class App extends React.Component {
+     // If the app was "woken up" by an external route.
+     Linking.getInitialURL().then(url => this.parseDeepURL(url));
+     // Add an event listener for further deep linking.
+-    Linking.addEventListener('url', this.handleDeepURL);
++    // Linking.removeSubscription('url', this.handleDeepURL);
+   }
+ 
+   componentWillUnmount() {
+     BackHandler.removeEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
+-    Linking.removeEventListener('url', this.handleDeepURL);
++    //  Linking.removeSubscription('url', this.handleDeepURL);
+   }
+ 
+   onBackPress = () => this.props.navigationStore.pop();
+diff --git a/node_modules/react-native-router-flux/src/Store.js b/node_modules/react-native-router-flux/src/Store.js
+index 82eed18..956e5c1 100644
+--- a/node_modules/react-native-router-flux/src/Store.js
++++ b/node_modules/react-native-router-flux/src/Store.js
+@@ -188,7 +188,7 @@ function createNavigationOptions(params) {
+       ...screenProps,
+     };
+     const res = {
+-      animationEnabled: !(type === ActionConst.REPLACE || type === 'replace'  || type === ActionConst.RESET || type === 'reset'),
++      animationEnabled: !(type === ActionConst.REPLACE || type === 'replace' || type === ActionConst.RESET || type === 'reset'),
+       ...props,
+       cardStyle: navigationParams.cardStyle || cardStyle,
+       headerBackImage: navigationParams.backButtonImage || backButtonImage,
+@@ -473,8 +473,8 @@ function uniteParams(routeName, params) {
+   return res;
+ }
+ 
+-const defaultSuccess = () => {};
+-const defaultFailure = () => {};
++const defaultSuccess = () => { };
++const defaultFailure = () => { };
+ 
+ export default class NavigationStore {
+   getStateForAction = null;
+@@ -764,8 +764,7 @@ export default class NavigationStore {
+           'actions',
+           'props',
+           'type',
+-          `return function ${
+-            key.replace(/\W/g, '_') // eslint-disable-line no-new-func
++          `return function ${key.replace(/\W/g, '_') // eslint-disable-line no-new-func
+           }(params){ actions.execute(type, '${key}', props, params)}`,
+         )(this, { error: '', ...commonProps, ...props }, type);
+       }
+@@ -864,9 +863,7 @@ export default class NavigationStore {
+       mode,
+       initialRouteParams,
+       initialRouteName,
+-      ...commonProps,
+-      transitionConfig,
+-      navigationOptions: createNavigationOptions(commonProps),
++      navigationOptions: createNavigationOptions(commonProps, transitionConfig),
+     });
+   };
+ 

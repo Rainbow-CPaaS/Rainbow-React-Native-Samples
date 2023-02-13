@@ -22,13 +22,14 @@ build/
 !default.perspectivev3
 xcuserdata
 *.xccheckout
+ios/.xcode.env.local
 *.moved-aside
 DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
 project.xcworkspace
-
+*.hprof
 # Android/IJ
 #
 .idea
@@ -36,9 +37,14 @@ project.xcworkspace
 local.properties
 android.iml
 
-# Cocoapods
-#
-ios/Pods
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+
+# Ruby / CocoaPods
+/ios/Pods/
+/vendor/bundle/
 
 # node.js
 #

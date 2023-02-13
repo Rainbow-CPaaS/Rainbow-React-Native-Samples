@@ -1,8 +1,7 @@
-/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon, InvitationTabIcon, Header } from 'react-native-rainbow-module';
-import { Button, Container, Content, Footer, FooterTab, Icon, Text } from 'native-base';
+import { Text, HStack, Box, Center, Button, Pressable } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
 import { CallLogComponent } from './CallLogComponent';
@@ -11,6 +10,9 @@ import { BubblesComponent } from './Bubbles/BubblesComponent'
 import { ConversationsComponent } from './Conversations/ConversationsComponent';
 import { SearchComponent } from './SearchComponent'
 import { FunctionComponent } from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+
 
 
 const logger = new Logger('Home');
@@ -20,15 +22,14 @@ interface IProps extends IBackButtonHandlerProps {
 export const Home: FunctionComponent<IProps> = ({
 	registerBackButtonHandler
 }) => {
-	const [selectedTab, setSelectedTab] = React.useState<string>('contacts');
+	const [selectedTab, setSelectedTab] = React.useState<number>(1);
 	const [isSearchMode, setIsSearchMode] = React.useState<boolean>(false);
 	const [searchQuery, setSearchQuery] = React.useState<string>('');
+
 	React.useEffect(() => {
 		// request al the permission the App is needed
 		const allAppPermissions = permissionsService.appPermissions;
 		permissionsService.checkMultiPermissionRequest(allAppPermissions).then((result) => {
-			// Do what ever you want
-
 			permissionsService.requestIOSNotificationsPermission();
 			logger.info(`checkMultiPermissionRequest ${result}`)
 
@@ -36,7 +37,6 @@ export const Home: FunctionComponent<IProps> = ({
 		if (Platform.OS === 'android') {
 			startUpService.getAutoStartPermissions();
 		}
-		// startUpService.getLocalContacts();
 		startUpService.getRosterContacts();
 	}, [])
 	const openMenu = () => {
@@ -44,29 +44,22 @@ export const Home: FunctionComponent<IProps> = ({
 	}
 	const renderTab = (): Element => {
 		switch (selectedTab) {
-			case 'contacts':
+			case 1:
 				return <ContactsComponent />
-			case 'invitations':
-				return <InvitationsComponent />
-			case 'callLogs':
-				return <CallLogComponent />
-			case 'bubbles':
-				return <BubblesComponent />
-			case 'conversations':
+			case 2:
 				return <ConversationsComponent />
+			case 3:
+				return <BubblesComponent />
+			case 4:
+				return <InvitationsComponent />
+			case 5:
+				return <CallLogComponent />
+
 			default:
-				return (
-					<Content>
-						<Text>No Data Found</Text>
-					</Content>
-				)
+				return <Text>No Data Found</Text>
 		}
-
 	}
-	const switchTab = (tabName: string) => () => {
-		setSelectedTab(tabName);
 
-	}
 	const updateHomeSearchState = (value: boolean, query: string) => {
 		setIsSearchMode(value);
 		setSearchQuery(query);
@@ -106,48 +99,39 @@ export const Home: FunctionComponent<IProps> = ({
 		}
 	}
 
-	const renderButtonTab = (tabName: string, iconName: string) => {
+	const renderButtonTab = (tabName: string, iconName: string, tabNum: number) => {
 		return (
-			<Button vertical={true} onPress={switchTab(tabName)}  >
-				{renderPendingTabCounter(tabName)}
-				<Icon name={iconName} style={selectedTab === tabName ? styles.selectedTabIcon : styles.tabIcon} />
-			</Button>
+			<Pressable opacity={selectedTab === tabNum ? 1 : 0.5} py="2" flex={1} onPress={() => setSelectedTab(tabNum)}>
+				<Center color="green.100">
+					{renderPendingTabCounter(tabName)}
+					<Icon name={iconName} size={30} color="white" />
+				</Center>
+			</Pressable>
+
+
 		);
 	};
-
 	const searchComponent = <SearchComponent />;
 	const renderHeaderCenter = () => {
 		return <SearchBarInput onSearchUpdated={updateHomeSearchState} onCancelSearch={cancelSearch} registerBackButtonHandler={registerBackButtonHandler} />
 	}
 	const renderHeaderLeftIcon = () => {
-		return !isSearchMode && (<Icon name="ios-menu" style={styles.menuIcon} onPress={openMenu} />);
+		return !isSearchMode && (<Icon name="menu" size={35} color="white" onPress={openMenu} />);
 	}
 	return (
 		<React.Fragment>
-			<Container>
-				<Header
-					leftComponent={renderHeaderLeftIcon}
-					centerComponent={renderHeaderCenter}
-					containerStyle={styles.header}
-					leftContainerStyle={{ alignSelf: 'flex-start', marginRight: 5, flexGrow: 2 }}
-					rightContainerStyle={{ flexGrow: 0 }}
-					centerContainerStyle={{ flexGrow: 10 }}
-
-				/>
-
-				{isSearchMode && searchComponent}
-				{!isSearchMode && renderTab()}
-				{!isSearchMode && (<Footer>
-					<FooterTab style={styles.tabBackground}>
-						{renderButtonTab('contacts', 'person')}
-						{renderButtonTab('conversations', 'ios-chatbox')}
-						{renderButtonTab('bubbles', 'ios-chatbubbles')}
-						{renderButtonTab('invitations', 'person-add-sharp')}
-						{renderButtonTab('callLogs', 'ios-time')}
-					</FooterTab>
-				</Footer>)
-				}
-			</Container>
+			<Header leftComponent={renderHeaderLeftIcon} centerComponent={renderHeaderCenter} containerStyle={{ paddingTop: 10, paddingBottom: 10 }} />
+			{isSearchMode && searchComponent}
+			{!isSearchMode && renderTab()}
+			<Box bg="white" safeAreaTop width="100%" alignSelf="flex-end" >
+				<HStack bg="lightBlue.600" alignItems="center" alignSelf="flex-end" safeAreaBottom shadow={6} >
+					{renderButtonTab('contacts', 'person', 1)}
+					{renderButtonTab('conversations', 'ios-chatbox', 2)}
+					{renderButtonTab('bubbles', 'md-chatbubbles', 3)}
+					{renderButtonTab('invitations', 'person-add-sharp', 4)}
+					{renderButtonTab('callLogs', 'ios-time', 5)}
+				</HStack>
+			</Box>
 			<BackButtonHandler
 				registerBackButtonHandler={registerBackButtonHandler}
 				onBackButtonPressed={onBackButtonPressed}
