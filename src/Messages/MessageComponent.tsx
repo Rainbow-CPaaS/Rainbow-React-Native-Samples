@@ -40,7 +40,8 @@ import {
   messageHeaderView,
   repliedMessageView,
   deletedMessageView,
-  IStyleHeaderView
+  IStyleHeaderView,
+  Attached
 } from './CustomizableMsgUI';
 import { Actions } from 'react-native-router-flux';
 import DocumentPicker from 'react-native-document-picker';
@@ -61,11 +62,6 @@ enum IMessageOption {
   Download = 'Download file'
 }
 
-export enum Attached {
-  Capture = 'Capture',
-  ImageLibrary = 'ImageLibrary',
-  FilesLibrary = 'FilesLibrary'
-}
 
 export interface IAttachedFile {
   uri: string;

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle, Image, ActivityIndicator } from 'react-native';
 import { ImageHolder, ITyping } from 'react-native-rainbow-module';
-import { Attached, IAttachedFile } from './MessageComponent';
+import { IAttachedFile } from './MessageComponent';
 import fileLogo from '../resources/images/attachedFile.png';
 import { Strings } from './../resources/localization/Strings';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
@@ -16,6 +16,12 @@ export interface IStyleHeaderView {
     containerStyle: ViewStyle;
     textStyle: TextStyle;
     iconStyle: any;
+}
+
+export enum Attached {
+    Capture = 'Capture',
+    ImageLibrary = 'ImageLibrary',
+    FilesLibrary = 'FilesLibrary'
 }
 
 export const systemMessageView = (msg: string) => (
