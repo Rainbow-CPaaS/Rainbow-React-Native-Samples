@@ -5,6 +5,35 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.4.0] - 2023-2-13
+
+---
+**API Changes:**
+
+- Add new param `mainActivity.class` to `RainbowPackage.setApplication()` method in MainApplication class.
+- Remove `intent` param form `NotificationHandler` constructor.
+
+**Fixes:**
+
+- Fix invalid date issue in bubble and P2P conversations.
+- Fix typo error in authentication result event name in ios.
+- Fix issue that notification is not clickable.
+- Fix keyboard closed when tabbing on TextInput on login screen issue.
+- Fix local video gets merged with the other video issue.
+- Fix mute/unMute issue pn peer tp peer webrtc calls.
+- Fix issue add/remove button is not synched with the invite/remove contact result.
+- Fix user presence is not consistent when user changes his presence from web.
+- Fix add contact to my network button is not working on conversation chat view.
+
+**Other Changes:**
+
+- Update React-native version to 0.70.0 and solve the break changes[React Native Upgrade Helper](https://react-native-community.github.io/upgrade-helper/?from=0.65.0&to=0.70.0)
+
+- Add patch file for [react-native-router-flux+4.3.1.patch](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/tree/main/patches) to fix incompatibility issue with the new RN version :
+- Update node, npm and metro version.
+- update native-base version to 3.4.19.
+
+
 ## [1.3.3] - 2022-12-14
 
 ---
