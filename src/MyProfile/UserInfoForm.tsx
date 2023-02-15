@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
-import { Box, Divider, HStack, Pressable, Text } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { CheckIcon, HStack, Input, Pressable, Text, VStack } from 'native-base';
 import { userProfileService, IUpdateUserQuery, IUser, eventEmitter, EventType, Header, AvatarPresenceBadge } from 'react-native-rainbow-module';
 import { Actions } from 'react-native-router-flux';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Strings } from '../resources/localization/Strings';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
 export interface IProps {
     connectedUser: IUser
 }
-
 export const UserInfoFrom: React.FunctionComponent<IProps> = ({ connectedUser }) => {
     const [user, setUser] = useState<IUser>(connectedUser);
     const { contact, isAllowedToModifyProfileInfo } = user;
@@ -67,59 +64,45 @@ export const UserInfoFrom: React.FunctionComponent<IProps> = ({ connectedUser })
         return <Text color="white" fontSize="md"> {Strings.updateMyInfo}</Text>;
     }
     const renderRightHeader = () => {
-        return (<Icon
-            name="done"
-            style={isAllowedToModifyProfileInfo ? defaultStyle.saveIcon : defaultStyle.disabledSaveIcon} onPress={updateUserInfo} />);
+        if (isAllowedToModifyProfileInfo) {
+            return <CheckIcon color="#ffffff" onPress={updateUserInfo} />
+        } else {
+            return <CheckIcon color="#AEAEAE" size="20" />
+        }
+
     }
     return (
         <>
             <Header containerStyle={defaultStyle.headerBgColor} rightComponent={renderRightHeader} centerComponent={renderCenterHeader} />
-
-            <Box borderBottomWidth="0" pl={["0", "4"]} pr={["0", "5"]} py="2" style={style} >
-                <Pressable onPress={updateUserAvatar} overflow="hidden" >
-                    <HStack px={2} width="100%" justifyContent="space-between">
-                        <AvatarPresenceBadge peer={contact} presence={contact.presence} />
-                        <Text fontSize="sm">{Strings.avatar}</Text>
-                    </HStack >
+            <VStack justifyItems="center" my={10} space={10}>
+                <Pressable onPress={updateUserAvatar} ml={15}>
+                    <AvatarPresenceBadge peer={contact} presence={contact.presence} />
                 </Pressable>
-                <Divider mx="75" my="2" bg="muted.200" thickness="1" />
-
-                <HStack px={2} width="100%" justifyContent="space-between">
+                <HStack px={2} justifyContent="space-between">
                     <Text fontSize="sm">{Strings.firstName}</Text>
-                    <TextInput
-                        style={isAllowedToModifyProfileInfo ? defaultStyle.textInputStyle : defaultStyle.disabledTextInputStyle}
+                    <Input
                         value={firstName}
+                        isDisabled={isAllowedToModifyProfileInfo ? false : true}
                         onChangeText={onFirstNameChanged}
-                        editable={isAllowedToModifyProfileInfo} />
-                    <Divider mx="75" my="2" bg="muted.200" thickness="1" />
+                        editable={isAllowedToModifyProfileInfo}
+                        width="75%" />
                 </HStack >
-                <HStack px={2} width="100%" justifyContent="space-between">
+                <HStack px={2} justifyContent="space-between">
                     <Text fontSize="sm"> {Strings.lastName}    </Text>
-                    <TextInput
-                        style={isAllowedToModifyProfileInfo ? defaultStyle.textInputStyle : defaultStyle.disabledTextInputStyle}
+                    <Input
+                        isDisabled={isAllowedToModifyProfileInfo ? false : true}
                         value={lastName}
                         onChangeText={onLastNameChanged}
-                        editable={isAllowedToModifyProfileInfo} />
-                    <Divider mx="75" my="2" bg="muted.200" thickness="1" />
+                        editable={isAllowedToModifyProfileInfo}
+                        width="75%" />
                 </HStack >
-
-            </Box>
+            </VStack>
         </>
     );
 }
 
 const defaultStyle = StyleSheet.create({
-    saveIcon: {
-        color: '#ffffff',
-        fontSize: 40
-    },
-    disabledSaveIcon: {
-        color: '#AEAEAE',
-        fontSize: 40,
-    },
     headerBgColor: {
         backgroundColor: '#0086CF'
     },
-    textInputStyle: { width: '100%', padding: 5, fontSize: 18, color: '#000000', },
-    disabledTextInputStyle: { width: '100%', padding: 5, fontSize: 18, color: '#979797', }
 });
