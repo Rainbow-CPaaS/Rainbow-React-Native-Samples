@@ -9,18 +9,18 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 ---
 **API Changes:**
 
-- Add a new setter/getter `getChannelId()` and `setChannelId(String mChannelId)` method for notification channel ID in notification handler class.
+- Add a new setter/getter `getChannelId()` and `setChannelId(String mChannelId)` method for notification channel ID in the notification handler class.
 
 
 **Fixes:**
-- Clear notification counter on app icon when read the message from conversation.
-- Fix null contact object returned when you receive a first message from a non roster contact.
+- Clear the notification counter on the app icon when reading the message from the conversation.
+- Fix a null contact object returned when you receive the first message from a non-roster contact.
 
 **Other Changes:**
 - Customize notification channel to allow users to control and manage the notification they receive from the RN app
-  by create a custom notification channel in their app MainActivity and set the channel_id :
-    - Make sure to create your customize notification channel with your app specified properties : see method [createNotificationChannel](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/android/app/src/main/java/com/example/reactnativerainbowmodule/MainActivity.java)
-    - We have add new method to `setChannelId` to **notificationHandler** class so you can set your app channel ID.
+  by creating a custom notification channel in their app MainActivity and setting the channel_id :
+    - Make sure to create your customize notification channel with your app-specified properties: see method [createNotificationChannel](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/android/app/src/main/java/com/example/reactnativerainbowmodule/MainActivity.java)
+    - We have added a new method to `setChannelId` to **notificationHandler** class so you can set your app channel ID.
     - Also make sure to set your channel ID in your `FirebaseService` class for your push notification.
 - Upgrade Rainbow Android SDK to 2.26.0.
 - Return the Licenses for the connected user as an array [licenses: string[]](https://developers.openrainbow.com/doc/sdk/reactnative/api/IUser), the ["Essential", "Enterprise" and any other license the user might subscribe to ].
