@@ -20,8 +20,6 @@ const AppMenuView: React.FunctionComponent = () => {
     useEffect(() => {
 
         userProfileService.getConnectedUser();
-        console.log(connectedUser?.servicePlane)
-
         const connectedUserUpdated = eventEmitter.addListener(
             EventType.ConnectedUserUpdated,
             (eventData: IUser) => {
@@ -30,9 +28,7 @@ const AppMenuView: React.FunctionComponent = () => {
                     setConnectedUser(eventData);
                 }
             }
-
         );
-
         return () => {
             connectedUserUpdated.remove();
         }

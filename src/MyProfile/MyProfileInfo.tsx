@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Container, HStack, VStack, Center, Heading } from 'native-base';
-import { FlatList, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, HStack, VStack, Heading } from 'native-base';
+import { ImageBackground, StyleSheet } from 'react-native';
 import { IUser, EmailType, IEmail, IPhoneNumber, PhoneType, eventEmitter, EventType, Header, AvatarPresenceBadge } from 'react-native-rainbow-module';
 import { Actions } from 'react-native-router-flux';
 import { Strings } from '../resources/localization/Strings';
@@ -97,7 +97,7 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
                 {contact.phoneNumbers.map((item: IPhoneNumber) => renderPhoneItem(item))}
                 <HStack alignItems="center" px={5} >
                     <Text fontSize="md" fontWeight="bold" color="lightBlue.600">{Strings.servicePlane} : </Text>
-                    {licenses.map((item: string) => <Text fontSize="xs" fontWeight="500">{item} , </Text>)}
+                    {licenses.map((item: string) => <Text fontSize="xs" fontWeight="500" key={item}>{item} , </Text>)}
 
                 </HStack>
             </VStack>

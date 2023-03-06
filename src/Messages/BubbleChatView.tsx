@@ -13,7 +13,7 @@ import {
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { Alert, StyleSheet, useWindowDimensions, View, } from 'react-native';
+import { Alert, StyleSheet, View, } from 'react-native';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
