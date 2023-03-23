@@ -28,7 +28,7 @@ public class MainActivity extends ReactActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    super.onCreate(null);
     createNotificationChannel();
     NotificationHandler notificationHandler = new NotificationHandler(this);
     notificationHandler.setChannelId(CHANNEL_ID);
