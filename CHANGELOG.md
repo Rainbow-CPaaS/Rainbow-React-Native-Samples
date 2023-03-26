@@ -4,6 +4,12 @@
 
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
+
+## [1.5.1] - 2023-3-23
+
+---
+**Fixes:**
+- Fix app crashing when ends an active conference call
 ## [1.5.0] - 2023-3-6
 
 ---
