@@ -16,8 +16,8 @@ import {
   MessageTextProps,
   CustomMessageTime,
   MessageTimeProps,
-  CustomMessageContainer,
-  CustomMessageContainerProps
+  CustomBubbleContainer,
+  CustomBubbleProps
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
@@ -40,14 +40,15 @@ import {
   messageHeaderView,
   repliedMessageView,
   deletedMessageView,
-  IStyleHeaderView,
-  Attached
+  IStyleHeaderView
 } from './CustomizableMsgUI';
 import { Actions } from 'react-native-router-flux';
 import DocumentPicker from 'react-native-document-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Strings } from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Text, VStack } from 'native-base';
+
 
 interface IMessageComponentProps {
   peer: IPeer,
@@ -62,6 +63,11 @@ enum IMessageOption {
   Download = 'Download file'
 }
 
+export enum Attached {
+  Capture = 'Capture',
+  ImageLibrary = 'ImageLibrary',
+  FilesLibrary = 'FilesLibrary'
+}
 
 export interface IAttachedFile {
   uri: string;
@@ -210,7 +216,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     );
   }
 
-  const renderChatActions = () => {
+  const renderActions = () => {
     return <React.Fragment>
       <ChatActions
         containerStyle={defaultStyle.msgTypeActionContainerStyle}
@@ -423,7 +429,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     )
   }
 
-  const renderCustomMessageContainer = (messageProps: CustomMessageContainerProps<IMessage>) => {
+  const renderBubbleContainer = (Props: CustomBubbleProps<IMessage>) => {
     /**
      * wrapperStyle: style of the whole message container(including the bottom time container)
      * containerStyle: message container style, top left and right(without bottom time container)
@@ -437,16 +443,33 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
      *          overrides the more general style
      */
     return (
-      <CustomMessageContainer
-        {...messageProps}
+      <VStack >
+      <Text style={{ fontSize: 12,marginLeft: 10,fontWeight: 'bold'  }}>{renderUsername(Props)} </Text>
+        <CustomBubbleContainer
+        {...Props}
         wrapperStyle={{ left: { backgroundColor: '#497EF9' }, right: { backgroundColor: '#B09CF9' } }}
         containerStyle={{ left: { borderRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
         containerToNextStyle={{ left: { borderTopLeftRadius: 20, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
         containerToPreviousStyle={{ left: { borderTopLeftRadius: 20, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
         bottomContainerStyle={{ left: { backgroundColor: '#A569BD', borderTopRightRadius: 40, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }, right: { backgroundColor: 'green', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 } }}
       />
+      </VStack>
     )
   }
+  const renderUsername = (Props: CustomBubbleProps<IMessage>) =>{
+    const user = Props.previousMessage?.user
+    var sameUserInPrevMessage = false;
+    const isCurrentUserMessage = Props.currentMessage?.user._id === Props.user?._id;
+  if (user && !isCurrentUserMessage  ) {
+    if (Props.previousMessage?.user !== undefined && Props.previousMessage?.user) {
+      Props.previousMessage?.user._id === Props.currentMessage?.user._id ? sameUserInPrevMessage = true : sameUserInPrevMessage = false;
+      return !sameUserInPrevMessage && Props.previousMessage?.user.name;
+    }
+  } 
+  return null;
+  
+}
+
   return (
     <Messages
       conversation={props.peer}
@@ -455,13 +478,13 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       onMessageLongPressed={onLongPress}
       renderSystemMessage={renderSystemMessage}
       renderSendingExtraView={renderSendingExtraView}
-      renderChatActions={renderChatActions}
+      renderChatActions={renderActions}
       renderMessageCustomView={renderMessageCustomView}
       renderMessageImage={renderMessageFileImage}
     // dateCustomStyle={dateCustomStyle} // to custom the message time text style
     // renderCustomTime={renderCustomMessageTime} // to custom the system message date
     // renderMessageText={renderCustomMessageText} // custom the text style and text background inside the message container
-    // renderCustomMessageContainer={renderCustomMessageContainer}
+    // renderBubbleContainer={renderBubbleContainer}
     // renderSendButton={()=><Icon name='send' />}
     />
   );
