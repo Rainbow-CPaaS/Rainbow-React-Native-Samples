@@ -484,7 +484,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     // dateCustomStyle={dateCustomStyle} // to custom the message time text style
     // renderCustomTime={renderCustomMessageTime} // to custom the system message date
     // renderMessageText={renderCustomMessageText} // custom the text style and text background inside the message container
-    // renderBubbleContainer={renderBubbleContainer}
+    renderBubbleContainer={renderBubbleContainer}
     // renderSendButton={()=><Icon name='send' />}
     />
   );
