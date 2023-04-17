@@ -5,11 +5,29 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.5.2] - 2023-4-17
+---
+
+**API Changes:**
+-  Add a new param to `Class mainActivity` to **onPushMessageReceived** in **notificationHandler**  so you can pass your app mainActivity class to the RN library witch used for handling the push notification.
+
+**Fixes:**
+- fix wrong date format in messages rendered by gifted-chat lib.
+- fix chat notification from bubble is not showing when the app is killed.
+- fix issue that when receiving a chat message when app is killed, the app wil start silently.
+
+**Other Changes:**
+- update `react-native-gifted-chat` to the latest 2.1.0 
+- Update the `Android SDK` to version 2.29.0.
+- Handle push call notification when the app is fully stopped.
+- View the contact name who is sending a message in the bubble on top of the message container, check method [renderBubbleContainer](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/blob/main/src/Messages/MessageComponent.tsx)
 ## [1.5.1] - 2023-3-23
 
 ---
 **Fixes:**
+
 - Fix app crashing when ends an active conference call
+
 ## [1.5.0] - 2023-3-6
 
 ---

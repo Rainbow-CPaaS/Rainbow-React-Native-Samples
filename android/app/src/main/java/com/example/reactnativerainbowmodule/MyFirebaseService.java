@@ -30,7 +30,7 @@ public class MyFirebaseService  extends FirebaseMessagingService{
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         Log.i("MyFirebaseService", "onMessageReceived: "+remoteMessage);
-        notificationHandler.onPushMessageReceived(remoteMessage,this.getApplication());
+        notificationHandler.onPushMessageReceived(remoteMessage,this.getApplication(),MainActivity.class);
         super.onMessageReceived(remoteMessage);
     }
 }

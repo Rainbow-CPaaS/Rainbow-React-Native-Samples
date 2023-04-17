@@ -20,7 +20,8 @@ import {
     ImageHolder,
     IImageHolderStyle,
     Timer,
-    Header
+    Header,
+    currentCallService
 } from 'react-native-rainbow-module';
 
 const logger = new Logger('CallContainer');
@@ -79,6 +80,8 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
             break;
     }
     useEffect(() => {
+        logger.info(`p2p call ${p2pCall}`)
+        currentCallService.getCurrentCall();
         Dimensions.addEventListener('change', () => {
             const orientationChanges = isPortrait() ? 'portrait' : 'landscape';
             setOrientation(orientationChanges);
