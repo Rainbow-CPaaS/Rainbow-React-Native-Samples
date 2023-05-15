@@ -7575,10 +7575,10 @@ react-native-parsed-text@0.0.22:
 react-native-permissions@^3.6.1:
   version "3.6.1"
 
-react-native-rainbow-module@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.npmjs.org/react-native-rainbow-module/-/react-native-rainbow-module-1.5.2.tgz"
-  integrity sha512-m84J/pkcx0qzYQFp8JDt/fpgZ+DsPpNP8OEwHm6JeSsc+Bi/s6OL2PRgqOCvsY5TFMDWScdlSn4tmn7cmNUeDw==
+react-native-rainbow-module@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/react-native-rainbow-module/-/react-native-rainbow-module-1.6.0.tgz"
+  integrity sha512-T0ZQbhcRsPZ3cbm+h+Mmhxi/WsZ4U/a3/qYtv71w9QDllwhYBKcZGHv66QANxjJ93Doosa97C0wxR47U6IYekw==
   dependencies:
     "@react-native-async-storage/async-storage" "^1.15.9"
     "@react-native-community/masked-view" "^0.1.11"

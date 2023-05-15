@@ -158,7 +158,7 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
                 <VStack bg="#005b96" minH="100%" justifyContent="space-evenly">
                     <P2PCallView call={p2pCall} renderActiveCallView={renderActiveCallView} />
                     <HStack justifyContent="space-between" alignItems="center" p="5"   >
-                        <P2PCallActions call={p2pCall} renderIncomingP2PCallActions={renderIncomingCallActions} />
+                        <P2PCallActions call={p2pCall} renderIncomingP2PCallActions={renderIncomingCallActions} style={{actionsContainer : {backgroundColor: 'gray'}}} />
                     </HStack>
                 </VStack>
 
