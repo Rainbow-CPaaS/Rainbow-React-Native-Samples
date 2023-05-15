@@ -5,7 +5,7 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
-## [1.6.0] - 2023-5-14
+## [1.6.0] - 2023-5-15
 ---
 
 **API Changes:**
