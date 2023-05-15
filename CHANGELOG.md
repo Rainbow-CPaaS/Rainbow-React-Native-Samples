@@ -5,6 +5,80 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.6.0] - 2023-5-14
+---
+
+**API Changes:**
+
+  ApplicationInfromation
+  - new property `onCancelPress?: () => void` to allow user customize the modal **Cancel** button.
+  -  new property `onOkPress?: () => void` to allow user customize the modal **OK** button.
+  -  new property `modalContent?: React.ReactNode` to allow user customize the modal content.
+  -  new property `modalOptions?: React.ReactNode` to allow user add new modal action buttons.
+
+  ContactCardView
+  - new property `leftItems?: React.ReactNode` to allow user customize the left section on contact card.
+
+  ConfernceVideoView
+  - new property `renderActionButtons?: () => React.ReactNode` to allow user to add any action buttons to the conference 
+    video view.
+
+  ParticipantsView
+  - new property `renderParticipantProfileView?: () => React.ReactNode` to allow user decide on how he want to render the conference attendees profile picture view.
+
+  P2PCallActions
+  - new property `style?: {actionsContainer: ViewStyle}`to allow user pass hos own style for the call buttons container.
+
+  P2PCallView
+  - Wrap RTCView for videos streams in a View component 
+
+  PariticipantsListView
+  - new property `renderParticipantContainer?:(participant: IParticipant ) => React.ReactNode` to allow user to replace the default contact card view with his own view for render a contacts list .
+
+  ForwardedMessageView
+  - new property `messageTabStyle?: ViewStyle` to allow user to customize style of the message view tab button.
+  - new property `participantsTabStyle?: ViewStyle` to allow user customize style of participant iew tab button.
+  - new property `customView?: React.ReactNode` to allow user pass hiw own customize view for the whole forward
+    message component
+
+  PresenceList
+  - new property `presenceItemView?:() => React.ReactNode` to allow decide how he want to render the presence icon view.
+
+  PresenceView
+  - new property `customView?: React.ReactNode;` to allow the user to pass his own custom view for presence icon(as an image, icon or button ..ets).
+
+  SearchBar
+  - new property `rightElement?: React.ReactElement`to allow user to add any component to the right section of the search bar (like a cancel button ).
+  - new property `leftIcon?: React.ReactElement` to allow user to customize the left Icon inside search bar.
+  - new property `rightIcon?: React.ReactElement`to allow user to customize the right Icon inside search bar.
+
+**Fixes:**
+- Fix missed Logs attachment when send logs via email.
+
+**Other Changes:**
+
+FileProvider Setup
+  - To fix the missed logs file issue we used the **FileProvider** for secure file sharing and accessing files with content URIs.
+  - Set up the FileProvider by adding the following code to the AndroidManifest.xml file:
+  
+    ```xml
+  <application>
+  ...
+  <provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="${applicationId}.fileprovider"
+    android:grantUriPermissions="true"
+    android:exported="false">
+    <meta-data
+      android:name="android.support.FILE_PROVIDER_PATHS"
+      android:resource="@xml/file_paths" />
+  </provider>
+  ...
+</application>
+ ```
+
+  - Create a new file called file_paths.xml in the res/xml directory and added the necessary configuration.check [provider_paths.xml](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/tree/main/android/app/src/main/res/xml/provider_paths.xml)
+ 
 ## [1.5.2] - 2023-4-17
 ---
 
