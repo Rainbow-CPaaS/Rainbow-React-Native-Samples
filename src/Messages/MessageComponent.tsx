@@ -456,19 +456,21 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       </VStack>
     )
   }
-  const renderUsername = (Props: CustomBubbleProps<IMessage>) =>{
-    const user = Props.previousMessage?.user
-    var sameUserInPrevMessage = false;
-    const isCurrentUserMessage = Props.currentMessage?.user._id === Props.user?._id;
-  if (user && !isCurrentUserMessage  ) {
-    if (Props.previousMessage?.user !== undefined && Props.previousMessage?.user) {
-      Props.previousMessage?.user._id === Props.currentMessage?.user._id ? sameUserInPrevMessage = true : sameUserInPrevMessage = false;
-      return !sameUserInPrevMessage && Props.previousMessage?.user.name;
-    }
-  } 
-  return null;
+
+  const renderUsername = (msgProps: CustomBubbleProps<IMessage>) => {
+    const { previousMessage, currentMessage } = msgProps;
   
-}
+    if (previousMessage?.user && !isCurrentUserMessage(msgProps)) {
+      const isSameUserInPrevMessage = previousMessage.user._id === currentMessage?.user._id;
+      return !isSameUserInPrevMessage && currentMessage?.user.name;
+    }
+  
+    return null;
+  };
+  const isCurrentUserMessage = (msgProps: CustomBubbleProps<IMessage>) => {
+    const { currentMessage, user } = msgProps;
+    return currentMessage?.user._id === user?._id;
+  };
 
   return (
     <Messages
@@ -484,7 +486,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     // dateCustomStyle={dateCustomStyle} // to custom the message time text style
     // renderCustomTime={renderCustomMessageTime} // to custom the system message date
     // renderMessageText={renderCustomMessageText} // custom the text style and text background inside the message container
-    renderBubbleContainer={renderBubbleContainer}
+    // renderBubbleContainer={renderBubbleContainer}
     // renderSendButton={()=><Icon name='send' />}
     />
   );
