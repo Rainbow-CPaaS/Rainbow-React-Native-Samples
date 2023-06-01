@@ -15,7 +15,6 @@ export const ConferenceCallComponent: FunctionComponent = () => {
     const [switchToShareScreen, setSwitchToShareScreen] = useState<boolean>(true);
     const [showDelegateConference, setShowDelegateConference] = useState<boolean>(false);
     const delegateParticipants: IConferenceParticipants[] = conferenceCall?.attendees.filter((participant: IConferenceParticipants) => (participant.canBeConferenceDelegate === true && !participant.isMyUser)) ?? [];
-
     useEffect(() => {
         const handleCurrentCallEvent = (call?: IConference) => {
             if (call?.currentTypeName === CallTypeName.Conference) {
@@ -33,7 +32,6 @@ export const ConferenceCallComponent: FunctionComponent = () => {
             setConferenceCall(call);
         });
 
-
         const confAttendeesUpdatesListener = eventEmitter.addListener(EventType.ConferenceAttendeesUpdates, (attendees: IConferenceParticipants[]) => {
             logger.info(`get conference participants with count ${attendees.length}`);
             if (conferenceCall) {
@@ -48,7 +46,9 @@ export const ConferenceCallComponent: FunctionComponent = () => {
         }
     }, [conferenceCall]);
 
-
+  const handleCloseDelegateModal = () => {
+    setShowDelegateConference(false);
+  };
     const hideOrShowConferenceParticipant = () => {
         setSwitchToShareScreen(!switchToShareScreen);
     }
@@ -154,21 +154,18 @@ export const ConferenceCallComponent: FunctionComponent = () => {
         }
         return (
             < >
-
-                <VStack bg="#005b96" paddingBottom="10" mb="30">
-                    <Header centerComponent={renderHeaderCenter} leftComponent={renderLeftHeader} />
-                    <VStack justifyContent="space-between" h="95%" p="5" >
-                        <ConferenceDelegateContainer showDelegateView={showDelegateConference} delegateParticipants={delegateParticipants} bubbleId={id} onClosePressed={() => setShowDelegateConference(false)} />
+                <Header centerComponent={renderHeaderCenter} leftComponent={renderLeftHeader} />
+                <View  style={{flex: 1, backgroundColor:'#005b96'}}>
+                     <ConferenceDelegateContainer showDelegateView={showDelegateConference} delegateParticipants={delegateParticipants} bubbleId={id} onClosePressed={handleCloseDelegateModal} />
                         {conferenceCall.isSharingEnabled && switchToShareScreen ?
                             <ShareConferenceView sharingParticipant={conferenceCall.sharingParticipant} />
                             :
-                            <ConferenceCallView conferenceCall={conferenceCall} renderIncomingCallView={renderCustomIncomingCall} renderActiveCallView={renderCustomActiveCall} />
+                            <ConferenceCallView conferenceCall={conferenceCall} renderIncomingCallView={renderCustomIncomingCall}  />
                         }
                         <ConferenceActionsView call={conferenceCall} style={{ container: defaultStyle.callActionContainer }} renderIncomingConferenceActions={renderIncomingCallActionsButtons} renderActiveConferenceActions={renderActiveCallActionsButtons} />
 
-                    </VStack>
-                </VStack>
-
+                    
+                </View>
             </>
         );
     }

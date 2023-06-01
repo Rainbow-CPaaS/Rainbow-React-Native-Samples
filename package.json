@@ -28,7 +28,7 @@
     "react-native-localization": "^2.3.1",
     "react-native-pager-view": "^6.1.2",
     "react-native-permissions": "^3.6.1",
-    "react-native-rainbow-module": "^1.6.0",
+    "react-native-rainbow-module": "^1.6.1",
     "react-native-reanimated": "^2.13.0",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",

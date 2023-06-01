@@ -2,6 +2,7 @@ import { Strings } from '../../resources/localization/Strings';
 import { HStack, Text, VStack } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Dimensions, ImageStyle, SafeAreaView, StyleSheet, TextStyle, View, ViewStyle, } from 'react-native';
+
 import {
     P2PCallView,
     IP2PCall,
@@ -49,7 +50,6 @@ interface IProps
  *  <br>
  */
 export const P2PCall: FunctionComponent<IProps> = ({ }) => {
-
     const [p2pCall, setP2PCall] = useState<IP2PCall>();
     const isPortrait = () => { return Dimensions.get('screen').height >= Dimensions.get('screen').width; };
     const [orientation, setOrientation] = useState(isPortrait() ? 'portrait' : 'landscape');
@@ -81,7 +81,8 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
     }
     useEffect(() => {
         logger.info(`p2p call ${p2pCall}`)
-        currentCallService.getCurrentCall();
+
+currentCallService.getCurrentCall();
         Dimensions.addEventListener('change', () => {
             const orientationChanges = isPortrait() ? 'portrait' : 'landscape';
             setOrientation(orientationChanges);
@@ -129,13 +130,12 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
     const renderActiveCallView = (call: IP2PCall) => {
         const { videoRemoteStreamCount, isLocalVideoEnabled, wasInitiatedWithVideo } = call;
         const profilePictureView = <ImageHolder url={call.callPeer.imageURL} style={participantImageStyle} name={call.callPeer.name} />;
-
         return (
             <>
                 {!wasInitiatedWithVideo && videoRemoteStreamCount === 0 && profilePictureView}
-                {videoRemoteStreamCount > 0 && <SharingVideo call={call} />}
-                {videoRemoteStreamCount > 1 && <RemoteWebrtcVideo call={call} style={styles.remoteVideo} />}
-                {isLocalVideoEnabled && <MyLocalWebrtcVideo style={styles.myLocalWebrtcVideo} />}
+                {videoRemoteStreamCount >= 2 &&<SharingVideo call={call} />}
+                {videoRemoteStreamCount >= 1 &&<RemoteWebrtcVideo call={call} style={styles.remoteVideo}/>}
+                {isLocalVideoEnabled && <MyLocalWebrtcVideo style={styles.myLocalWebrtcVideo}  />}
             </>
         )
     }
@@ -155,13 +155,10 @@ export const P2PCall: FunctionComponent<IProps> = ({ }) => {
                 <SafeAreaView style={styles.headerColor} />
                 <Header centerComponent={renderCenterHeader} />
 
-                <VStack bg="#005b96" minH="100%" justifyContent="space-evenly">
+                <VStack bg="#005b96" minH="100%" >
                     <P2PCallView call={p2pCall} renderActiveCallView={renderActiveCallView} />
-                    <HStack justifyContent="space-between" alignItems="center" p="5"   >
-                        <P2PCallActions call={p2pCall} renderIncomingP2PCallActions={renderIncomingCallActions} style={{actionsContainer : {backgroundColor: 'gray'}}} />
-                    </HStack>
+                    <P2PCallActions call={p2pCall} renderIncomingP2PCallActions={renderIncomingCallActions}  style={{actionsContainer : {backgroundColor: 'gray'}}} />
                 </VStack>
-
             </React.Fragment>
         );
     } else return null;
@@ -174,7 +171,7 @@ const participantImageStyle: IImageHolderStyle = {
 }
 export const styles = StyleSheet.create({
     myLocalWebrtcVideo: {
-        top: 50,
+        top: 10,
     },
     headerColor: {
         backgroundColor: '#0086CF',
@@ -182,10 +179,9 @@ export const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        // justifyContent: 'space-around',
         flex: 1,
         backgroundColor: '#005b96'
     },
-    remoteVideo: { position: 'absolute', top: 40 },
+    remoteVideo: { position: 'absolute', top: 20, width: '100%', height: '100%' },
 
 });

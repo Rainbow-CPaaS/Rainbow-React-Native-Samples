@@ -13,7 +13,7 @@ import {
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { Alert, StyleSheet, View, } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -42,6 +42,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     const [index, setIndex] = useState(0);
     const [currentBubble, setCurrentBubble] = useState<IBubble>(props.bubble);
     const [currentConferenceCall, setCurrentConferenceCall] = useState<IConference>();
+    const [displayJoinBanner, setDisplayJoinBanner] = useState<boolean>(false);
     const [routes] = useState([
         { key: 'conversations', title: `${Strings.conversations}` },
         { key: 'participants', title: `${Strings.participants}` },
@@ -49,6 +50,11 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
 
     useEffect(() => {
         // Listen for bubble change update
+        eventEmitter.addListener(EventType.DisplayJoinBanner, (eventData: boolean)=>{
+            logger.info(`addListener for ${EventType.DisplayJoinBanner} : ${eventData}`)
+            setDisplayJoinBanner(eventData)
+
+        });
         const onBubbleUpdated = eventEmitter.addListener(EventType.OnBubbleUpdated, (eventData: IBubble) => {
             logger.info(`addListener for ${EventType.OnBubbleUpdated} : ${eventData}`);
             setCurrentBubble(eventData);
@@ -66,7 +72,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => Actions.pop() }]);
         });
         const currentConferenceUpdatedListener = eventEmitter.addListener(EventType.CurrentConferenceUpdated, (conferenceCall?: IConference) => {
-            logger.info(`CurrentConferenceUpdated with conference call: ${conferenceCall} : Am I Connected ${conferenceCall?.callPeer.jId === currentBubble.jId}`);
+            logger.info(`CurrentConferenceUpdated with conference call: ${conferenceCall?.callPeer.name} : current bubble has conf ${conferenceCall?.callPeer.jId === currentBubble.jId}`);
             if (conferenceCall?.callPeer.jId === currentBubble.jId) {
                 setCurrentConferenceCall(conferenceCall);
             }
@@ -74,6 +80,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                 setCurrentConferenceCall(undefined);
             }
         });
+
 
         if (currentBubble.hasActiveConference && !currentConferenceCall) {
             bubblesService.getActiveConferenceForBubble(props.bubble.id);
@@ -188,7 +195,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     const FirstTab = () => (
         <>
             <MessageComponent peer={currentBubble} />
-            {(currentBubble.hasActiveConference && !currentConferenceCall?.hasMyUserJoinedConferenceCall) && renderJoinConferencePanner()}
+            {displayJoinBanner && renderJoinConferencePanner()}
         </>
 
     );
@@ -230,5 +237,5 @@ const styles = StyleSheet.create({
 
     addParticipantsIcon: { marginTop: 10 },
     startConferenceIcon: { fontSize: 30, color: 'white', position: 'relative', right: 30 },
-    joinContainer: { flex: 1, flexDirection: 'column', position: 'absolute', top: 0, padding: 18, backgroundColor: '#e3e3e3', borderRadius: 5 },
+    joinContainer: { flex: 1, flexDirection: 'column', position: 'absolute', top: 0, padding: 18, backgroundColor: '#e3e3e3', borderRadius: 5, width: '100%' },
 });

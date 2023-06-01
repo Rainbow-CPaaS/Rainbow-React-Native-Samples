@@ -1,4 +1,6 @@
-import { Text, } from 'native-base';
+import {
+  Text,
+} from 'native-base';
 import React, { useState } from 'react';
 import {
   View,
@@ -11,6 +13,7 @@ import {
 } from 'react-native';
 import { IConferenceParticipants, ContactCardView, IContact, conferenceService } from 'react-native-rainbow-module';
 import { Strings } from '../../resources/localization/Strings';
+
 export interface IProps {
   showDelegateView: boolean;
   delegateParticipants: IConferenceParticipants[];
@@ -50,11 +53,13 @@ export const ConferenceDelegateContainer: React.FunctionComponent<IProps> = ({
 
   const onEndPress = () => {
     conferenceService.endConferenceCall(bubbleId);
+    onClosePressed();
   };
 
   const onDelegatePress = () => {
     if (selectedParticipantToDelegate) {
       conferenceService.delegateConference(bubbleId, selectedParticipantToDelegate.participantId);
+      onClosePressed();
     }
   }
 
