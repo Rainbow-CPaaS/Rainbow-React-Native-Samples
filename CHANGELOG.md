@@ -5,6 +5,20 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.6.1] - 2023-6-1
+---
+**Fixes:**
+
+Fixes in P2P webRtc calls:
+  - Fix mic/speaker issues in P2P webRtc calls.
+  - Fix remote and Local videos are not shown on the webRtc video calls.
+
+Fixes in Conferences webRtc calls:
+  - Bubble Participants List is not updated when the user joins or leave a conference webRtc call.
+  - Fix for mute/unmute icon is not working properly.
+  - Fix for add/remove video icon is not working properly.
+  - Fix join conference banner appears again when the conference end.
+
 ## [1.6.0] - 2023-5-15
 ---
 
