@@ -1,6 +1,6 @@
 import { Text, VStack } from 'native-base';
 import React, { FunctionComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Strings } from '../../resources/localization/Strings';
 import { ConferenceScreenSharingView, IConferenceParticipants } from 'react-native-rainbow-module';
 interface IProps {

@@ -13,27 +13,26 @@ import {
     EditBubble,
     AddParticipant
 } from 'react-native-rainbow-module';
-import { Actions, Router, Scene } from 'react-native-router-flux';
 import { Home } from './Home';
-import appStyleConfig from '../app-styles.json';
-import { MakeCallButton } from './Calls/MakeCallButton';
-import AppMenuView from './AppMenu';
+import {AppMenuView} from './AppMenu';
 import { CreateBubbleComponent } from './Bubbles/CreateBubbleComponent';
-import { BubblesComponent } from './Bubbles/BubblesComponent'
 import { useEffect } from 'react';
 import { PeerConversationChatView } from './Messages/PeerConversationChatView'
 import { BubbleChatView } from './Messages/BubbleChatView';
 import jsonRainbowConfig from './rainbow-config.json';
-import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { ActiveCallBanner } from './Calls/ActiveCallBanner';
 import { SharedFileComponent, FileDescription } from './SharedFile/'
 import { NativeBaseProvider } from 'native-base';
-import { MyProfileInfo, UserInfoFrom } from './MyProfile/'
+import { MyProfileInfo, UserInfoFrom } from './MyProfile/';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { CombinedRootStackParamList } from './Navigation/AppNavigationTypes';
+import { NavigationContext } from './Navigation/NavigationContext';
 
-const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
 const logger = new Logger('example');
-const customStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
 const handlers: IBackButtonHandler[] = [];
+const Stack = createNativeStackNavigator<CombinedRootStackParamList>();
+
 RainbowContainer.setAppSecretKey(jsonRainbowConfig);
 
 export default function App() {
@@ -51,59 +50,61 @@ export default function App() {
         };
     };
     return (
-
+        <NavigationContainer>
         <RainbowContainer >
             <NativeBaseProvider>
                 <ActiveCallBanner />
                 <BackHandlerListener />
-                <Router>
-                    <Scene key="root" headerMode="none" hideNavBar={true} >
-                        <Scene key="home" component={Home} registerBackButtonHandler={registerBackButtonHandler} />
-                        <Scene key="contactInformation" component={ContactInformation} MakeCallButton={MakeCallButton} style={customStyle} />
-                        <Scene key="AppMenu" component={AppMenuView} />
-                        <Scene key="PeerConversationChatView" component={PeerConversationChatView} />
-                        <Scene key="editBubble" component={EditBubble} />
-                        <Scene key="BubbleChatView" component={BubbleChatView} />
-                        <Scene key="AddParticipants" component={AddParticipant} />
-                        <Scene key="callHistory" component={CallHistory} callActionsComponent={DialogCallComponent} />
-                        <Scene key="bubbles" component={BubblesComponent} />
-                        <Scene key="createBubble" component={CreateBubbleComponent} />
-                        <Scene key="SharedFiles" component={SharedFileComponent} />
-                        <Scene key="FileDescription" component={FileDescription} />
-                        <Scene key="ForwardedView" component={ForwardedView} />
-                        <Scene key="dialPad" component={DialPad} showCallButton={true} />
-                        <Scene key="Telephony" component={TelephonySettings} />
-                        <Scene key="MyProfileInfo" component={MyProfileInfo} />
-                        <Scene key="UserInfoFrom" component={UserInfoFrom} />
-                    </Scene>
-                </Router>
+                <NavigationContext.Provider value={registerBackButtonHandler}>
+                <Stack.Navigator screenOptions={{ gestureEnabled: false, headerShown: false }}  >
+                         {/* App's screens  */}
+                        <Stack.Screen name="ScreenHome" component={Home} />
+                        <Stack.Screen name="AppMenu" component={AppMenuView} />
+                        <Stack.Screen name="MyProfileInfo" component={MyProfileInfo} />
+                        <Stack.Screen name="UserInfoFrom" component={UserInfoFrom} />
+                        <Stack.Screen name="BubbleChatView" component={BubbleChatView} />
+                        <Stack.Screen name="PeerConversationChatView" component={PeerConversationChatView} />
+                        <Stack.Screen name="SharedFileList" component={SharedFileComponent} />
+                        <Stack.Screen name="FileDescription" component={FileDescription} />
+                        <Stack.Screen name="CreateBubble" component={CreateBubbleComponent} />
+                        {/*  Other screens react-native-rainbow-module library */}
+                        <Stack.Screen name="EditBubble" component={EditBubble} /> 
+                        <Stack.Screen name="ForwardedView" component={ForwardedView} />
+                        <Stack.Screen name="TelephonySettings" component={TelephonySettings} />
+                        <Stack.Screen name="AddParticipants" component={AddParticipant} />
+                        <Stack.Screen name="ContactInformation" component={ContactInformation} />
+                        <Stack.Screen name="CallHistory" component={CallHistory} />
+                    </Stack.Navigator>
+                </NavigationContext.Provider>
             </NativeBaseProvider>
         </RainbowContainer>
-
-
+        </NavigationContainer>
     );
 }
 
 const BackHandlerListener: React.FunctionComponent = () => {
+    const navigation = useNavigation();
     useEffect(() => {
+        console.log(navigation.canGoBack());
         logger.info('BackHandlerListener');
         BackHandler.addEventListener('hardwareBackPress', onHandleBackButton);
     }, []);
 
     const onHandleBackButton = () => {
-        logger.info(`BackHandlerListener: onHandleBackButton ${handlers.length} ${Actions.currentScene}`);
+        logger.info(`BackHandlerListener: onHandleBackButton ${handlers.length}`);
         for (const handler of handlers) {
-            logger.info(`BackHandlerListener: handler ${handler} ${Actions.currentScene}`);
+            logger.info(`BackHandlerListener: handler ${handler} `);
             if (handler.onBackButtonPressed()) {
                 return;
             }
         }
-        if (Actions.currentScene === 'home') {
-            BackHandler.exitApp();
+        if (navigation.canGoBack()) {
+            navigation.goBack();
+            return true;
         } else {
-            Actions.pop();
+            BackHandler.exitApp();
+            return true;
         }
-        return null;
     };
     return null;
 };

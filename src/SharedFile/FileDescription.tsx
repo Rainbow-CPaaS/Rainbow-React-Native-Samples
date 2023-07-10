@@ -1,18 +1,19 @@
 import { Text, VStack } from 'native-base';
-import React, { } from 'react';
+import React, { useState } from 'react';
 import { Image } from 'react-native';
 import { Strings } from '../resources/localization/Strings';
 import { Header, IFile, } from 'react-native-rainbow-module';
 import fileLogo from '../resources/images/attachedFile.png';
 import moment from 'moment';
+import { FileDescriptionRouteProp } from '../Navigation/AppNavigationTypes';
 
 export interface IProps {
-    file: IFile
+    route: FileDescriptionRouteProp
 }
-
 export const FileDescription: React.FunctionComponent<IProps> = ({
-    file
+    route
 }) => {
+    const [file,] = useState<IFile>(route.params?.file)
 
     const renderBodyHeader = () => {
         return <Text fontSize="md" color="white"> {Strings.Files}</Text>;

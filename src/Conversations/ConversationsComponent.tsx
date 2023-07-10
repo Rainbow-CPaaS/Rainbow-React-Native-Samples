@@ -3,10 +3,14 @@ import { Center, Text } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { IBubble, conversationsService, IConversation, eventEmitter, EventType, Conversations, ConversationCard } from 'react-native-rainbow-module';
-import { Actions } from 'react-native-router-flux';
 import { Strings } from '../resources/localization/Strings';
+import { NavigationProp } from '@react-navigation/native';
+import { CombinedRootStackParamList } from '../Navigation/AppNavigationTypes';
 
-export const ConversationsComponent: FunctionComponent = () => {
+interface IConversationNavigationProps {
+  navigation: NavigationProp<CombinedRootStackParamList>;
+}
+export const ConversationsComponent: FunctionComponent<IConversationNavigationProps> = ({navigation}) => {
   const [conversations, setConversations] = useState<IConversation[]>([]);
   useEffect(() => {
     conversationsService.getConversations();
@@ -24,14 +28,10 @@ export const ConversationsComponent: FunctionComponent = () => {
   const onClickItem = (conversation: IConversation) => {
     if (conversation.bubble) {
       const bubble: IBubble = conversation.bubble
-      Actions.BubbleChatView({
-        bubble
-      });
+      navigation.navigate('BubbleChatView',{bubble});
     }
     else {
-      Actions.PeerConversationChatView({
-        conversation,
-      });
+      navigation.navigate('PeerConversationChatView',{conversation});
     }
   };
 

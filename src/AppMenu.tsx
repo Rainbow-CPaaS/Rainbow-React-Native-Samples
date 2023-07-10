@@ -1,10 +1,10 @@
 import { Box, HStack, StatusBar, Text, VStack, InfoIcon } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { ImageStyle, TouchableWithoutFeedback } from 'react-native';
 import { Logger, Telephony, UserProfile, PresenceList, store, authService, eventEmitter, EventType, IUser, userProfileService } from 'react-native-rainbow-module';
-import { Actions } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { AppMenuNavigationProp } from './Navigation/AppNavigationTypes';
 
 
 const logger = new Logger('AppMenu');
@@ -13,12 +13,14 @@ const presenceIconStyle: ImageStyle = {
     width: 25,
     height: 25,
 };
-const AppMenuView: React.FunctionComponent = () => {
+interface IMenuProps {
+    navigation: AppMenuNavigationProp;
+}
+export const AppMenuView: FunctionComponent<IMenuProps> = ({ navigation }) => {
 
     const [connectedUser, setConnectedUser] = useState<IUser>();
     // TODO: get the connected user here! since there is multi component depends on the UserProfile info
     useEffect(() => {
-
         userProfileService.getConnectedUser();
         const connectedUserUpdated = eventEmitter.addListener(
             EventType.ConnectedUserUpdated,
@@ -29,6 +31,7 @@ const AppMenuView: React.FunctionComponent = () => {
                 }
             }
         );
+
         return () => {
             connectedUserUpdated.remove();
         }
@@ -43,9 +46,10 @@ const AppMenuView: React.FunctionComponent = () => {
         store.dispatch(SignOutActionCreator);
     }
     const goToMyProfileInfo = () => {
-        Actions.MyProfileInfo({
-            connectedUser
-        })
+        if (connectedUser != null){
+            navigation.navigate('MyProfileInfo', {connectedUser})
+
+        }
     }
     return (
         <Provider store={store}>
@@ -93,4 +97,3 @@ const SignOutActionCreator = () => {
     }
 };
 
-export default AppMenuView;

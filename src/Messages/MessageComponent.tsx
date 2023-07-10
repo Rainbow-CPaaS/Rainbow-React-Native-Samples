@@ -42,16 +42,18 @@ import {
   deletedMessageView,
   IStyleHeaderView
 } from './CustomizableMsgUI';
-import { Actions } from 'react-native-router-flux';
 import DocumentPicker from 'react-native-document-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Strings } from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Text, VStack } from 'native-base';
+import {  CombinedRootStackParamList } from '../Navigation/AppNavigationTypes';
+import { NavigationProp } from '@react-navigation/native';
 
 
 interface IMessageComponentProps {
   peer: IPeer,
+  navigation: NavigationProp<CombinedRootStackParamList>;
 }
 // you can add what ever option as you want
 enum IMessageOption {
@@ -81,6 +83,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
   const [downloadedFileIds, setDownloadedFileIds] = useState<string[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<any>();
   const [showAttachedLoader, setShowAttachedLoader] = useState<boolean>(false);
+
   useEffect(() => {
     const onMessagesUpdatedEvent = eventEmitter.addListener(
       EventType.MessagesUpdated,
@@ -125,7 +128,6 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
   const resetToDefault = () => {
     setSelectedMessage(undefined);
   }
-
   const onLongPress = (context: any, message: IMessage) => {
     const options: IMessageOption[] = [IMessageOption.Reply, IMessageOption.Forward, IMessageOption.Copy];
     if (message.fileDescriptorId) {
@@ -156,9 +158,8 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
             sharedFilesService.downloadFile(message.fileDescriptorId);
             break;
           case IMessageOption.Forward:
-            if (Actions.currentScene !== 'ForwardedView') {
-              Actions.ForwardedView({ selectedMessage: message });
-            }
+           props.navigation.navigate('ForwardedView', { message: message });
+        
             break;
           case IMessageOption.Reply:
             // set message type to be replied
@@ -428,6 +429,22 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       <CustomMessageTime timeTextStyle={{ left: timeTextStyle, right: timeTextStyle }} {...Props} />
     )
   }
+  
+const renderUsername = (props: CustomBubbleProps<IMessage>) => {
+  const { previousMessage, currentMessage } = props;
+
+  if (previousMessage?.user && !isCurrentUserMessage(props)) {
+    const isSameUserInPrevMessage = previousMessage.user._id === currentMessage?.user._id;
+    return !isSameUserInPrevMessage && currentMessage?.user.name;
+  }
+
+  return null;
+};
+
+const isCurrentUserMessage = (props: CustomBubbleProps<IMessage>) => {
+  const { currentMessage, user } = props;
+  return currentMessage?.user._id === user?._id;
+};
 
   const renderBubbleContainer = (Props: CustomBubbleProps<IMessage>) => {
     /**
@@ -456,22 +473,6 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       </VStack>
     )
   }
-
-  const renderUsername = (msgProps: CustomBubbleProps<IMessage>) => {
-    const { previousMessage, currentMessage } = msgProps;
-  
-    if (previousMessage?.user && !isCurrentUserMessage(msgProps)) {
-      const isSameUserInPrevMessage = previousMessage.user._id === currentMessage?.user._id;
-      return !isSameUserInPrevMessage && currentMessage?.user.name;
-    }
-  
-    return null;
-  };
-  const isCurrentUserMessage = (msgProps: CustomBubbleProps<IMessage>) => {
-    const { currentMessage, user } = msgProps;
-    return currentMessage?.user._id === user?._id;
-  };
-
   return (
     <Messages
       conversation={props.peer}
