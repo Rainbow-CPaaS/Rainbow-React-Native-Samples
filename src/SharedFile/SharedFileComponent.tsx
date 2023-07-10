@@ -3,16 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Strings } from '../resources/localization/Strings';
 import { IPeer, SharedFiles, IFile, sharedFilesService, EventType, eventEmitter, PeerType, SortFilters, Header, Logger } from 'react-native-rainbow-module';
-import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { SharedFileListNavigationProp, SharedFileListRouteProp } from '../Navigation/AppNavigationTypes';
 const logger = new Logger('SharedFileComponent');
 export interface IProps {
-    peer: IPeer
+    route: SharedFileListRouteProp
+    navigation: SharedFileListNavigationProp
 }
 
 export const SharedFileComponent: React.FunctionComponent<IProps> = ({
-    peer
+    route,
+    navigation
 }) => {
+    const [peer,] = useState<IPeer>(route.params?.peer)
     const [sharedFileArray, setSharedFileArray] = useState<IFile[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const isBubble = peer.type === PeerType.Bubble;
@@ -36,7 +39,7 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
         }
     }, [isBubble, peer]);
     const renderOnFileClicked = (selectedFile: IFile) => {
-        Actions.FileDescription({ file: selectedFile });
+        navigation.navigate('FileDescription', { file: selectedFile })
     }
 
     const sortByName = () => {
@@ -119,17 +122,8 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
     );
 };
 
-
-
-
 const defaultStyle = StyleSheet.create({
-    headerTitle: { textAlign: 'center', alignSelf: 'center', fontSize: 16, color: '#ffffff', },
     headerStyle: { backgroundColor: '#0086CF' },
-    fileItemContainer: { flexDirection: 'row', margin: 10 },
-    fileItemImage: { width: 50, height: 50 },
-    fileItemInfoView: { flexDirection: 'column', justifyContent: 'space-between', padding: 10 },
-    fileItemName: { fontSize: 18 },
-    fileItemDate: { fontSize: 14, color: 'gray' },
     centeredView: { flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column', },
     modalView: {
         width: '70%',
@@ -150,7 +144,5 @@ const defaultStyle = StyleSheet.create({
 
     },
     modalTitleText: { textAlign: 'center', fontSize: 22, color: '#3B3B3B', margin: 10 },
-    BodyContainer: { marginLeft: 20 },
-    radioButton: { alignSelf: 'flex-start', margin: 10 },
     sortIcon: { fontSize: 30, color: '#ffffff', }
 });

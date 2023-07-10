@@ -1,8 +1,6 @@
 import {
     eventEmitter,
     EventType,
-    IConversation,
-    IStyledProps,
     FloatButton,
     IFloatButtonStyleProps,
     contactsService,
@@ -11,21 +9,15 @@ import {
     Header
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
-import {
-    Alert,
-    Dimensions,
-    StyleSheet,
-    Text
-} from 'react-native';
+import { Alert, Dimensions, StyleSheet, Text } from 'react-native';
 import { MakeCallButton } from '../Calls/MakeCallButton';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
-import { Actions } from 'react-native-router-flux';
 import { HStack } from 'native-base';
-
-
+import { PeerChatViewNavigationProp, PeerChatViewRouteProp } from '../Navigation/AppNavigationTypes';
 export interface IPeerChatProps {
-    conversation: IConversation;
+    navigation: PeerChatViewNavigationProp,
+    route: PeerChatViewRouteProp
 }
 const PeerConversationMenuOptions = {
     SendEmail: Strings.sendConversationByEmail,
@@ -46,9 +38,9 @@ const addButtonStyle: IFloatButtonStyleProps = {
 }
 
 export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> = (
-    props: IPeerChatProps
+    { route, navigation }
 ) => {
-    const { peerIsInvited, peerIsRoster, name, contact } = props.conversation;
+    const { peerIsInvited, peerIsRoster, name, contact, jId } = route.params.conversation;
     const [isRoster, setIsRoster] = useState<boolean>(peerIsRoster);
     const viewInviteBtn = (!isRoster && !peerIsInvited);
 
@@ -76,13 +68,13 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
     const selectMenuItem = (value: string) => {
         switch (value) {
             case PeerConversationMenuOptions.SendEmail:
-                conversationsService.sendConversationByEmail(props.conversation.jId);
+                conversationsService.sendConversationByEmail(jId);
                 break;
             case PeerConversationMenuOptions.DeleteAllMessages:
-                conversationsService.deleteConversationMessages(props.conversation.jId);
+                conversationsService.deleteConversationMessages(jId);
                 break;
             case PeerConversationMenuOptions.SeeSharedFiles:
-                Actions.SharedFiles({ peer: props.conversation });
+                navigation.navigate('SharedFileList', { peer: route.params.conversation })
                 break;
         }
     }
@@ -104,15 +96,12 @@ export const PeerConversationChatView: React.FunctionComponent<IPeerChatProps> =
             <Header
                 centerComponent={renderHeaderCenter}
                 rightComponent={renderHeaderRightIcon}
-                containerStyle={{ paddingTop: 5, paddingBottom: 5 }}
-
+                containerStyle={styles.headerContainer}
             />
-            {viewInviteBtn && <FloatButton title={Strings.addToMyNetwork} style={addButtonStyle} onPress={addToRoster(props.conversation.contact.corporateId)} />}
-            <MessageComponent peer={props.conversation} />
+            {viewInviteBtn && <FloatButton title={Strings.addToMyNetwork} style={addButtonStyle} onPress={addToRoster(contact.corporateId)} />}
+            <MessageComponent peer={route.params.conversation} navigation={navigation} />
         </React.Fragment>
-
     );
-
 
 };
 const styles = StyleSheet.create({
@@ -122,5 +111,6 @@ const styles = StyleSheet.create({
     },
     rightHeaderView: {
         display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: 100
-    }
+    },
+    headerContainer: { paddingTop: 5, paddingBottom: 5 }
 });

@@ -2,17 +2,20 @@ import { Box, Circle, Divider, HStack, Text, VStack, Pressable } from 'native-ba
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { IBubble, bubblesService, eventEmitter, EventType, Bubbles, AvatarPresenceBadge } from 'react-native-rainbow-module';
-import { Actions } from 'react-native-router-flux';
 import { NavigationState, Route, SceneMap, SceneRendererProps, TabBar, TabView } from 'react-native-tab-view';
 import addBubble from '../resources/images/addBubble.png';
 import { Strings } from './../resources/localization/Strings';
 import { BubbleInvitations } from './BubbleInvitations';
+import { CombinedRootStackParamList } from '../Navigation/AppNavigationTypes';
+import { NavigationProp } from '@react-navigation/native';
 
 
 type State = NavigationState<Route>;
-export const BubblesComponent: FunctionComponent = ({
 
-}) => {
+interface IBubblesNavigationProps {
+  navigation: NavigationProp<CombinedRootStackParamList>;
+}
+export const BubblesComponent: FunctionComponent<IBubblesNavigationProps>= ({navigation}) => {
 
   const [allBubbles, setAllBubbles] = useState<IBubble[]>([]);
   const [bubbleInvitationCounter, setBubbleInvitationCounter] = useState<number>(0);
@@ -66,9 +69,9 @@ export const BubblesComponent: FunctionComponent = ({
   }
 
   const onItemClick = (bubble: IBubble) => () => {
-    Actions.BubbleChatView({
-      bubble
-    })
+    navigation.navigate('BubbleChatView',{bubble})
+
+
   }
   const renderBubblesList = (item: IBubble) => {
     return (
@@ -90,7 +93,7 @@ export const BubblesComponent: FunctionComponent = ({
   };
 
   const createBubble = () => {
-    Actions.createBubble();
+    navigation.navigate('CreateBubble')
   };
 
   const renderInvitationBadge = ({ route, color }: { route: Route; color: string }) => {

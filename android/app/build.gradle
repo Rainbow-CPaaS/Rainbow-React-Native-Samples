@@ -43,8 +43,8 @@ android {
         applicationId "com.example.reactnativerainbowmodule"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1_6_1
-        versionName "1.6.1"
+        versionCode 1_6_2
+        versionName "1.6.2"
     }
 
     splits {

@@ -1,30 +1,35 @@
 import * as React from 'react';
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
-import { startUpService, permissionsService, SearchBarInput, IBackButtonHandler, Logger, BackButtonHandler, IBackButtonHandlerProps, BubbleEventsTabIcon, InvitationTabIcon, Header } from 'react-native-rainbow-module';
-import { Text, HStack, Box, Center, Button, Pressable } from 'native-base';
+import { Platform } from 'react-native';
+import { startUpService, permissionsService, SearchBarInput, Logger, BackButtonHandler, BubbleEventsTabIcon, InvitationTabIcon, Header } from 'react-native-rainbow-module';
+import { Text, HStack, Box, Center, Pressable } from 'native-base';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
 import { CallLogComponent } from './CallLogComponent';
-import { Actions } from 'react-native-router-flux';
 import { BubblesComponent } from './Bubbles/BubblesComponent'
 import { ConversationsComponent } from './Conversations/ConversationsComponent';
 import { SearchComponent } from './SearchComponent'
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-
-
+import { useRoute } from '@react-navigation/native';
+import { HomeScreenRouteProp, HomeScreenNavigationProp } from './Navigation/AppNavigationTypes';
+import { NavigationContext } from './Navigation/NavigationContext';
 
 const logger = new Logger('Home');
-interface IProps extends IBackButtonHandlerProps {
-	registerBackButtonHandler: (handler: IBackButtonHandler) => () => void
+interface IHomeProps {
+	route: HomeScreenRouteProp;
+	navigation: HomeScreenNavigationProp;
 }
-export const Home: FunctionComponent<IProps> = ({
-	registerBackButtonHandler
+export const Home: FunctionComponent<IHomeProps> = ({
+	route,
+	navigation,
 }) => {
 	const [selectedTab, setSelectedTab] = React.useState<number>(1);
 	const [isSearchMode, setIsSearchMode] = React.useState<boolean>(false);
 	const [searchQuery, setSearchQuery] = React.useState<string>('');
+	const registerBackButtonHandler = useContext(NavigationContext) ||  (() => () => {
+		logger.error('Failed to unregister handler; handler not found');
+	});
+	const currentRoute = useRoute();
 
 	React.useEffect(() => {
 		// request al the permission the App is needed
@@ -35,26 +40,26 @@ export const Home: FunctionComponent<IProps> = ({
 
 		});
 		if (Platform.OS === 'android') {
-			startUpService.getAutoStartPermissions();
+			// startUpService.getAutoStartPermissions();
 		}
 		startUpService.getRosterContacts();
 	}, [])
+
 	const openMenu = () => {
-		Actions.AppMenu();
+		navigation.navigate('AppMenu')
 	}
 	const renderTab = (): Element => {
 		switch (selectedTab) {
 			case 1:
-				return <ContactsComponent />
+				return <ContactsComponent navigation={navigation} />
 			case 2:
-				return <ConversationsComponent />
+				return <ConversationsComponent navigation={navigation} />
 			case 3:
-				return <BubblesComponent />
+				return <BubblesComponent navigation={navigation} />
 			case 4:
 				return <InvitationsComponent />
 			case 5:
-				return <CallLogComponent />
-
+				return <CallLogComponent navigation={navigation} />
 			default:
 				return <Text>No Data Found</Text>
 		}
@@ -70,9 +75,10 @@ export const Home: FunctionComponent<IProps> = ({
 	};
 	const onBackButtonPressed = () => {
 		logger.info('onBackButtonPressed handled by home');
-		if (isSearchMode && Actions.currentScene === 'contactInformation') {
+		if (isSearchMode && currentRoute.name === 'ContactInformation'
+		) {
 			logger.info('onBackButtonPressed handled by home, exit contact Card details and back to the search');
-			Actions.pop();
+			navigation.pop()
 			return true;
 		}
 		if (isSearchMode) {
@@ -107,13 +113,11 @@ export const Home: FunctionComponent<IProps> = ({
 					<Icon name={iconName} size={30} color="white" />
 				</Center>
 			</Pressable>
-
-
 		);
 	};
-	const searchComponent = <SearchComponent />;
+	const searchComponent = <SearchComponent navigation={navigation} />;
 	const renderHeaderCenter = () => {
-		return <SearchBarInput onSearchUpdated={updateHomeSearchState} onCancelSearch={cancelSearch} registerBackButtonHandler={registerBackButtonHandler} />
+		return <SearchBarInput onSearchUpdated={updateHomeSearchState} onCancelSearch={cancelSearch} registerBackButtonHandler={registerBackButtonHandler}  />
 	}
 	const renderHeaderLeftIcon = () => {
 		return !isSearchMode && (<Icon name="menu" size={35} color="white" onPress={openMenu} />);
@@ -139,18 +143,3 @@ export const Home: FunctionComponent<IProps> = ({
 		</React.Fragment>
 	);
 }
-
-const styles = StyleSheet.create({
-	header: { borderBottomWidth: 0, backgroundColor: '#0086CF' },
-	headerIcon: { fontSize: 40 },
-	tabBackground: { backgroundColor: '#0086CF' },
-	selectedTabIcon: { color: '#ffffff' },
-	tabIcon: { color: '#a5c0f3' },
-	menuIcon: {
-		color: 'white',
-		marginTop: 5,
-		marginLeft: 5,
-		alignSelf: 'center',
-		fontSize: 50
-	}
-});

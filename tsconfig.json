@@ -1,3 +1,38 @@
 {
-    "extends": "@tsconfig/react-native/tsconfig.json"
-  }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "react-native-rainbow-module": ["./src/index"]
+    },
+    "charset": "utf-8",
+    "allowUnreachableCode":true,
+    "allowUnusedLabels": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "esnext",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "removeComments":false
+  },
+  "exclude": [
+  "./node_modules",
+  "./rainbow-core/node_modules",
+  "./rainbow-core/src/resources/localization/Strings.ts"
+
+],
+"include": [
+  "./src",
+],
+"extends": "@tsconfig/react-native/tsconfig.json"
+}

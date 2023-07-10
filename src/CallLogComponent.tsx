@@ -1,5 +1,5 @@
+import { Container } from 'native-base';
 import React, { useState } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { webRtcActions } from './Calls/DialogCallComponent';
 import {
@@ -12,19 +12,21 @@ import {
     IContact,
     Logger
 } from 'react-native-rainbow-module';
+import { NavigationProp } from '@react-navigation/native';
+import { CombinedRootStackParamList } from './Navigation/AppNavigationTypes';
 const logger = new Logger('CallLogComponent');
 
-export const CallLogComponent: React.FunctionComponent = () => {
+interface ICallLogNavigationProps {
+    navigation: NavigationProp<CombinedRootStackParamList>;
+}
+export const CallLogComponent: React.FunctionComponent<ICallLogNavigationProps> = ({ navigation }) => {
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [contactToCall, setContactToCall] = useState<IContact>();
 
     const actions: ICallLogAction[] = [
         createViewCallLogAction(callLog => {
-            if (Actions.currentScene !== 'callHistory') {
-                Actions.callHistory({
-                    callLog
-                });
-            }
+            navigation.navigate('CallHistory', { callLog })
+
         })
     ];
 

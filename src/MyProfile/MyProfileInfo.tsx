@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, HStack, VStack, Heading } from 'native-base';
 import { ImageBackground, StyleSheet } from 'react-native';
 import { IUser, EmailType, IEmail, IPhoneNumber, PhoneType, eventEmitter, EventType, Header, AvatarPresenceBadge } from 'react-native-rainbow-module';
-import { Actions } from 'react-native-router-flux';
 import { Strings } from '../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { MyProfileInfoNavigationProp, MyProfileInfoRouteProp } from '../Navigation/AppNavigationTypes';
 
 export interface IProps {
-    connectedUser: IUser
+    route: MyProfileInfoRouteProp;
+    navigation: MyProfileInfoNavigationProp;
 }
 
 export const MyProfileInfo: React.FunctionComponent<IProps> = ({
-    connectedUser
+    navigation,
+    route
 }) => {
+    const connectedUser = route.params?.connectedUser;
     const [user, setUser] = useState<IUser>(connectedUser);
     const { contact, licenses } = user;
     useEffect(() => {
@@ -28,9 +30,6 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
             connectedUserUpdated.remove();
         }
     }, []);
-    const setKeyExtractor = (item: any) => {
-        return item.value;
-    }
     const renderEmailItem = (item: IEmail) => {
         return (
             <HStack p="3" key={item.value}>
@@ -58,7 +57,7 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
         );
     }
     const openEditMyInfoPage = () => {
-        Actions.UserInfoFrom({ connectedUser: user });
+        navigation.navigate('UserInfoFrom', { connectedUser: user })
     }
     const renderCenterHeader = () => {
         return <Text color="white" fontSize="md"> {Strings.myProfileInfo}</Text>
@@ -67,7 +66,6 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
     const renderRightHeader = () => {
         return <Icon name="pencil-outline" size={35} color='white' onPress={openEditMyInfoPage} />;
     }
-    console.log(licenses)
     return (
         <>
             <Header containerStyle={defaultStyle.headerBgColor} rightComponent={renderRightHeader} centerComponent={renderCenterHeader} />
@@ -101,11 +99,9 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
 
                 </HStack>
             </VStack>
-
         </>
     );
 };
-
 
 const defaultStyle = StyleSheet.create({
     backgroundImg: {

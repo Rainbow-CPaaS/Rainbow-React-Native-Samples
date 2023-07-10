@@ -5,11 +5,16 @@ import { StyleSheet, View } from 'react-native';
 import { ShareConferenceView } from './ShareConferenceView';
 import { ConferenceDelegateContainer } from './ConferenceDelegate';
 import { FlatGrid } from 'react-native-super-grid';
-import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { CombinedRootStackParamList } from '../../Navigation/AppNavigationTypes';
+import { NavigationProp } from '@react-navigation/native';
 const logger = new Logger('ConferenceCallComponent');
 
-export const ConferenceCallComponent: FunctionComponent = () => {
+
+interface IConferenceNavigationProps {
+    navigation: NavigationProp<CombinedRootStackParamList>;
+  }
+export const ConferenceCallComponent: FunctionComponent<IConferenceNavigationProps> = ({navigation}) => {
 
     const [conferenceCall, setConferenceCall] = useState<IConference>();
     const [switchToShareScreen, setSwitchToShareScreen] = useState<boolean>(true);
@@ -78,9 +83,8 @@ export const ConferenceCallComponent: FunctionComponent = () => {
         }
         const goToBubbleChatView = () => {
             const bubble = call.callPeer;
-            if (Actions.currentScene !== 'BubbleChatView') {
-                Actions.BubbleChatView({ bubble });
-            }
+            navigation.navigate('BubbleChatView',{bubble})
+    
         }
 
         return (
@@ -111,7 +115,7 @@ export const ConferenceCallComponent: FunctionComponent = () => {
     const renderParticipantItem = ({ item }: { item: IConferenceParticipants }) => {
         return (
             <View style={defaultStyle.participantItemContainer}>
-                <ParticipantConferenceView participant={item} key={item.jId} style={participantViewStyle} />
+                <ParticipantConferenceView participant={item} key={item.jId} style={participantViewStyle}  />
             </View>
         )
     }

@@ -12,18 +12,17 @@ import {
     Header
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { Alert, StyleSheet, View } from 'react-native';
 import { MessageComponent } from './MessageComponent';
 import { Strings } from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-
+import { BubbleChatViewNavigationProp, BubbleChatViewRouteProp } from '../Navigation/AppNavigationTypes';
 
 const logger = new Logger('BubbleChatView');
-
 export interface IBubbleChatProps {
-    bubble: IBubble;
+    navigation: BubbleChatViewNavigationProp;
+    route: BubbleChatViewRouteProp
 }
 
 const BubbleMenuOptions = {
@@ -35,12 +34,13 @@ const BubbleMenuOptions = {
     SeeSharedFiles: Strings.seeSharedFiles
 }
 
-export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
-    props: IBubbleChatProps
-) => {
+export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = ({
+    navigation,
+    route
+}) => {
 
     const [index, setIndex] = useState(0);
-    const [currentBubble, setCurrentBubble] = useState<IBubble>(props.bubble);
+    const [currentBubble, setCurrentBubble] = useState<IBubble>(route.params.bubble);
     const [currentConferenceCall, setCurrentConferenceCall] = useState<IConference>();
     const [displayJoinBanner, setDisplayJoinBanner] = useState<boolean>(false);
     const [routes] = useState([
@@ -65,11 +65,11 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
         });
         const onBubbleArchive = eventEmitter.addListener(EventType.ArchiveBubbleResult, (eventData: string) => {
             logger.info(`addListener for ${EventType.ArchiveBubbleResult} : ${eventData}`)
-            Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => Actions.pop() }]);
+            Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => navigation.pop() }]);
         });
         const onBubbleDeleted = eventEmitter.addListener(EventType.DeleteBubbleResult, (eventData: string) => {
             logger.info(`addListener for ${EventType.ArchiveBubbleResult} : ${eventData}`)
-            Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => Actions.pop() }]);
+            Alert.alert(Strings.archiveBubble, eventData, [{ text: 'oK', onPress: () => navigation.pop() }]);
         });
         const currentConferenceUpdatedListener = eventEmitter.addListener(EventType.CurrentConferenceUpdated, (conferenceCall?: IConference) => {
             logger.info(`CurrentConferenceUpdated with conference call: ${conferenceCall?.callPeer.name} : current bubble has conf ${conferenceCall?.callPeer.jId === currentBubble.jId}`);
@@ -83,7 +83,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
 
 
         if (currentBubble.hasActiveConference && !currentConferenceCall) {
-            bubblesService.getActiveConferenceForBubble(props.bubble.id);
+            bubblesService.getActiveConferenceForBubble(currentBubble.id);
         }
         const getConferenceBubbleEvent = eventEmitter.addListener(
             EventType.GetActiveConferenceForBubbleResult,
@@ -101,13 +101,14 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
             onBubbleArchive.remove();
             onBubbleDeleted.remove();
         }
-    }, [currentConferenceCall, props]);
+    }, [currentConferenceCall, currentBubble]);
 
     const openAddParticipants = () => {
-        Actions.AddParticipants({ bubbleId: currentBubble.id });
+        navigation.navigate('AddParticipants', { bubbleId: currentBubble.id})
+
     }
     const openBubbleInfo = () => {
-        Actions.editBubble({ bubble: currentBubble })
+        navigation.navigate('EditBubble', {bubble:currentBubble})
     }
 
     const selectMenuItem = (value: string) => {
@@ -128,9 +129,8 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
                 bubblesService.sendBubbleChatByEmail(currentBubble.id);
                 break;
             case BubbleMenuOptions.SeeSharedFiles:
-                Actions.SharedFiles({ peer: props.bubble });
+                navigation.navigate('SharedFileList', { peer: currentBubble})
                 break;
-
         }
 
     }
@@ -194,7 +194,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = (
     }
     const FirstTab = () => (
         <>
-            <MessageComponent peer={currentBubble} />
+            <MessageComponent peer={currentBubble} navigation={navigation} />
             {displayJoinBanner && renderJoinConferencePanner()}
         </>
 

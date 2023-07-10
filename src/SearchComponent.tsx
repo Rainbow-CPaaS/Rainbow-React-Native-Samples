@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { createCallPbxContactAction, IAction, IActionsProvider, IContact, Logger, Search } from 'react-native-rainbow-module';
+import { CombinedRootStackParamList } from './Navigation/AppNavigationTypes';
+import { NavigationProp } from '@react-navigation/native';
 
 const logger = new Logger('SearchComponent');
-export const SearchComponent: React.FunctionComponent = () => {
+interface ISearchNavigationProps {
+    navigation: NavigationProp<CombinedRootStackParamList>;
+  }
+export const SearchComponent: React.FunctionComponent<ISearchNavigationProps> = ({navigation}) => {
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [contactToCall, setContactToCall] = useState<IContact>();
 
@@ -12,7 +16,7 @@ export const SearchComponent: React.FunctionComponent = () => {
         setShowDialog(!showDialog);
     };
     const actions: IAction[] = [
-        createCallPbxContactAction(contact => {
+        createCallPbxContactAction((contact: IContact) => {
             setContactToCall(contact);
             openDialog();
         })
@@ -25,11 +29,7 @@ export const SearchComponent: React.FunctionComponent = () => {
         };
     })();
     const handleClickItem = (contact: IContact) => {
-        if (Actions.currentScene !== 'contactInformation') {
-            Actions.contactInformation({
-                contact
-            });
-        }
+        navigation.navigate('ContactInformation', {contact})
     };
     return (
         <>

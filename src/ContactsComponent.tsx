@@ -1,47 +1,81 @@
-import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
+import React, { useEffect, useState } from 'react';
 import {
-    createViewContactAction,
-    IAction,
-    IActionsProvider,
-    Contacts,
-    IContactInfoStyleProps
+  Contacts,
+  IContact,
+  ContactCardView,
+  eventEmitter,
+  EventType,
+  ImageButton,
+  startUpService
 } from 'react-native-rainbow-module';
-import componentConfig from '../component-config.json'
-import appStyleConfig from '../app-styles.json';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { MakeCallButton } from './Calls/MakeCallButton';
+import { NavigationProp } from '@react-navigation/native';
+import { CombinedRootStackParamList } from './Navigation/AppNavigationTypes';
+import { Center } from 'native-base';
+import { Strings } from './resources/localization/Strings';
+import contactDetailsImage from './resources/images/contactdetails.png';
 
-const contactsInfoStyle = StyleSheet.create(appStyleConfig.contactsInformation);
-const contactsInfoCustomStyle: IContactInfoStyleProps = { headerBgColor: { backgroundColor: contactsInfoStyle.tabBackground.backgroundColor } }
-
-export class ContactsComponent extends Component implements IActionsProvider {
-    private actions: IAction[] = [
-        createViewContactAction(contact => {
-            if (Actions.currentScene !== 'contactInformation') {
-                Actions.contactInformation({
-                    contact,
-                    style: contactsInfoCustomStyle,
-                    viewEmails: componentConfig.ContactInformation.viewEmails,
-                    viewPhoneNumbers: componentConfig.ContactInformation.viewPhoneNumbers,
-                    callActionsComponent: MakeCallButton
-                });
-            }
-        })
-    ];
-    constructor(props: any) {
-        super(props);
-    }
-    public getActions = () => {
-        return this.actions;
-    };
-    public render() {
-        return (
-            <Contacts
-                networkContactsEnabled={componentConfig.Contacts.networkContactsEnabled}
-                localContactsEnabled={componentConfig.Contacts.localContactsEnabled}
-                actionsProvider={this}
-            />
-        );
-    }
+interface IContactsNavigationProps {
+  navigation: NavigationProp<CombinedRootStackParamList>;
 }
+export const ContactsComponent: React.FunctionComponent<IContactsNavigationProps> = ({ navigation }) => {
+  const [contacts, setContacts] = useState<IContact[]>([]);
+  useEffect(() => {
+    startUpService.getRosterContacts();
+
+    const contactsUpdated = eventEmitter.addListener(
+      EventType.ContactsUpdated,
+      (eventData: IContact[]) => {
+        setContacts(eventData);
+      });
+
+    return () => {
+      contactsUpdated.remove();
+    }
+  }, []);
+
+  const renderEmptyList = () => {
+    return (
+      <Center>
+        <Text style={defaultStyle.NoDataMessages}>
+          {Strings.noDataFound}
+        </Text>
+      </Center>
+    );
+  }
+  const navigateToContactDetails = (contact: IContact) => () => {
+    const makeCallButton = <MakeCallButton contact={contact} />;
+    navigation.navigate('ContactInformation', { contact, makeCallButton })
+  }
+  const contactCardRightComponent = (contact: IContact) => {
+
+    return (
+      <ImageButton
+        key={1}
+        imageSource={contactDetailsImage}
+        onPress={navigateToContactDetails(contact)}
+        style={{container:{width: 50, height: 50
+        } , image:{width: 50, height: 50}}}
+      />
+    )
+  };
+
+  const renderItems = (item: IContact) => {
+    return <ContactCardView contact={item} rightItem={contactCardRightComponent(item)} />;
+  }
+
+  return (
+    <Contacts
+      contacts={contacts}
+      renderItems={renderItems}
+      renderEmptyList={renderEmptyList}
+    />
+  )
+}
+
+const defaultStyle = StyleSheet.create({
+  NoDataMessages: {
+    textAlign: 'center',
+  },
+});
