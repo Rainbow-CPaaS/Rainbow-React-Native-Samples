@@ -40,7 +40,7 @@ export const Home: FunctionComponent<IHomeProps> = ({
 
 		});
 		if (Platform.OS === 'android') {
-			// startUpService.getAutoStartPermissions();
+			startUpService.getAutoStartPermissions();
 		}
 		startUpService.getRosterContacts();
 	}, [])

@@ -4,6 +4,19 @@
 
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
+## [1.7.0] - 2023-7-10
+---
+**API Changes:**
+- Added a new property isRemoteVideoEnabled to the ICall object, allowing users to enable or disable remote video during call
+
+**Fixes:**
+- Fixed an issue where sharing a remote video call would encounter sharing problems.
+- Resolved a bug that caused the delegated conference call to end and then reappear as a new incoming call after two seconds.
+- Fix upstream dependency conflicts encountered when installing npm packages into the example app. With this update, there is no longer a need to use the "--force" or "--legacy-peer-deps" command to resolve such conflicts.
+
+**Other Changes:**
+- Updated Rainbow Android SDK to version 2.33-beta, addressing and fixing any associated breaking changes.
+- Refactored the codebase to remove the dependency on the react-native-router-flux package and replaced it with react native navigation for improved navigation handling. `Please refer to the documentation available in the Rainbow API hub for more details on this update`.
 
 ## [1.6.1] - 2023-6-1
 ---
