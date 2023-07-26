@@ -23,7 +23,8 @@ jobs:
         run: npm install
 
       - name: Build Android APK
-        run: npm run android-build
+        run: ls -l ./gradlew ,
+             npm run android-build
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v2
