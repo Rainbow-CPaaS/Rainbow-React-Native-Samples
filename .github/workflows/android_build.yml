@@ -24,12 +24,13 @@ jobs:
 
       - name: Build Android APK
         run: pwd
-                ls -l Rainbow-React-Native-Samples/android/app/build/outputs/apk/release/
-             npm run android-build
+                ls -l android/app/build/outputs/apk/release/
+            cd android
+            ./gradlew assembleRelease
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v2
         with:
           name: app-release.apk
-          path: Rainbow-React-Native-Samples/android/app/build/outputs/apk/release/
+          path: android/app/build/outputs/apk/release/
 
