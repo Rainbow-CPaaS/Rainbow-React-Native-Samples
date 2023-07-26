@@ -1,0 +1,32 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Rainbow-React-Native-Samples
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Android APK
+        run: npm run android-build
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/
