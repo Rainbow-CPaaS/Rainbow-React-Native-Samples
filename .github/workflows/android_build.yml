@@ -23,10 +23,10 @@ jobs:
         run: npm install
 
       - name: Build Android APK
-        run: pwd
-                ls -l android/app/build/outputs/apk/release/
-            cd android
-            ./gradlew assembleRelease --quiet
+        run: pwd &&
+             ls -l android/app/build/outputs/apk/release/ &&
+             cd android &&
+            ./gradlew assembleRelease --info 
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v2
