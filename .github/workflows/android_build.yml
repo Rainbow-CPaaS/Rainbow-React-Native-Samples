@@ -21,6 +21,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        
+      - name: Set Gradle Wrapper Permissions
+        run:  cd android &&
+              chmod +x gradlew
 
       - name: Build Android APK
         run: pwd &&
