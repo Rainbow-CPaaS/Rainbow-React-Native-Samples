@@ -32,7 +32,7 @@ jobs:
         run: pwd &&
              ls &&
              cd android &&
-            ./gradlew assembleRelease --info 
+            ./gradlew assembleRelease  
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v2
