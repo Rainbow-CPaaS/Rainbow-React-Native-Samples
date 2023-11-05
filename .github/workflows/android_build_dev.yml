@@ -3,7 +3,7 @@ name: Build Android APK Dev
 on:
   push:
     branches:
-      - development
+      - main
   workflow_dispatch:
     # This will allow triggering the workflow manually using the GitHub UI
 
