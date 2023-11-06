@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'appGenerator/**'  
+      
   workflow_dispatch:
     # This will allow triggering the workflow manually using the GitHub UI
 
