@@ -1,1 +1,45 @@
 
+name: Build Android APK Dev
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'appGenerator/**'  
+      
+  workflow_dispatch:
+    # This will allow triggering the workflow manually using the GitHub UI
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Rainbow-React-Native-Samples
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Set Gradle Wrapper Permissions
+        run:  cd android &&
+              chmod +x gradlew
+
+      - name: Build Android APK
+        run: pwd &&
+             ls &&
+             cd android &&
+            ./gradlew assembleRelease  
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/
