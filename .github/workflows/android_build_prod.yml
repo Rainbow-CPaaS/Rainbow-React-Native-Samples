@@ -1,5 +1,5 @@
 
-name: Build Android APK Dev Prod
+name: Build Android APK Dev - Production
 
 on:
   push:
