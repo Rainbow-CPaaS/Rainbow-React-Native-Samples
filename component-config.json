@@ -1,8 +1,6 @@
 {
     "calls": {
         "enabled": true,
-        "webRtcEnabled": true,
-        "pbxEnabled": true
     },
     "invitations": {
         "enabled": true
@@ -14,11 +12,9 @@
         "enabled": false
     },
     "ContactInformation": {
-        "viewEmails": false,
-        "viewPhoneNumbers": true
+        "enabled": true
     },
     "Contacts": {
-        "networkContactsEnabled": true,
-        "localContactsEnabled": false
+        "enabled": true
     }
 }
