@@ -1,13 +1,7 @@
 
-name: Build Android APK Dev - Production
+name: Build Android APK - Production
 
-on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'appGenerator/**'  
-      
+on:      
   workflow_dispatch:
     # This will allow triggering the workflow manually using the GitHub UI
 
