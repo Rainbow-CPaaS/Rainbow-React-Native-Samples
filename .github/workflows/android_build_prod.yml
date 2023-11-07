@@ -1,5 +1,5 @@
 
-name: Build Android APK - Production
+name: Build RN Android APK - Production
 
 on:      
   workflow_dispatch:
