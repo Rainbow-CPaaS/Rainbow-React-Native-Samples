@@ -1,6 +1,6 @@
 {
     "calls": {
-        "enabled": true,
+        "enabled": true
     },
     "invitations": {
         "enabled": true
