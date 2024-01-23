@@ -46,7 +46,7 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
     const renderPhoneItem = (item: IPhoneNumber) => {
         return (
             <HStack p="3" key={item.value}  >
-                <Icon name="md-phone-portrait-outline" size={30} color="#0086CF" />
+                <Icon name="phone-portrait-outline" size={30} color="#0086CF" />
                 <VStack ml="3">
                     <Text color="lightBlue.600">
                         {Strings.phoneStrings[item.type as keyof typeof PhoneType]}

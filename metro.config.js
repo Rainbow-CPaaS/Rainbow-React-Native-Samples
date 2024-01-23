@@ -1,29 +1,34 @@
-/**
- * Metro configuration for React Native
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 const path = require('path');
+const root = path.resolve(__dirname, '..');
 const extraNodeModules = {
   'react-native-rainbow-module': path.resolve('./node_modules/react-native-rainbow-module'),
 };
-const watchFolders = [
-  path.resolve('./node_modules/react-native-rainbow-module')
-];
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
+  watchFolders: [path.resolve('./node_modules/react-native-rainbow-module')],
 
-module.exports = {
+  // We need to make sure that only one version is loaded for peerDependencies
+  // So we block them at the root, and alias them to the versions in example's node_modules
+  resolver: {
+    nodeModulesPaths: [root],
+    extraNodeModules: extraNodeModules,
+  },
+
   transformer: {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: false,
+        inlineRequires: true,
       },
     }),
   },
-  resolver: {
-    extraNodeModules
-  },
-  watchFolders,
 };
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);

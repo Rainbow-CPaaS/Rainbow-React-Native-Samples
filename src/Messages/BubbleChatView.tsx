@@ -187,7 +187,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = ({
     const renderHeaderRightIcon = () => {
         return (
             <View style={styles.editBubbleView}>
-                {(currentBubble.isMyUserModerator && !currentBubble.hasActiveConference) && <Icon name="ios-call-sharp" style={styles.startConferenceIcon} onPress={startConferenceAction} />}
+                {(currentBubble.isMyUserModerator && !currentBubble.hasActiveConference) && <Icon name="call-sharp" style={styles.startConferenceIcon} onPress={startConferenceAction} />}
                 {renderBubbleOption()}
             </View>
         );

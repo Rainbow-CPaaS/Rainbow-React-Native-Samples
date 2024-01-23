@@ -80,7 +80,7 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
         return <Text fontSize="md" color="white">{Strings.showChatFilesTitle} </Text>;
     }
     const renderRightHeader = () => {
-        return <Icon name="sort" onPress={showModalView} style={defaultStyle.sortIcon} size={40} />
+        return <Icon name="sort" onPress={showModalView}  size={40} />
     }
     return (
         <>

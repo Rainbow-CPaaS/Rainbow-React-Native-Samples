@@ -9,8 +9,8 @@ interface IOpenCallDialogComponentProps {
     callDialogPbxActions?: IPbxCallActionProps;
 }
 export const webRtcActions: IWebRtcCallActionProps[] = [
-    { callType: 'video', actionName: 'video', iconName: 'ios-videocam' },
-    { callType: 'audio', actionName: 'audio', iconName: 'md-headset' }
+    { callType: 'video', actionName: 'video', iconName: 'videocam' },
+    { callType: 'audio', actionName: 'audio', iconName: 'headset' }
 ];
 export const DialogCallComponent: React.FunctionComponent<IOpenCallDialogComponentProps> = ({
     contact,
