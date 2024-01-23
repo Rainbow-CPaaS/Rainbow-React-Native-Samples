@@ -4,7 +4,6 @@
     "paths": {
       "react-native-rainbow-module": ["./src/index"]
     },
-    "charset": "utf-8",
     "allowUnreachableCode":true,
     "allowUnusedLabels": true,
     "esModuleInterop": true,
@@ -34,5 +33,5 @@
 "include": [
   "./src",
 ],
-"extends": "@tsconfig/react-native/tsconfig.json"
+"extends": "@react-native/typescript-config/tsconfig.json"
 }
