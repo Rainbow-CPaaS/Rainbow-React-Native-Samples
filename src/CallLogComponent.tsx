@@ -1,4 +1,3 @@
-import { Container } from 'native-base';
 import React, { useState } from 'react';
 import { DialogCallComponent } from './Calls/DialogCallComponent';
 import { webRtcActions } from './Calls/DialogCallComponent';

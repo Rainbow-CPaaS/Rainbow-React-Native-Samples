@@ -1,6 +1,6 @@
 import { Box, Divider, HStack, Text, VStack } from 'native-base';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Alert, Pressable, StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { IBubble, eventEmitter, EventType, Bubbles, AvatarPresenceBadge, bubblesService, ImageButton } from 'react-native-rainbow-module';
 import accept from '../resources/images/acceptFeed.png';
 import remove from '../resources/images/removeFeed.png';

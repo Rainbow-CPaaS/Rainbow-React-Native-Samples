@@ -130,10 +130,10 @@ export const Home: FunctionComponent<IHomeProps> = ({
 			<Box bg="white" safeAreaTop width="100%" alignSelf="flex-end" >
 				<HStack bg="lightBlue.600" alignItems="center" alignSelf="flex-end" safeAreaBottom shadow={6} >
 					{renderButtonTab('contacts', 'person', 1)}
-					{renderButtonTab('conversations', 'ios-chatbox', 2)}
-					{renderButtonTab('bubbles', 'md-chatbubbles', 3)}
+					{renderButtonTab('conversations', 'chatbox', 2)}
+					{renderButtonTab('bubbles', 'chatbubbles', 3)}
 					{renderButtonTab('invitations', 'person-add-sharp', 4)}
-					{renderButtonTab('callLogs', 'ios-time', 5)}
+					{renderButtonTab('callLogs', 'time', 5)}
 				</HStack>
 			</Box>
 			<BackButtonHandler

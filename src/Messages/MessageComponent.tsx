@@ -202,7 +202,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       <View >
         {currentMessage.image === 'icon' ?
           <Icon
-            name="ios-document"
+            name="document"
             style={defaultStyle.msgDocument}
           />
           :
@@ -372,8 +372,8 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
 
     const filterMessage: IMessage[] = messages.filter(data => data._id === currentMessage.associatedMsgId)
     const warningIcon = <Icon name="warning" color="#c85c2c" size={25} />;
-    const infoIcon = <Icon name="ios-information-circle-outline" size={25} style={infoHeaderViewStyle.iconStyle} />;
-    const arrowForwardIcon = <Icon name="ios-arrow-forward-circle-outline" size={25} />;
+    const infoIcon = <Icon name="information-circle-outline" size={25} style={infoHeaderViewStyle.iconStyle} />;
+    const arrowForwardIcon = <Icon name="arrow-forward-circle-outline" size={25} />;
     return (
       <>
         {currentMessage.urgency === IUrgencyType.MEDIUM ? messageHeaderView(warningIcon, importantHeaderViewStyle, Strings.Important) : null}

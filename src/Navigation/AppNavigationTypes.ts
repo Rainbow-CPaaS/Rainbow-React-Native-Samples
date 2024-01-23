@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { IBackButtonHandler, IBubble, IContact, IConversation, IFile, IPeer, IUser } from 'react-native-rainbow-module';
+import { IBackButtonHandler, IBubble, IConversation, IFile, IPeer, IUser } from 'react-native-rainbow-module';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList as LibraryRootStackParamList } from 'react-native-rainbow-module';
 

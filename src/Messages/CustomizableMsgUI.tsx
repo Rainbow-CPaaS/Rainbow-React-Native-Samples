@@ -34,7 +34,7 @@ export const sendingExtraView = (title: string, onClose: () => void, style: ISty
     <View style={style.containerStyle}>
         <Text style={style.textStyle}>{title}</Text>
         <Text style={style.msgStyle ?? style.textStyle}>{msg}</Text>
-        <Icon name="md-close-circle" style={defaultInternalStyle.closeIconStyle} onPress={onClose} />
+        <Icon name="close-circle" style={defaultInternalStyle.closeIconStyle} onPress={onClose} />
     </View>
 );
 
@@ -65,7 +65,7 @@ export const selectedAttachedFilesView = (filesToUpload: IAttachedFile[], isLoad
         return (
             <View style={defaultInternalStyle.selectedAttachedFilesContainer} key={file.uri}>
                 {!isLoading && <TouchableOpacity onPress={onCancel(file)} style={defaultInternalStyle.cancelUploadIcon}>
-                    <Icon name="md-close-circle" size={30} color="white" />
+                    <Icon name="close-circle" size={30} color="white" />
                 </TouchableOpacity>}
                 {file.type === Attached.FilesLibrary ? fileAttachedView(file) : imageAttachedView(file)}
                 {isLoading && <ActivityIndicator size="large" color="blue" style={defaultInternalStyle.attachedLoading} />}

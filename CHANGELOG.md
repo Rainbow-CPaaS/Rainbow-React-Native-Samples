@@ -4,6 +4,14 @@
 
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
+
+## [1.8.0] - 2024-1-23
+---
+**Other Changes:**
+- Updated React Native version from 0.71.0 to 0.73.2, resolving all associated dependency issues.
+- Updated Rainbow Android SDK to version 2.42.0.
+- Updated example sample code on GitHub to align with the latest changes.
+
 ## [1.7.0] - 2023-7-10
 ---
 **API Changes:**
