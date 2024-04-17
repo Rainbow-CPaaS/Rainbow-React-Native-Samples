@@ -1,20 +1,20 @@
 {
-    "calls": {
-        "enabled": true
-    },
-    "invitations": {
-        "enabled": true
-    },
-    "conversations": {
-        "enabled": true
-    },
-    "bubbles": {
-        "enabled": false
-    },
-    "ContactInformation": {
-        "enabled": true
-    },
-    "Contacts": {
-        "enabled": true
-    }
+  "calls": {
+    "enabled": true
+  },
+  "invitations": {
+    "enabled": true
+  },
+  "conversations": {
+    "enabled": true
+  },
+  "bubbles": {
+    "enabled": false
+  },
+  "ContactInformation": {
+    "enabled": true
+  },
+  "Contacts": {
+    "enabled": true
+  }
 }
