@@ -7,7 +7,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "android-build": "cd android && ./gradlew assembleRelease"
+    "android-build": "cd android && ./gradlew assembleRelease",
+     "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.9",
@@ -65,5 +66,33 @@
   },
   "overrides": {
     "react-native-gesture-handler": "^2.8.0"
+  }, "eslintConfig": {
+    "extends": [
+      "@react-native-community",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "prettier/prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
   }
 }
