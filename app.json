@@ -1,4 +1,6 @@
 {
   "name": "RainbowModuleExample",
-  "displayName": "RainbowModule Example"
+  "displayName": "RainbowModule Example",
+  "callAppName": "call_activity"
+
 }

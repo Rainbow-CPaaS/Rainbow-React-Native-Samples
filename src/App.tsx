@@ -10,6 +10,7 @@ import {
   ForwardedView,
   EditBubble,
   AddParticipant,
+  setAppSecretKey,
 } from 'react-native-rainbow-module';
 import {Home} from './Home';
 import {AppMenuView} from './AppMenu';
@@ -31,7 +32,7 @@ const logger = new Logger('example');
 const handlers: IBackButtonHandler[] = [];
 const Stack = createNativeStackNavigator<CombinedRootStackParamList>();
 
-RainbowContainer.setAppSecretKey(jsonRainbowConfig);
+setAppSecretKey(jsonRainbowConfig);
 
 export default function App() {
   const registerBackButtonHandler = (handler: IBackButtonHandler) => {

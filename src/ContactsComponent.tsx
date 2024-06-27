@@ -9,12 +9,13 @@ import {
   startUpService,
 } from 'react-native-rainbow-module';
 import {StyleSheet, Text} from 'react-native';
-import {MakeCallButton} from './Calls/MakeCallButton';
+import {webRtcActions} from './Calls/MakeCallButton';
 import {NavigationProp} from '@react-navigation/native';
 import {CombinedRootStackParamList} from './Navigation/AppNavigationTypes';
 import {Center} from 'native-base';
 import {Strings} from './resources/localization/Strings';
 import contactDetailsImage from './resources/images/contactdetails.png';
+import videoCall from './resources/images/videoCall.png';
 
 interface IContactsNavigationProps {
   navigation: NavigationProp<CombinedRootStackParamList>;
@@ -46,8 +47,13 @@ export const ContactsComponent: React.FunctionComponent<
     );
   };
   const navigateToContactDetails = (contact: IContact) => () => {
-    const makeCallButton = <MakeCallButton contact={contact} />;
-    navigation.navigate('ContactInformation', {contact, makeCallButton});
+    navigation.navigate('ContactInformation', {
+      contact,
+      makeCallButtonProps: {
+        imageSource: videoCall,
+        webrtcActions: webRtcActions,
+      },
+    });
   };
   const contactCardRightComponent = (contact: IContact) => {
     return (

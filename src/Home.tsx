@@ -31,7 +31,7 @@ interface IHomeProps {
   route: HomeScreenRouteProp;
   navigation: HomeScreenNavigationProp;
 }
-export const Home: FunctionComponent<IHomeProps> = ({route, navigation}) => {
+export const Home: FunctionComponent<IHomeProps> = ({navigation}) => {
   const [selectedTab, setSelectedTab] = React.useState<number>(1);
   const [isSearchMode, setIsSearchMode] = React.useState<boolean>(false);
   const [searchQuery, setSearchQuery] = React.useState<string>('');
@@ -60,7 +60,7 @@ export const Home: FunctionComponent<IHomeProps> = ({route, navigation}) => {
   const openMenu = () => {
     navigation.navigate('AppMenu');
   };
-  const renderTab = (): Element => {
+  const renderTab = (): React.ReactNode => {
     switch (selectedTab) {
       case 1:
         return <ContactsComponent navigation={navigation} />;

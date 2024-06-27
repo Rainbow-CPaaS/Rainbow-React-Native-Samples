@@ -70,7 +70,7 @@ export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
             <PresenceList presenceIconStyle={presenceIconStyle} />
           </HStack>
         )}
-        <Telephony />
+        {/* <Telephony /> */}
         <TouchableWithoutFeedback onPress={goToMyProfileInfo}>
           <HStack alignItems="flex-start" my="2">
             <Icon
