@@ -1,6 +1,8 @@
 {
     "calls": {
-        "enabled": true
+        "enabled": true,
+        "webRtcEnabled": true,
+        "pbxEnabled": false
     },
     "invitations": {
         "enabled": true
