@@ -5,6 +5,30 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.9.1] - 2024-7-1
+---
+**Other Changes:**
+- Fix a dependency issue and Android API Compatibility regarding `androidx.core:core-ktx:+`
+
+
+
+## [1.9.0] - 2024-6-27
+---
+**New Features:**
+- Authentication Process Refactor
+  - Introduced AuthComponentsProvider to allow custom authentication components.
+  - Introduced AuthNavigator for handling authentication navigation flow.
+  - Provided default authentication components which can be overridden by consumer applications.
+
+**Improvements :**
+  - Refactored state management to use useAppSelector for better type safety and cleaner code.
+  - Simplified state and actions export to make them more accessible for consumer applications.
+
+**Other Changes**
+  - Enhanced documentation to include detailed instructions on customizing authentication components and integrating the new authentication process.
+  - Updated error handling to provide more descriptive messages during authentication and navigation processes.
+
+
 ## [1.8.0] - 2024-1-23
 ---
 **Other Changes:**
