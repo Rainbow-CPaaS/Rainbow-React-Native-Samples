@@ -5,12 +5,24 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+
+## [1.10.0] - 2024-9-2
+---
+
+**Other Changes:**
+- Update Rainbow Android sdk from 2.42.0 to 2.55.0-beta.2.
+- Upgrade some of third party libraries versions to latest version.
+- `iOS`: Resolve dependency issue caused by the React Native version gap between Android and iOS.
+
+**Fixes:**
+- Fix issue where ringtone is still playing after a missed call.
+
+
 ## [1.9.1] - 2024-7-1
 ---
+
 **Other Changes:**
 - Fix a dependency issue and Android API Compatibility regarding `androidx.core:core-ktx:+`
-
-
 
 ## [1.9.0] - 2024-6-27
 ---
