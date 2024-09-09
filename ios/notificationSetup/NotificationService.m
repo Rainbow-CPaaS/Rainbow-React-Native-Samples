@@ -7,7 +7,7 @@
 //
 
 #import "NotificationService.h"
-#import <RNRainbowRn.h>
+// #import <RNRainbowRn.h>
 
 @interface NotificationService ()
 
@@ -23,18 +23,18 @@
   self.bestAttemptContent = [request.content mutableCopy];
   NSDictionary *userInfo = _bestAttemptContent.userInfo;
   // Check if the notification message is encrypted
-  if ([userInfo valueForKeyPath:@"aps.crypt"]) {
-    NSLog(@"Encrypted Notification Message: %@",userInfo);
-    NotificationsManager *rainbowNotificationManager = [ServicesManager sharedInstance].notificationsManager;
-    userInfo = [rainbowNotificationManager decryptNotificationContentWithUserInfo:userInfo];
-    NSLog(@"Decripted Notification Message: %@",userInfo);
-    _bestAttemptContent.userInfo = userInfo;
-    // Refill bestAttemptContent with the updated data
-    NSString *title = [userInfo valueForKeyPath:@"aps.alert.title"];
-    _bestAttemptContent.title = title;
-    NSString *body = [userInfo valueForKeyPath:@"aps.alert.body"];
-    _bestAttemptContent.body = body;
-  }
+  // if ([userInfo valueForKeyPath:@"aps.crypt"]) {
+  //   NSLog(@"Encrypted Notification Message: %@",userInfo);
+  //   NotificationsManager *rainbowNotificationManager = [ServicesManager sharedInstance].notificationsManager;
+  //   userInfo = [rainbowNotificationManager decryptNotificationContentWithUserInfo:userInfo];
+  //   NSLog(@"Decripted Notification Message: %@",userInfo);
+  //   _bestAttemptContent.userInfo = userInfo;
+  //   // Refill bestAttemptContent with the updated data
+  //   NSString *title = [userInfo valueForKeyPath:@"aps.alert.title"];
+  //   _bestAttemptContent.title = title;
+  //   NSString *body = [userInfo valueForKeyPath:@"aps.alert.body"];
+  //   _bestAttemptContent.body = body;
+  // }
   
   // Modify the notification content here...
   self.bestAttemptContent.title = [NSString stringWithFormat:@"%@ [modified]", self.bestAttemptContent.title];

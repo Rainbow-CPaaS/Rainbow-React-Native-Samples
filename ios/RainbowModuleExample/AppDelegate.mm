@@ -33,35 +33,38 @@
   }];
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                   moduleName:@"RainbowModuleExample"
-                                            initialProperties:nil];
-
-  if (@available(iOS 13.0, *)) {
-      rootView.backgroundColor = [UIColor systemBackgroundColor];
-  } else {
-      rootView.backgroundColor = [UIColor whiteColor];
-  }
-
-
+  NSLog(@"[AppDelegate] bridge %@",bridge);
   [[RNRainbowRn sharedManager] initRainbowServiceManager:bridge];
 
 
-  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
+  // if (@available(iOS 13.0, *)) {
+  //     rootView.backgroundColor = [UIColor systemBackgroundColor];
+  // } else {
+  //     rootView.backgroundColor = [UIColor whiteColor];
+  // }
 
-  UINavigationController *rootNavigationController = [[RNRainbowRn sharedManager] setupRainbowRootController:rootViewController];
-  self.window.rootViewController = rootNavigationController;
+  // self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  // UIViewController *rootViewController = [UIViewController new];
+  // rootViewController.view = rootView;
 
+  // UINavigationController *rootNavigationController = [[RNRainbowRn sharedManager] setupRainbowRootController:rootViewController];
+  // self.window.rootViewController = rootNavigationController;
+
+  self.moduleName = @"RainbowModuleExample";
+  self.initialProps = @{};
   [self.window makeKeyAndVisible];
-  return YES;
+  return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
+  return [self bundleURL];
+}
+- (NSURL *)bundleURL
+
+{
 #if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
