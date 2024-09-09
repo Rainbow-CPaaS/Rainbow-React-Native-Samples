@@ -1,8 +1,8 @@
 [
     {
         "HOST": "openrainbow.com",
-        "APP_ID": "Y65c681c01c8f11e9add8932b358ef81d",
-        "SEC_KEY": "YUYdu3wCXTdfyjImhURnIkZ0tac5J9XSLszIKBRUUWVB35b6nT3fWV2BhAGhojdBQ"
+        "APP_ID": "YOUR APPLICATION IDENTIFIER",
+        "SEC_KEY": "YOUR APPLICATION SECRET"
     },
     {
         "HOST": "openrainbow.net",
