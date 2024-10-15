@@ -3,7 +3,6 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import {ImageStyle, TouchableWithoutFeedback} from 'react-native';
 import {
   Logger,
-  Telephony,
   UserProfile,
   PresenceList,
   store,
@@ -52,7 +51,6 @@ export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
   };
   const onLogout = () => {
     authService.signOut();
-    store.dispatch(SignOutActionCreator);
   };
   const goToMyProfileInfo = () => {
     if (connectedUser != null) {
@@ -70,7 +68,6 @@ export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
             <PresenceList presenceIconStyle={presenceIconStyle} />
           </HStack>
         )}
-        {/* <Telephony /> */}
         <TouchableWithoutFeedback onPress={goToMyProfileInfo}>
           <HStack alignItems="flex-start" my="2">
             <Icon
@@ -103,11 +100,4 @@ export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
       </VStack>
     </Provider>
   );
-};
-
-const SignOutActionCreator = () => {
-  logger.info('On SignOut');
-  return {
-    type: 'signOut',
-  };
 };

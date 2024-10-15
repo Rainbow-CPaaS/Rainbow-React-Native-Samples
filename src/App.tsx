@@ -11,6 +11,7 @@ import {
   EditBubble,
   AddParticipant,
   setAppSecretKey,
+  SafeArea,
 } from 'react-native-rainbow-module';
 import {Home} from './Home';
 import {AppMenuView} from './AppMenu';
@@ -49,54 +50,62 @@ export default function App() {
     };
   };
   return (
-    <NavigationContainer>
-      <RainbowContainer>
-        <NativeBaseProvider>
-          <ActiveCallBanner />
-          <BackHandlerListener />
-          <NavigationContext.Provider value={registerBackButtonHandler}>
-            <Stack.Navigator
-              screenOptions={{gestureEnabled: false, headerShown: false}}>
-              {/* App's screens  */}
-              <Stack.Screen name="ScreenHome" component={Home} />
-              <Stack.Screen name="AppMenu" component={AppMenuView} />
-              <Stack.Screen name="MyProfileInfo" component={MyProfileInfo} />
-              <Stack.Screen name="UserInfoFrom" component={UserInfoFrom} />
-              <Stack.Screen name="BubbleChatView" component={BubbleChatView} />
-              <Stack.Screen
-                name="PeerConversationChatView"
-                component={PeerConversationChatView}
-              />
-              <Stack.Screen
-                name="SharedFileList"
-                component={SharedFileComponent}
-              />
-              <Stack.Screen
-                name="FileDescription"
-                component={FileDescription}
-              />
-              <Stack.Screen
-                name="CreateBubble"
-                component={CreateBubbleComponent}
-              />
-              {/*  Other screens react-native-rainbow-module library */}
-              <Stack.Screen name="EditBubble" component={EditBubble} />
-              <Stack.Screen name="ForwardedView" component={ForwardedView} />
-              <Stack.Screen
-                name="TelephonySettings"
-                component={TelephonySettings}
-              />
-              <Stack.Screen name="AddParticipants" component={AddParticipant} />
-              <Stack.Screen
-                name="ContactInformation"
-                component={ContactInformation}
-              />
-              <Stack.Screen name="CallHistory" component={CallHistory} />
-            </Stack.Navigator>
-          </NavigationContext.Provider>
-        </NativeBaseProvider>
-      </RainbowContainer>
-    </NavigationContainer>
+    <SafeArea>
+      <NavigationContainer>
+        <RainbowContainer>
+          <NativeBaseProvider>
+            <ActiveCallBanner />
+            <BackHandlerListener />
+            <NavigationContext.Provider value={registerBackButtonHandler}>
+              <Stack.Navigator
+                screenOptions={{gestureEnabled: false, headerShown: false}}>
+                {/* App's screens  */}
+                <Stack.Screen name="ScreenHome" component={Home} />
+                <Stack.Screen name="AppMenu" component={AppMenuView} />
+                <Stack.Screen name="MyProfileInfo" component={MyProfileInfo} />
+                <Stack.Screen name="UserInfoFrom" component={UserInfoFrom} />
+                <Stack.Screen
+                  name="BubbleChatView"
+                  component={BubbleChatView}
+                />
+                <Stack.Screen
+                  name="PeerConversationChatView"
+                  component={PeerConversationChatView}
+                />
+                <Stack.Screen
+                  name="SharedFileList"
+                  component={SharedFileComponent}
+                />
+                <Stack.Screen
+                  name="FileDescription"
+                  component={FileDescription}
+                />
+                <Stack.Screen
+                  name="CreateBubble"
+                  component={CreateBubbleComponent}
+                />
+                {/*  Other screens react-native-rainbow-module library */}
+                <Stack.Screen name="EditBubble" component={EditBubble} />
+                <Stack.Screen name="ForwardedView" component={ForwardedView} />
+                <Stack.Screen
+                  name="TelephonySettings"
+                  component={TelephonySettings}
+                />
+                <Stack.Screen
+                  name="AddParticipants"
+                  component={AddParticipant}
+                />
+                <Stack.Screen
+                  name="ContactInformation"
+                  component={ContactInformation}
+                />
+                <Stack.Screen name="CallHistory" component={CallHistory} />
+              </Stack.Navigator>
+            </NavigationContext.Provider>
+          </NativeBaseProvider>
+        </RainbowContainer>
+      </NavigationContainer>
+    </SafeArea>
   );
 }
 

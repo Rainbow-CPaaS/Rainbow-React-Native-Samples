@@ -79,7 +79,7 @@ export const SharedFileComponent: React.FunctionComponent<IProps> = ({
     console.log(showModal + 'now' + !showModal);
     setShowModal(!showModal);
   };
-  const onSortFilterSelected = (filter: string) => () => {
+  const onSortFilterSelected = (filter: string) => {
     switch (filter) {
       case SortFilters.Name:
         sortByName();

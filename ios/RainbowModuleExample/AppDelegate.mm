@@ -32,28 +32,24 @@
     }
   }];
 
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  NSLog(@"[AppDelegate] bridge %@",bridge);
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"RainbowModuleExample" initialProperties:nil];
+
+   if (@available(iOS 13.0, *)) {
+       rootView.backgroundColor = [UIColor systemBackgroundColor];
+   } else {
+       rootView.backgroundColor = [UIColor whiteColor];
+   }
+  
   [[RNRainbowRn sharedManager] initRainbowServiceManager:bridge];
-
-
-  // if (@available(iOS 13.0, *)) {
-  //     rootView.backgroundColor = [UIColor systemBackgroundColor];
-  // } else {
-  //     rootView.backgroundColor = [UIColor whiteColor];
-  // }
-
-  // self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  // UIViewController *rootViewController = [UIViewController new];
-  // rootViewController.view = rootView;
-
-  // UINavigationController *rootNavigationController = [[RNRainbowRn sharedManager] setupRainbowRootController:rootViewController];
-  // self.window.rootViewController = rootNavigationController;
-
-  self.moduleName = @"RainbowModuleExample";
-  self.initialProps = @{};
+   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+   UIViewController *rootViewController = [UIViewController new];
+   rootViewController.view = rootView;
+   UINavigationController *rootNavigationController = [[RNRainbowRn sharedManager] setupRainbowRootController:rootViewController];
+   self.window.rootViewController = rootNavigationController;
   [self.window makeKeyAndVisible];
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

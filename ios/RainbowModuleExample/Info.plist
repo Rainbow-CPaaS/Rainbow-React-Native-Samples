@@ -32,11 +32,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>camera</string>
+	<string>The application needs to access the device camera</string>
 	<key>NSContactsUsageDescription</key>
 	<string>show your local contacts</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>calling</string>
+	<string>The application needs to access the device microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>using photo</string>
 	<key>NSUserActivityTypes</key>
