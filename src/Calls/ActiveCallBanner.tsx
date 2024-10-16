@@ -34,6 +34,10 @@ export const ActiveCallBanner: FunctionComponent<IProps> = ({
   const mergedStyle = {...styles.container, ...style};
   const mergedTextStyle = {...styles.pannerText, ...textStyle};
   const [currentCall, setCurrentCall] = useState<ICall>();
+  const callIsStllActive =
+    currentCall?.callState === CallState.ACTIVE ||
+    currentCall?.callState === CallState.HELD;
+
   useEffect(() => {
     const currentConferenceUpdatedListener = eventEmitter.addListener(
       EventType.CurrentConferenceUpdated,
@@ -56,22 +60,24 @@ export const ActiveCallBanner: FunctionComponent<IProps> = ({
       currentConferenceUpdatedListener.remove();
       callUpdatedListener.remove();
     };
-  }, []);
+  }, [currentCall]);
 
   const openActiveCall = () => {
     logger.info('openActiveCall');
     currentCallService.retrieveCurrentCall();
   };
 
-  return currentCall?.callState === CallState.ACTIVE ||
-    currentCall?.callState === CallState.HELD ? (
+  if (!callIsStllActive) {
+    return null;
+  }
+  return (
     <TouchableHighlight onPress={openActiveCall}>
       <SafeAreaView style={mergedStyle}>
         <Text style={mergedTextStyle}>{Strings.callInProgress}</Text>
         <Timer startTime={currentCall.startTime} style={mergedTextStyle} />
       </SafeAreaView>
     </TouchableHighlight>
-  ) : null;
+  );
 };
 
 const styles = StyleSheet.create({

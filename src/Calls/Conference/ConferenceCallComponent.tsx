@@ -119,14 +119,14 @@ export const ConferenceCallComponent: FunctionComponent<
     const onEndPressed = () => {
       if (conferenceCall) {
         // Check if my user had initiated the conference call, if its true then show the delegate view to hand handover the call, otherwise end the call.
-        conferenceCall.isMyUserStartConference
+        conferenceCall.isOnwer
           ? setShowDelegateConference(true)
           : conferenceService.endConferenceCall(callPeer.id);
       }
     };
     const goToBubbleChatView = () => {
       const bubble = call.callPeer;
-      navigation.navigate('BubbleChatView', {bubble});
+      navigation?.navigate('BubbleChatView', {bubble});
     };
 
     return (
