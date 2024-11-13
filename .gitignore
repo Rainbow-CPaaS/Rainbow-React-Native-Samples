@@ -22,7 +22,7 @@ build/
 !default.perspectivev3
 xcuserdata
 *.xccheckout
-ios/.xcode.env.local
+**/.xcode.env.local
 *.moved-aside
 DerivedData
 *.hmap
@@ -46,7 +46,7 @@ android.iml
 **/fastlane/test_output
 
 # Ruby / CocoaPods
-/ios/Pods/
+**/Pods/
 /vendor/bundle/
 
 # node.js
@@ -67,3 +67,11 @@ lib/
 
 # testing
 /coverage
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

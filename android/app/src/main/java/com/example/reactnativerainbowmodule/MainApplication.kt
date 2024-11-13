@@ -34,10 +34,6 @@ class MainApplication : Application(), ReactApplication {
         super.onCreate()
         RainbowPackage.setApplication(this, MainActivity::class.java)
         SoLoader.init(this,  /* native exopackage */false)
-        initializeFlipper(
-            this,
-            reactNativeHost.reactInstanceManager
-        ) // Remove this line if you don't want Flipper enabled
     }
 
     companion object {
