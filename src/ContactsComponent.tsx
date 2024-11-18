@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Contacts,
   IContact,
@@ -8,21 +8,19 @@ import {
   ImageButton,
   startUpService,
 } from 'react-native-rainbow-module';
-import {StyleSheet, Text} from 'react-native';
-import {webRtcActions} from './Calls/MakeCallButton';
-import {NavigationProp} from '@react-navigation/native';
-import {CombinedRootStackParamList} from './Navigation/AppNavigationTypes';
-import {Center} from 'native-base';
-import {Strings} from './resources/localization/Strings';
+import { StyleSheet, Text, View } from 'react-native';
+import { webRtcActions } from './Calls/MakeCallButton';
+import { NavigationProp } from '@react-navigation/native';
+import { CombinedRootStackParamList } from './Navigation/AppNavigationTypes';
+import { Strings } from './resources/localization/Strings';
 import contactDetailsImage from './resources/images/contactdetails.png';
 import videoCall from './resources/images/videoCall.png';
+
 
 interface IContactsNavigationProps {
   navigation: NavigationProp<CombinedRootStackParamList>;
 }
-export const ContactsComponent: React.FunctionComponent<
-  IContactsNavigationProps
-> = ({navigation}) => {
+export const ContactsComponent: React.FunctionComponent<IContactsNavigationProps> = ({ navigation }) => {
   const [contacts, setContacts] = useState<IContact[]>([]);
   useEffect(() => {
     startUpService.getRosterContacts();
@@ -31,8 +29,7 @@ export const ContactsComponent: React.FunctionComponent<
       EventType.ContactsUpdated,
       (eventData: IContact[]) => {
         setContacts(eventData);
-      },
-    );
+      });
 
     return () => {
       contactsUpdated.remove();
@@ -41,9 +38,11 @@ export const ContactsComponent: React.FunctionComponent<
 
   const renderEmptyList = () => {
     return (
-      <Center>
-        <Text style={defaultStyle.NoDataMessages}>{Strings.noDataFound}</Text>
-      </Center>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={defaultStyle.NoDataMessages}>
+          {Strings.noDataFound}
+        </Text>
+      </View>
     );
   };
   const navigateToContactDetails = (contact: IContact) => () => {
@@ -54,28 +53,26 @@ export const ContactsComponent: React.FunctionComponent<
         webrtcActions: webRtcActions,
       },
     });
+
   };
   const contactCardRightComponent = (contact: IContact) => {
+
     return (
       <ImageButton
         key={1}
         imageSource={contactDetailsImage}
         onPress={navigateToContactDetails(contact)}
         style={{
-          container: {width: 50, height: 50},
-          image: {width: 50, height: 50},
+          container: {
+            width: 50, height: 50,
+          }, image: { width: 50, height: 50 },
         }}
       />
     );
   };
 
   const renderItems = (item: IContact) => {
-    return (
-      <ContactCardView
-        contact={item}
-        rightItem={contactCardRightComponent(item)}
-      />
-    );
+    return <ContactCardView contact={item} rightItem={contactCardRightComponent(item)} />;
   };
 
   return (

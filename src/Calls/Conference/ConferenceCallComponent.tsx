@@ -26,8 +26,7 @@ import {
   Header,
   AvatarPresenceBadge,
 } from 'react-native-rainbow-module';
-import {Text, VStack} from 'native-base';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {ShareConferenceView} from './ShareConferenceView';
 import {ConferenceDelegateContainer} from './ConferenceDelegate';
 import {FlatGrid} from 'react-native-super-grid';
@@ -150,17 +149,17 @@ export const ConferenceCallComponent: FunctionComponent<
   const renderCustomIncomingCall = (call: IConference) => {
     const {callPeer} = call;
     return (
-      <VStack justifyContent="space-between" space={2} alignItems="center">
+      <View style={defaultStyle.incomingCallContainer}>
         <Text
           style={
-            defaultStyle.incomingCallInvitedMsg
+            defaultStyle.incomingCallText
           }>{`${callPeer.bubbleOwner.name} ${Strings.ConferenceCallInvitation} ${callPeer.name} `}</Text>
         <AvatarPresenceBadge
           peer={callPeer}
           avatarSize="140"
           presence={undefined}
         />
-      </VStack>
+      </View>
     );
   };
   const renderParticipantItem = ({item}: {item: IConferenceParticipants}) => {
@@ -210,7 +209,7 @@ export const ConferenceCallComponent: FunctionComponent<
     };
     const renderHeaderCenter = () => {
       return (
-        <VStack justifyContent="space-around" py="2">
+        <View style={defaultStyle.headerCenterContainer}>
           <Text color="white" fontSize="md">
             {name}
           </Text>
@@ -219,7 +218,7 @@ export const ConferenceCallComponent: FunctionComponent<
               <Timer startTime={conferenceCall.startTime} />
             </Text>
           )}
-        </VStack>
+        </View>
       );
     };
     return (
@@ -276,12 +275,6 @@ const defaultStyle = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-around',
   },
-  incomingCallInvitedMsg: {
-    fontSize: 15,
-    color: '#ffffff',
-    margin: 20,
-    alignSelf: 'center',
-  },
   participantListStyle: {
     marginTop: 10,
     flex: 1,
@@ -300,6 +293,23 @@ const defaultStyle = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'normal',
   },
+  headerCenterContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 8,
+},
+incomingCallText: {
+  textAlign: 'center',
+  fontSize: 16,
+  marginVertical: 4,
+  color: '#333',
+},
+incomingCallContainer: {
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingVertical: 8,
+},
+
 });
 
 const participantViewStyle: IParticipantViewStyleProps = StyleSheet.create({

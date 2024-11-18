@@ -9,11 +9,10 @@ import {
   Header,
 } from 'react-native-rainbow-module';
 import React, {useEffect, useState} from 'react';
-import {Alert, Dimensions, StyleSheet, Text} from 'react-native';
+import {Alert, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {MakeCallButton} from '../Calls/MakeCallButton';
 import {MessageComponent} from './MessageComponent';
 import {Strings} from './../resources/localization/Strings';
-import {HStack} from 'native-base';
 import {
   PeerChatViewNavigationProp,
   PeerChatViewRouteProp,
@@ -91,13 +90,10 @@ export const PeerConversationChatView: React.FunctionComponent<
   };
   const renderHeaderRightIcon = () => {
     return (
-      <HStack space={2} justifyContent="space-between" alignItems="center">
-        {contact && <MakeCallButton contact={contact} />}
-        <DropDownMenu
-          menuItems={renderMenuOptions()}
-          onSelectItem={selectMenuItem}
-        />
-      </HStack>
+      <View style={styles.headerRightIcon}>
+      {contact && <MakeCallButton contact={contact} />}
+      <DropDownMenu menuItems={renderMenuOptions()} onSelectItem={selectMenuItem} />
+  </View>
     );
   };
   return (
@@ -123,8 +119,8 @@ export const PeerConversationChatView: React.FunctionComponent<
 };
 const styles = StyleSheet.create({
   titleStyle: {
-    color: 'white',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   rightHeaderView: {
     display: 'flex',
@@ -134,4 +130,5 @@ const styles = StyleSheet.create({
     width: 100,
   },
   headerContainer: {paddingTop: 5, paddingBottom: 5},
+  headerRightIcon: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }
 });

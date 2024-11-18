@@ -27,6 +27,7 @@ import {
   StyleSheet,
   TextStyle,
   View,
+  Text
 } from 'react-native';
 import {
   systemMessageView,
@@ -45,7 +46,6 @@ import DocumentPicker from 'react-native-document-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Strings} from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Text, VStack} from 'native-base';
 import {CombinedRootStackParamList} from '../Navigation/AppNavigationTypes';
 import {NavigationProp} from '@react-navigation/native';
 
@@ -563,7 +563,7 @@ export const MessageComponent: React.FunctionComponent<
      *          overrides the more general style
      */
     return (
-      <VStack>
+    <View style={{ flexDirection: 'column' }} >
         <Text style={{fontSize: 12, marginLeft: 10, fontWeight: 'bold'}}>
           {renderUsername(Props)}{' '}
         </Text>
@@ -621,7 +621,7 @@ export const MessageComponent: React.FunctionComponent<
             },
           }}
         />
-      </VStack>
+      </View>
     );
   };
   return (

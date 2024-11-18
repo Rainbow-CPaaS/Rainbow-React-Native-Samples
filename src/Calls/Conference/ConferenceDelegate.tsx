@@ -1,4 +1,3 @@
-import {Text} from 'native-base';
 import React, {useState} from 'react';
 import {
   View,
@@ -8,6 +7,7 @@ import {
   TextStyle,
   StyleSheet,
   FlatList,
+  Text
 } from 'react-native';
 import {
   IConferenceParticipants,

@@ -1,6 +1,6 @@
-import {Box, Divider, HStack, Text, VStack} from 'native-base';
-import React, {FunctionComponent, useEffect, useState} from 'react';
-import {Alert, StyleSheet} from 'react-native';
+import { Divider, Button } from 'react-native-paper';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import {
   IBubble,
   eventEmitter,
@@ -8,10 +8,7 @@ import {
   Bubbles,
   AvatarPresenceBadge,
   bubblesService,
-  ImageButton,
 } from 'react-native-rainbow-module';
-import accept from '../resources/images/acceptFeed.png';
-import remove from '../resources/images/removeFeed.png';
 
 export const BubbleInvitations: FunctionComponent = () => {
   const [invitedBubbles, setInvitedBubble] = useState<IBubble[]>([]);
@@ -47,30 +44,35 @@ export const BubbleInvitations: FunctionComponent = () => {
 
   const renderBubbleInvitation = (item: IBubble) => {
     return (
-      <Box borderBottomWidth="0" pl={['0', '4']} pr={['0', '5']} py="2">
-        <HStack px={5} width="100%" justifyContent="space-between">
-          <HStack space={3}>
-            <AvatarPresenceBadge peer={item} presence={undefined} />
-            <VStack justifyContent="center">
-              <Text>{item.name}</Text>
-              <Text>{item.topic}</Text>
-            </VStack>
-          </HStack>
-          <HStack>
-            <ImageButton
-              imageSource={accept}
-              onPress={acceptBubbleInvitation(item.id)}
-              style={{image: defaultStyle.image}}
-            />
-            <ImageButton
-              imageSource={remove}
-              onPress={declineBubbleInvitation(item.id)}
-              style={{image: defaultStyle.image}}
-            />
-          </HStack>
-        </HStack>
-        <Divider mx="75" my="2" bg="muted.200" thickness="1" />
-      </Box>
+      <View style={styles.container}>
+      <View style={styles.innerContainer}>
+          <View style={styles.leftSection}>
+          <AvatarPresenceBadge peer={item} presence={undefined} />
+          <View style={styles.textContainer}>
+                  <Text style={styles.nameText}>{item.name}</Text>
+                  <Text style={styles.topicText}>{item.topic}</Text>
+              </View>
+          </View>
+          <View style={styles.buttonsContainer}>
+              <Button
+                  icon="check"
+                  mode="contained"
+                  onPress={() => acceptBubbleInvitation(item.id)}
+                  compact
+                  style={styles.button} children={null}
+                  />
+              <Button
+                  icon="close"
+                  mode="contained"
+                  onPress={() => declineBubbleInvitation(item.id)}
+                  compact
+                  style={styles.button}
+                  children={null}
+              />
+          </View>
+      </View>
+      <Divider style={styles.divider} />
+  </View>
     );
   };
 
@@ -78,19 +80,43 @@ export const BubbleInvitations: FunctionComponent = () => {
     <Bubbles bubbles={invitedBubbles} renderItems={renderBubbleInvitation} />
   );
 };
-const defaultStyle = StyleSheet.create({
-  listItem: {paddingTop: 10},
-  leftItem: {width: 60, height: 60},
-  sectionHeader: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#0086CF',
-    backgroundColor: '#eeeded',
+const styles = StyleSheet.create({
+  container: {
+      paddingVertical: 8,
   },
-  viewButton: {flexDirection: 'row'},
-  image: {width: 40, height: 40, margin: 10},
+  innerContainer: {
+      paddingHorizontal: 20,
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+  },
+  leftSection: {
+      flexDirection: 'row',
+      alignItems: 'center',
+  },
+  textContainer: {
+      justifyContent: 'center',
+      marginLeft: 10,
+  },
+  nameText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+  },
+  topicText: {
+      fontSize: 14,
+      color: 'grey',
+  },
+  buttonsContainer: {
+      flexDirection: 'row',
+  },
+  button: {
+      marginHorizontal: 5,
+  },
+  divider: {
+      marginHorizontal: 30,
+      marginVertical: 8,
+      backgroundColor: '#E0E0E0',
+  },
 });
+

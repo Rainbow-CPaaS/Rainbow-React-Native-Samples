@@ -1,6 +1,5 @@
-import {Text, VStack} from 'native-base';
 import React, {FunctionComponent} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {Strings} from '../../resources/localization/Strings';
 import {
   ConferenceScreenSharingView,
@@ -20,14 +19,14 @@ export const ShareConferenceView: FunctionComponent<IProps> = ({
     </Text>
   );
   return (
-    <VStack justifyContent="space-between" h="60%">
+    <View style={styles.container}>
       <ConferenceScreenSharingView />
       {participantNameView}
-    </VStack>
+    </View>
   );
 };
 
-const defaultStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     display: 'flex',
     bottom: 100,
@@ -37,16 +36,16 @@ const defaultStyle = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignContent: 'center',
-  },
-  participantName: {
+},
+participantName: {
     color: 'white',
     fontSize: 20,
     width: '100%',
     textAlign: 'center',
     padding: 5,
-  },
-  shareVideo: {
+},
+shareVideo: {
     width: '100%',
     height: '100%',
-  },
+},
 });

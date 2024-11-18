@@ -1,143 +1,145 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
-import {CheckIcon, HStack, Input, Pressable, Text, VStack} from 'native-base';
-import {
-  userProfileService,
-  IUpdateUserQuery,
-  IUser,
-  eventEmitter,
-  EventType,
-  Header,
-  AvatarPresenceBadge,
-} from 'react-native-rainbow-module';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {Strings} from '../resources/localization/Strings';
-import {
-  UserInfoFromNavigationProp,
-  UserInfoFromRouteProp,
-} from '../Navigation/AppNavigationTypes';
+import React, { useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { userProfileService, IUpdateUserQuery, IUser, eventEmitter, EventType, Header, AvatarPresenceBadge } from 'react-native-rainbow-module';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { Strings } from '../resources/localization/Strings';
+import { UserInfoFromNavigationProp, UserInfoFromRouteProp } from '../Navigation/AppNavigationTypes';
+import { IconButton, TextInput } from 'react-native-paper';
 
 export interface IProps {
-  route: UserInfoFromRouteProp;
-  navigation: UserInfoFromNavigationProp;
+    route: UserInfoFromRouteProp;
+    navigation: UserInfoFromNavigationProp;
 }
 
-export const UserInfoFrom: React.FunctionComponent<IProps> = ({
-  navigation,
-  route,
-}) => {
-  const connectedUser = route.params?.connectedUser;
-  const [user, setUser] = useState<IUser>(connectedUser);
-  const {contact, isAllowedToModifyProfileInfo} = user;
-  const userName = contact.name.split(' ');
-  const [firstName, setUserFirstName] = useState<string>(
-    userName.length > 0 ? userName[0] : '',
-  );
-  const [lastName, setUserLastName] = useState<string>(
-    userName.length > 1 ? userName[1] : '',
-  );
+export const UserInfoFrom: React.FunctionComponent<IProps> = ({ navigation, route }) => {
+    const connectedUser = route.params.connectedUser;
+    const [user, setUser] = useState<IUser>(connectedUser);
+    const { contact, isAllowedToModifyProfileInfo } = user;
+    const userName = contact.name.split(' ');
+    const [firstName, setUserFirstName] = useState<string>(userName.length > 0 ? userName[0] : '');
+    const [lastName, setUserLastName] = useState<string>(userName.length > 1 ? userName[1] : '');
 
-  useEffect(() => {
-    const connectedUserUpdated = eventEmitter.addListener(
-      EventType.ConnectedUserUpdated,
-      (eventData: IUser) => {
-        if (eventData) {
-          setUser(eventData);
+    useEffect(() => {
+        const connectedUserUpdated = eventEmitter.addListener(
+            EventType.ConnectedUserUpdated,
+            (eventData: IUser) => {
+                if (eventData) {
+                    setUser(eventData);
+                }
+            }
+        );
+
+        return () => {
+            connectedUserUpdated.remove();
+        };
+    }, []);
+
+    const updateUserInfo = () => {
+        if (isAllowedToModifyProfileInfo) {
+            const updateRequest: IUpdateUserQuery = { firstName, lastName };
+            userProfileService.updateUserInfo(updateRequest);
+            navigation.pop();
         }
-      },
-    );
-
-    return () => {
-      connectedUserUpdated.remove();
     };
-  }, []);
 
-  const updateUserInfo = () => {
-    if (isAllowedToModifyProfileInfo) {
-      const updateRequest: IUpdateUserQuery = {firstName, lastName};
-      userProfileService.updateUserInfo(updateRequest);
-      navigation.pop();
-    }
-  };
+    const updateUserAvatar = () => {
+        launchImageLibrary({
+            quality: 1.0,
+            selectionLimit: 1,
+            mediaType: 'mixed',
+            includeBase64: false,
+        }, response => {
+            if (response.assets &&  response.assets.length > 0) {
+                const fileUri = response.assets[0].uri;
+                if (fileUri)
+                    {userProfileService.updateUserPhoto(fileUri);}
+            }
+        });
+    };
 
-  const updateUserAvatar = () => {
-    launchImageLibrary(
-      {
-        quality: 1.0,
-        selectionLimit: 1,
-        mediaType: 'mixed',
-        includeBase64: false,
-      },
-      response => {
-        if (response.assets && response.assets.length > 0) {
-          const fileUri = response.assets[0].uri;
-          if (fileUri) userProfileService.updateUserPhoto(fileUri);
-        }
-      },
+    const onFirstNameChanged = (text: string) => {
+        setUserFirstName(text);
+    };
+
+    const onLastNameChanged = (text: string) => {
+        setUserLastName(text);
+    };
+    const renderCenterHeader = () => {
+        return <Text style={styles.headerText}> {Strings.updateMyInfo}</Text>;
+    };
+
+    const renderRightHeader = () => (
+
+        <IconButton
+            icon="check"
+            iconColor={isAllowedToModifyProfileInfo ? '#ffffff' : '#AEAEAE'}
+            size={24}
+            onPress={updateUserInfo}
+            disabled={ isAllowedToModifyProfileInfo ? false : true}
+
+        />
     );
-  };
-
-  const onFirstNameChanged = (text: string) => {
-    setUserFirstName(text);
-  };
-
-  const onLastNameChanged = (text: string) => {
-    setUserLastName(text);
-  };
-  const renderCenterHeader = () => {
     return (
-      <Text color="white" fontSize="md">
-        {' '}
-        {Strings.updateMyInfo}
-      </Text>
-    );
-  };
-  const renderRightHeader = () => {
-    if (isAllowedToModifyProfileInfo) {
-      return <CheckIcon color="#ffffff" onPress={updateUserInfo} />;
-    } else {
-      return <CheckIcon color="#AEAEAE" size="20" />;
-    }
-  };
-  return (
-    <>
-      <Header
-        containerStyle={defaultStyle.headerBgColor}
-        rightComponent={renderRightHeader}
-        centerComponent={renderCenterHeader}
-      />
-      <VStack justifyItems="center" my={10} space={10}>
-        <Pressable onPress={updateUserAvatar} ml={15}>
-          <AvatarPresenceBadge peer={contact} presence={contact.presence} />
-        </Pressable>
+        <>
+            <Header containerStyle={styles.headerBgColor} rightComponent={renderRightHeader} centerComponent={renderCenterHeader} />
+            <View style={styles.container}>
+                <Pressable onPress={updateUserAvatar} style={styles.avatarContainer}>
+                <AvatarPresenceBadge peer={contact} presence={contact.presence} />
+                </Pressable>
 
-        <HStack px={2} justifyContent="space-between">
-          <Text fontSize="sm">{Strings.firstName}</Text>
-          <Input
-            value={firstName}
-            isDisabled={isAllowedToModifyProfileInfo ? false : true}
-            onChangeText={onFirstNameChanged}
-            editable={isAllowedToModifyProfileInfo}
-            width="75%"
-          />
-        </HStack>
-        <HStack px={2} justifyContent="space-between">
-          <Text fontSize="sm"> {Strings.lastName} </Text>
-          <Input
-            isDisabled={isAllowedToModifyProfileInfo ? false : true}
-            value={lastName}
-            onChangeText={onLastNameChanged}
-            editable={isAllowedToModifyProfileInfo}
-            width="75%"
-          />
-        </HStack>
-      </VStack>
-    </>
-  );
+                <View style={styles.inputRow}>
+                    <Text style={styles.labelText}>{Strings.firstName}</Text>
+                    <TextInput
+                        mode="outlined"
+                        value={firstName}
+                        onChangeText={onFirstNameChanged}
+                        disabled={!isAllowedToModifyProfileInfo}
+                        style={styles.input}
+                    />
+                </View>
+                <View style={styles.inputRow}>
+                    <Text style={styles.labelText}>{Strings.lastName}</Text>
+                    <TextInput
+                        mode="outlined"
+                        value={lastName}
+                        onChangeText={onLastNameChanged}
+                        disabled={!isAllowedToModifyProfileInfo}
+                        style={styles.input}
+                    />
+                </View>
+            </View>
+        </>
+    );
 };
 
-const defaultStyle = StyleSheet.create({
-  headerBgColor: {
-    backgroundColor: '#0086CF',
-  },
+const styles = StyleSheet.create({
+    headerBgColor: {
+        backgroundColor: '#0086CF',
+    },
+    headerText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    container: {
+        marginVertical: 20,
+        paddingHorizontal: 15,
+    },
+    avatarContainer: {
+        alignSelf: 'center',
+        marginBottom: 20,
+    },
+    inputRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 8,
+    },
+    labelText: {
+        fontSize: 14,
+        flex: 1,
+    },
+    input: {
+        width: '75%',
+    },
 });

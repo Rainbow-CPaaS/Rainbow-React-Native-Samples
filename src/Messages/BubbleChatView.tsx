@@ -1,4 +1,4 @@
-import {Button, Text} from 'native-base';
+import { Button } from 'react-native-paper';
 import {
   eventEmitter,
   EventType,
@@ -12,7 +12,7 @@ import {
   Header,
 } from 'react-native-rainbow-module';
 import React, {useEffect, useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View, Text} from 'react-native';
 import {MessageComponent} from './MessageComponent';
 import {Strings} from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -21,6 +21,8 @@ import {
   BubbleChatViewNavigationProp,
   BubbleChatViewRouteProp,
 } from '../Navigation/AppNavigationTypes';
+import { useTheme } from 'react-native-paper';
+import customTheme from '../theme';
 
 const logger = new Logger('BubbleChatView');
 export interface IBubbleChatProps {
@@ -41,6 +43,8 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = ({
   navigation,
   route,
 }) => {
+  const theme = useTheme(customTheme);
+
   const [index, setIndex] = useState(0);
   const [currentBubble, setCurrentBubble] = useState<IBubble>(
     route.params.bubble,
@@ -193,7 +197,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = ({
           name="add"
           style={styles.addParticipantsIcon}
           size={35}
-          color="white"
+          color={theme.colors.primary}
           onPress={openAddParticipants}
         />
       );
@@ -219,14 +223,18 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = ({
     return (
       <View style={styles.joinContainer}>
         <Text> {Strings.joinMsg}</Text>
-        <Button colorScheme="success" onPress={joinConferenceAction}>
-          {Strings.join}
-        </Button>
+        <Button
+                    mode="contained"
+                    style={{ backgroundColor: '#4CAF50' }}
+                    onPress={joinConferenceAction}
+                >
+                    {Strings.join}
+                </Button>
       </View>
     );
   };
   const renderHeaderCenter = () => {
-    return <Text color="white">{currentBubble?.name}</Text>;
+    return <Text style={styles.textColor}>{currentBubble?.name}</Text>;
   };
   const renderHeaderRightIcon = () => {
     return (
@@ -237,6 +245,7 @@ export const BubbleChatView: React.FunctionComponent<IBubbleChatProps> = ({
               name="call-sharp"
               style={styles.startConferenceIcon}
               onPress={startConferenceAction}
+              color={theme.colors.primary}
             />
           )}
         {renderBubbleOption()}
@@ -303,4 +312,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: '100%',
   },
+  textColor: { fontWeight: 'bold' },
 });
