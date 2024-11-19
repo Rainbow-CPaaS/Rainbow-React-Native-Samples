@@ -1,20 +1,19 @@
-import {Box, HStack, StatusBar, Text, VStack, InfoIcon} from 'native-base';
+/* eslint-disable react-native/no-inline-styles */
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {ImageStyle, TouchableWithoutFeedback} from 'react-native';
+import { ImageStyle, Text, TouchableWithoutFeedback, View } from 'react-native';
 import {
   Logger,
   UserProfile,
   PresenceList,
-  store,
   authService,
   eventEmitter,
   EventType,
   IUser,
   userProfileService,
 } from 'react-native-rainbow-module';
-import {Provider} from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {AppMenuNavigationProp} from './Navigation/AppNavigationTypes';
+import { useTheme, IconButton } from 'react-native-paper';
+import customTheme from './theme';
 
 const logger = new Logger('AppMenu');
 
@@ -26,6 +25,8 @@ interface IMenuProps {
   navigation: AppMenuNavigationProp;
 }
 export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
+  const theme = useTheme(customTheme);
+
   const [connectedUser, setConnectedUser] = useState<IUser>();
   // TODO: get the connected user here! since there is multi component depends on the UserProfile info
   useEffect(() => {
@@ -46,7 +47,7 @@ export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
   }, []);
 
   const onSendLogs = () => {
-    logger.info(`sendLogs:`);
+    logger.info('sendLogs:');
     logger.sendLogs();
   };
   const onLogout = () => {
@@ -58,46 +59,36 @@ export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
     }
   };
   return (
-    <Provider store={store}>
-      <StatusBar barStyle="light-content" />
-      <Box safeAreaTop={true} bg="#0086CF" />
-      <VStack space={3} w="100%">
-        <UserProfile />
-        {connectedUser?.isAllowedToChangePresence && (
-          <HStack alignItems="flex-start" my="2" ml="5">
-            <PresenceList presenceIconStyle={presenceIconStyle} />
-          </HStack>
-        )}
-        <TouchableWithoutFeedback onPress={goToMyProfileInfo}>
-          <HStack alignItems="flex-start" my="2">
-            <Icon
-              name="person-circle"
-              size={30}
-              color="#2196F3"
-              style={{marginLeft: 20}}
-            />
-            <Text>MyProfile</Text>
-          </HStack>
-        </TouchableWithoutFeedback>
 
-        <TouchableWithoutFeedback onPress={onSendLogs}>
-          <HStack alignItems="flex-start" my="2">
-            <InfoIcon size="6" mx="5" color="blue.500" />
+    <View style={{ padding: 16 }}>
+    <UserProfile />
+    {connectedUser?.isAllowedToChangePresence && (
+        <View style={{ flexDirection: 'row', alignItems: 'center',marginVertical: 8 }}>
+            <PresenceList presenceIconStyle={presenceIconStyle} />
+        </View>
+    )}
+
+    <TouchableWithoutFeedback onPress={goToMyProfileInfo}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 8  }}>
+            <IconButton icon="account-circle" size={30} iconColor={theme.colors.primary as string}  />
+            <Text>My Profile</Text>
+        </View>
+    </TouchableWithoutFeedback>
+
+    <TouchableWithoutFeedback onPress={onSendLogs}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 8 }}>
+            <IconButton icon="information" size={24} iconColor={theme.colors.primary as string}  />
             <Text>Send Logs</Text>
-          </HStack>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={onLogout}>
-          <HStack alignItems="flex-start" my="2">
-            <Icon
-              name="log-out"
-              size={30}
-              color="#2196F3"
-              style={{marginLeft: 20}}
-            />
-            <Text mx="5">Log out</Text>
-          </HStack>
-        </TouchableWithoutFeedback>
-      </VStack>
-    </Provider>
+        </View>
+    </TouchableWithoutFeedback>
+
+    <TouchableWithoutFeedback onPress={onLogout}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 8 }}>
+            <IconButton icon="logout" size={30} iconColor={theme.colors.primary as string}   />
+            <Text>Log out</Text>
+        </View>
+    </TouchableWithoutFeedback>
+</View>
+
   );
 };

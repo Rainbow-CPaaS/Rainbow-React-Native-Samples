@@ -4,7 +4,43 @@
 
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
+## [1.10.3] - 2024-11-19
+---
 
+**Other Changes:**
+- Upgraded React Native to version 0.75.1 in both the library and the example app.
+-	Upgraded the Rainbow iOS SDK to the latest version.
+- Replaced native-base with react-native-pager for improved performance and maintenance.
+-	Replaced react-native-simple-dialogs with the Dialog component from react-native-paper.
+- Updated react-native-gifted-chat to the latest version and resolved breaking changes.
+
+**Fixes:**
+- Resolved an issue where the app logo was not displaying on iOS.
+- Fixed the invalid date format returned by the React Native SDK native side.
+- Addressed upstream dependency conflicts that occurred during npm install.
+
+## [1.10.2] - 2024-10-16
+---
+**Fixes:**
+- Minor UI fixes.
+
+## [1.10.1] - 2024-10-15
+---
+**Api Changes**
+- Removed the corporateId property from[Icontact](https://developers.openrainbow.com/doc/sdk/reactnative/api/IContact)
+- Removed the conferenceInitiatorJid property from [IConference in CallTypes](https://developers.openrainbow.com/doc/sdk/reactnative/api/CallTypes) 
+- Removed the IRoomConfEndPoint interface from [IBubble](https://developers.openrainbow.com/doc/sdk/reactnative/api/IBubble#IRoomConfEndPoint)
+
+**Other Changes:**
+- Upgraded Rainbow iOS SDK from version 2.4.0 to 2.8.0, addressing all breaking changes [listed](https://developers.openrainbow.com/doc/sdk/ios/lts/guides/CHANGELOG)
+- Improved overall Example app responsiveness by implementing a [SafeArea](https://developers.openrainbow.com/doc/sdk/reactnative/tutorials/commonComponents) component for better UI adaptation.
+
+**Fixes:**
+- [iOS] Fixed an issue where the remote video was not displaying correctly.
+- [iOS] Resolved the issue where the active call banner remained after ending a call.
+-	Fixed an issue with mute/unmute functionality not working on iOS.
+-	Fixed the “Sort files by name” feature, which was not functioning as expected.
+-	[iOS] Fixed an issue where incoming WebRTC calls were not received after missing one.
 
 ## [1.10.0] - 2024-9-2
 ---

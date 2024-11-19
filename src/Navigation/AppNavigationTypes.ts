@@ -1,98 +1,98 @@
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
-  IBackButtonHandler,
-  IBubble,
-  IConversation,
-  IFile,
-  IPeer,
-  IUser,
+    IBackButtonHandler,
+    IBubble,
+    IConversation,
+    IFile,
+    IPeer,
+    IUser,
 } from 'react-native-rainbow-module';
-import {RouteProp} from '@react-navigation/native';
-import {RootStackParamList as LibraryRootStackParamList} from 'react-native-rainbow-module';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList as LibraryRootStackParamList } from 'react-native-rainbow-module';
 
 export type AppRootStackParamList = {
-  ScreenHome: {
-    registerBackButtonHandler: (handler: IBackButtonHandler) => () => void;
-  };
-  AppMenu: undefined;
-  MyProfileInfo: {connectedUser: IUser};
-  UserInfoFrom: {connectedUser: IUser};
-  BubbleChatView: {bubble: IBubble};
-  SharedFileList: {peer: IPeer};
-  PeerConversationChatView: {conversation: IConversation};
-  FileDescription: {file: IFile};
-  CreateBubble: undefined;
-  // other screen definitions go here
+    ScreenHome: {
+        registerBackButtonHandler: (handler: IBackButtonHandler) => () => void;
+    };
+    AppMenu: undefined;
+    MyProfileInfo: { connectedUser: IUser };
+    UserInfoFrom: { connectedUser: IUser };
+    BubbleChatView: { bubble: IBubble };
+    SharedFileList: { peer: IPeer };
+    PeerConversationChatView: { conversation: IConversation };
+    FileDescription: { file: IFile };
+    CreateBubble: undefined;
+    // other screen definitions go here
 };
 
 export type CombinedRootStackParamList = LibraryRootStackParamList &
-  AppRootStackParamList;
+    AppRootStackParamList;
 
 export type HomeScreenRouteProp = RouteProp<
-  CombinedRootStackParamList,
-  'ScreenHome'
+    CombinedRootStackParamList,
+    'ScreenHome'
 >;
 export type HomeScreenNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'ScreenHome'
+    CombinedRootStackParamList,
+    'ScreenHome'
 >;
 
 export type AppMenuNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'AppMenu'
+    CombinedRootStackParamList,
+    'AppMenu'
 >;
 
 export type MyProfileInfoRouteProp = RouteProp<
-  CombinedRootStackParamList,
-  'MyProfileInfo'
+    CombinedRootStackParamList,
+    'MyProfileInfo'
 >;
 export type MyProfileInfoNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'MyProfileInfo'
+    CombinedRootStackParamList,
+    'MyProfileInfo'
 >;
 
 export type UserInfoFromRouteProp = RouteProp<
-  CombinedRootStackParamList,
-  'UserInfoFrom'
+    CombinedRootStackParamList,
+    'UserInfoFrom'
 >;
 export type UserInfoFromNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'UserInfoFrom'
+    CombinedRootStackParamList,
+    'UserInfoFrom'
 >;
 
 export type BubbleChatViewRouteProp = RouteProp<
-  CombinedRootStackParamList,
-  'BubbleChatView'
+    CombinedRootStackParamList,
+    'BubbleChatView'
 >;
 export type BubbleChatViewNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'BubbleChatView'
+    CombinedRootStackParamList,
+    'BubbleChatView'
 >;
 
 export type PeerChatViewRouteProp = RouteProp<
-  CombinedRootStackParamList,
-  'PeerConversationChatView'
+    CombinedRootStackParamList,
+    'PeerConversationChatView'
 >;
 export type PeerChatViewNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'PeerConversationChatView'
+    CombinedRootStackParamList,
+    'PeerConversationChatView'
 >;
 
 export type SharedFileListRouteProp = RouteProp<
-  CombinedRootStackParamList,
-  'SharedFileList'
+    CombinedRootStackParamList,
+    'SharedFileList'
 >;
 export type SharedFileListNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'SharedFileList'
+    CombinedRootStackParamList,
+    'SharedFileList'
 >;
 
 export type FileDescriptionRouteProp = RouteProp<
-  CombinedRootStackParamList,
-  'FileDescription'
+    CombinedRootStackParamList,
+    'FileDescription'
 >;
 
 export type CreateBubbleNavigationProp = NativeStackNavigationProp<
-  CombinedRootStackParamList,
-  'CreateBubble'
+    CombinedRootStackParamList,
+    'CreateBubble'
 >;

@@ -1,14 +1,7 @@
-import {
-  Box,
-  Circle,
-  Divider,
-  HStack,
-  Text,
-  VStack,
-  Pressable,
-} from 'native-base';
+
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {Dimensions, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { Badge, Divider , useTheme} from 'react-native-paper';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
   IBubble,
   bubblesService,
@@ -30,6 +23,7 @@ import {Strings} from './../resources/localization/Strings';
 import {BubbleInvitations} from './BubbleInvitations';
 import {CombinedRootStackParamList} from '../Navigation/AppNavigationTypes';
 import {NavigationProp} from '@react-navigation/native';
+import customTheme from '../theme';
 
 type State = NavigationState<Route>;
 
@@ -39,6 +33,7 @@ interface IBubblesNavigationProps {
 export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme(customTheme);
   const [allBubbles, setAllBubbles] = useState<IBubble[]>([]);
   const [bubbleInvitationCounter, setBubbleInvitationCounter] =
     useState<number>(0);
@@ -103,20 +98,20 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
   };
   const renderBubblesList = (item: IBubble) => {
     return (
-      <Box borderBottomWidth="0" pl={['0', '4']} pr={['0', '5']} py="2">
-        <Pressable onPress={onItemClick(item)} overflow="hidden">
-          <HStack px={5} width="100%" justifyContent="space-between">
-            <HStack space={4}>
+      <View style={styles.container}>
+      <TouchableOpacity onPress={() => onItemClick(item)} style={styles.pressable}>
+          <View style={styles.innerContainer}>
+              <View style={styles.hStack}>
               <AvatarPresenceBadge peer={item} presence={undefined} />
-              <VStack justifyContent="center">
-                <Text>{item.name}</Text>
-                <Text>{item.topic}</Text>
-              </VStack>
-            </HStack>
-          </HStack>
-          <Divider mx="75" my="2" bg="muted.200" thickness="1" />
-        </Pressable>
-      </Box>
+                  <View style={styles.vStack}>
+                      <Text style={styles.nameText}>{item.name}</Text>
+                      <Text style={styles.topicText}>{item.topic}</Text>
+                  </View>
+              </View>
+          </View>
+          <Divider style={styles.divider} />
+      </TouchableOpacity>
+  </View>
     );
   };
 
@@ -124,31 +119,27 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
     navigation.navigate('CreateBubble');
   };
 
-  const renderInvitationBadge = ({
-    route,
-    color,
-  }: {
-    route: Route;
-    color: string;
-  }) => {
-    if (route.key === 'third' && bubbleInvitationCounter > 0)
-      return (
-        <Circle size="16px" bg="red.600" zIndex={2} ml="20" mt="-2">
-          <Text color="white" fontSize="xs" bold alignSelf="center">
-            {bubbleInvitationCounter}
-          </Text>
-        </Circle>
-      );
-    else return null;
-  };
+  const renderInvitationBadge = ({ route, color } :{ route: Route; color: string }) => {
+    if (route.key === 'third' && bubbleInvitationCounter > 0) {
+        return (
+            <Badge
+                size={16}
+                style={[styles.badge, { backgroundColor: 'red', color: 'white' }]}
+            >
+                {bubbleInvitationCounter}
+            </Badge>
+        );
+    }
+    return null;
+};
   const renderTabBar = (
     props: SceneRendererProps & {navigationState: State},
   ) => (
-    <TabBar
-      {...props}
-      style={{backgroundColor: '#0086CF'}}
-      renderIcon={renderInvitationBadge}
-    />
+    <TabBar {...props} style={{ backgroundColor: '#fff', fontColor: 'red' }} 
+    activeColor={theme.colors.primary}
+    inactiveColor={theme.colors.inactiveColor}
+        indicatorStyle={{ backgroundColor: theme.colors.primary}}
+    renderIcon={renderInvitationBadge}   />
   );
   return (
     <>
@@ -160,13 +151,13 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
         renderTabBar={renderTabBar}
       />
 
-      <TouchableOpacity onPress={createBubble} style={defaultStyle.addIcon}>
-        <Image source={addBubble} style={defaultStyle.icon} />
+      <TouchableOpacity onPress={createBubble} style={styles.addIcon}>
+        <Image source={addBubble} style={styles.icon} />
       </TouchableOpacity>
     </>
   );
 };
-const defaultStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   addIcon: {
     position: 'absolute',
     bottom: 60,
@@ -183,4 +174,45 @@ const defaultStyle = StyleSheet.create({
     height: 40,
     alignSelf: 'center',
   },
+  container: {
+    paddingVertical: 8,
+},
+pressable: {
+    overflow: 'hidden',
+},
+innerContainer: {
+    paddingHorizontal: 20,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+},
+hStack: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+},
+vStack: {
+    justifyContent: 'center',
+    marginLeft: 10,
+},
+nameText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+},
+topicText: {
+    fontSize: 14,
+    color: 'grey',
+},
+divider: {
+    marginHorizontal: 30,
+    marginVertical: 8,
+    backgroundColor: '#E0E0E0',
+},
+badge: {
+    position: 'absolute',
+    top: -4,
+    left: 20,
+    zIndex: 2,
+},
 });

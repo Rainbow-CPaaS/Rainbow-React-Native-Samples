@@ -1,6 +1,5 @@
-import {Center, Text} from 'native-base';
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   IBubble,
   conversationsService,
@@ -45,9 +44,11 @@ export const ConversationsComponent: FunctionComponent<
 
   const renderEmptyList = () => {
     return (
-      <Center>
-        <Text style={defaultStyle.NoDataMessages}>{Strings.noDataFound}</Text>
-      </Center>
+      <View style={styles.container}>
+      <Text style={styles.noDataMessages}>
+          {Strings.noDataFound}
+      </Text>
+  </View>
     );
   };
 
@@ -64,8 +65,14 @@ export const ConversationsComponent: FunctionComponent<
   );
 };
 
-const defaultStyle = StyleSheet.create({
-  NoDataMessages: {
+const styles = StyleSheet.create({
+  container:{
+    flex: 1, justifyContent: 'center', alignItems: 'center',
+  },
+  noDataMessages: {
     textAlign: 'center',
+    fontSize: 16,
+    color: 'grey',
+    margin: 16,
   },
 });

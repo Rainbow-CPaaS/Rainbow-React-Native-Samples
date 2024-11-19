@@ -1,5 +1,4 @@
 import {Strings} from '../../resources/localization/Strings';
-import {Text, VStack} from 'native-base';
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import {
   Dimensions,
@@ -9,6 +8,7 @@ import {
   TextStyle,
   View,
   ViewStyle,
+  Text,
 } from 'react-native';
 
 import {
@@ -70,18 +70,7 @@ export const P2PCall: FunctionComponent<IProps> = ({}) => {
     p2pCall?.callState === undefined || p2pCall?.callState === null
       ? ''
       : p2pCall?.callState.toString();
-  let backgroundStyle = {};
-  if (orientation === 'portrait') {
-    backgroundStyle = {
-      ...styles.container,
-      ...Dimensions.get('screen'),
-    };
-  } else {
-    backgroundStyle = {
-      ...styles.container,
-      ...Dimensions.get('screen'),
-    };
-  }
+
 
   switch (p2pCall?.callState) {
     case CallState.RINGING_INCOMING:
@@ -129,7 +118,7 @@ export const P2PCall: FunctionComponent<IProps> = ({}) => {
     );
 
     return () => {
-      logger.info(`unregister listeners: `);
+      logger.info('unregister listeners: ');
       currentCallListener.remove();
       callUpdatedListener.remove();
     };
@@ -189,21 +178,11 @@ export const P2PCall: FunctionComponent<IProps> = ({}) => {
   if (p2pCall) {
     const renderCenterHeader = () => {
       return (
-        <VStack justifyContent="space-around" alignItems="center" space={3}>
-          <Text color="white" fontSize="md">
-            {p2pCall.callPeer.name}
-          </Text>
-          {!isCallActive && (
-            <Text color="white" fontSize="xs">
-              {callStateText}
-            </Text>
-          )}
-          {isCallActive && (
-            <Text color="white" fontSize="xs">
-              <Timer startTime={p2pCall.startTime} />
-            </Text>
-          )}
-        </VStack>
+		<View style={styles.headerContainer}>
+		<Text style={styles.headerText}>{p2pCall.callPeer.name}</Text>
+		{!isCallActive && <Text style={styles.headerText}>{callStateText}</Text>}
+		{isCallActive && <Text style={styles.headerText}><Timer startTime={p2pCall.startTime} /></Text>}
+	</View>
       );
     };
     return (
@@ -211,17 +190,17 @@ export const P2PCall: FunctionComponent<IProps> = ({}) => {
         <SafeAreaView style={styles.headerColor} />
         <Header centerComponent={renderCenterHeader} />
 
-        <VStack bg="#005b96" minH="100%">
-          <P2PCallView call={p2pCall} />
+		<View style={styles.container}>
+		<P2PCallView call={p2pCall} />
           <P2PCallActions
             call={p2pCall}
             renderIncomingP2PCallActions={renderIncomingCallActions}
             style={{actionsContainer: {backgroundColor: 'gray'}}}
           />
-        </VStack>
+        </View>
       </React.Fragment>
     );
-  } else return null;
+  } else {return null;}
 };
 const participantImageStyle: IImageHolderStyle = {
   thumbnail: {
@@ -253,12 +232,19 @@ export const styles = StyleSheet.create({
   headerColor: {
     backgroundColor: '#0086CF',
   },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    backgroundColor: '#005b96',
-  },
   remoteVideo: {position: 'absolute', width: '100%', height: 250, top: 50},
   shareVideo: {position: 'absolute', width: '100%', height: 250, top: 50},
+  headerContainer: {
+	justifyContent: 'space-around',
+	alignItems: 'center',
+	paddingVertical: 16,
+},
+headerText: {
+	color: 'white',
+	fontSize: 16,
+},
+container: {
+	backgroundColor: '#005b96',
+	minHeight: '100%',
+},
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BackHandler} from 'react-native';
+import { BackHandler, Text } from 'react-native';
 import {
   Logger,
   RainbowContainer,
@@ -13,21 +13,22 @@ import {
   setAppSecretKey,
   SafeArea,
 } from 'react-native-rainbow-module';
-import {Home} from './Home';
-import {AppMenuView} from './AppMenu';
-import {CreateBubbleComponent} from './Bubbles/CreateBubbleComponent';
-import {useEffect} from 'react';
-import {PeerConversationChatView} from './Messages/PeerConversationChatView';
-import {BubbleChatView} from './Messages/BubbleChatView';
+import { Home } from './Home';
+import { AppMenuView } from './AppMenu';
+import { CreateBubbleComponent } from './Bubbles/CreateBubbleComponent';
+import { useEffect } from 'react';
+import { PeerConversationChatView } from './Messages/PeerConversationChatView';
+import { BubbleChatView } from './Messages/BubbleChatView';
 import jsonRainbowConfig from './rainbow-config.json';
-import {ActiveCallBanner} from './Calls/ActiveCallBanner';
-import {SharedFileComponent, FileDescription} from './SharedFile/';
-import {NativeBaseProvider} from 'native-base';
-import {MyProfileInfo, UserInfoFrom} from './MyProfile/';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {CombinedRootStackParamList} from './Navigation/AppNavigationTypes';
-import {NavigationContext} from './Navigation/NavigationContext';
+import { ActiveCallBanner } from './Calls/ActiveCallBanner';
+import { SharedFileComponent, FileDescription } from './SharedFile/';
+import { MyProfileInfo, UserInfoFrom } from './MyProfile/';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { CombinedRootStackParamList } from './Navigation/AppNavigationTypes';
+import { NavigationContext } from './Navigation/NavigationContext';
+import {  PaperProvider } from 'react-native-paper';
+import customTheme from './theme';
 
 const logger = new Logger('example');
 const handlers: IBackButtonHandler[] = [];
@@ -52,16 +53,16 @@ export default function App() {
   return (
     <SafeArea>
       <NavigationContainer>
+      <PaperProvider theme={customTheme}>
+
         <RainbowContainer>
-          <NativeBaseProvider>
-            <ActiveCallBanner />
-            <BackHandlerListener />
-            <NavigationContext.Provider value={registerBackButtonHandler}>
-              <Stack.Navigator
-                screenOptions={{gestureEnabled: false, headerShown: false}}>
-                {/* App's screens  */}
-                <Stack.Screen name="ScreenHome" component={Home} />
-                <Stack.Screen name="AppMenu" component={AppMenuView} />
+          <ActiveCallBanner />
+          <BackHandlerListener />
+          <NavigationContext.Provider value={registerBackButtonHandler}>
+            <Stack.Navigator
+              screenOptions={{ gestureEnabled: false, headerShown: false }}>
+              <Stack.Screen name="ScreenHome" component={Home} />
+              <Stack.Screen name="AppMenu" component={AppMenuView} />
                 <Stack.Screen name="MyProfileInfo" component={MyProfileInfo} />
                 <Stack.Screen name="UserInfoFrom" component={UserInfoFrom} />
                 <Stack.Screen
@@ -100,10 +101,10 @@ export default function App() {
                   component={ContactInformation}
                 />
                 <Stack.Screen name="CallHistory" component={CallHistory} />
-              </Stack.Navigator>
-            </NavigationContext.Provider>
-          </NativeBaseProvider>
+            </Stack.Navigator>
+          </NavigationContext.Provider>
         </RainbowContainer>
+        </PaperProvider>
       </NavigationContainer>
     </SafeArea>
   );
