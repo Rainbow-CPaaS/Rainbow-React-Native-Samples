@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BackHandler, Text } from 'react-native';
+import { BackHandler } from 'react-native';
 import {
   Logger,
   RainbowContainer,
@@ -29,13 +29,22 @@ import { CombinedRootStackParamList } from './Navigation/AppNavigationTypes';
 import { NavigationContext } from './Navigation/NavigationContext';
 import {  PaperProvider } from 'react-native-paper';
 import customTheme from './theme';
-
+import { LoginForm } from './Auth/LoginForm';
+import { ForgotPassword } from './Auth/ForgotPassword';
 const logger = new Logger('example');
 const handlers: IBackButtonHandler[] = [];
 const Stack = createNativeStackNavigator<CombinedRootStackParamList>();
 
 setAppSecretKey(jsonRainbowConfig);
 
+const AuthNavigator = () =>{
+  return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={LoginForm}/>
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
+    </Stack.Navigator>
+  );
+};
 export default function App() {
   const registerBackButtonHandler = (handler: IBackButtonHandler) => {
     logger.info('registerBackButtonHandler');
@@ -55,7 +64,7 @@ export default function App() {
       <NavigationContainer>
       <PaperProvider theme={customTheme}>
 
-        <RainbowContainer>
+      <RainbowContainer  useInternalNavigation={false} authNavigator={AuthNavigator} >
           <ActiveCallBanner />
           <BackHandlerListener />
           <NavigationContext.Provider value={registerBackButtonHandler}>

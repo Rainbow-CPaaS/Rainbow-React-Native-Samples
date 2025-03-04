@@ -10,7 +10,7 @@ import {
 	InvitationTabIcon,
 	Header,
 } from 'react-native-rainbow-module';
-import { useTheme } from 'react-native-paper';
+import { useTheme, IconButton } from 'react-native-paper';
 import { ContactsComponent } from './ContactsComponent';
 import { InvitationsComponent } from './InvitationsComponent';
 import { CallLogComponent } from './CallLogComponent';
@@ -18,14 +18,12 @@ import { BubblesComponent } from './Bubbles/BubblesComponent';
 import { ConversationsComponent } from './Conversations/ConversationsComponent';
 import { SearchComponent } from './SearchComponent';
 import { FunctionComponent, useContext } from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { useRoute } from '@react-navigation/native';
 import {
 	HomeScreenRouteProp,
 	HomeScreenNavigationProp,
 } from './Navigation/AppNavigationTypes';
 import { NavigationContext } from './Navigation/NavigationContext';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import customTheme from './theme';
 
 const logger = new Logger('Home');
@@ -37,7 +35,6 @@ interface IHomeProps {
 
 export const Home: FunctionComponent<IHomeProps> = ({ navigation }) => {
 	const theme = useTheme(customTheme);
-
 	const [selectedTab, setSelectedTab] = React.useState<number>(1);
 	const [isSearchMode, setIsSearchMode] = React.useState<boolean>(false);
 	const [searchQuery, setSearchQuery] = React.useState<string>('');
@@ -123,7 +120,7 @@ export const Home: FunctionComponent<IHomeProps> = ({ navigation }) => {
 		}
 	};
 	const renderButtonTab = (tabName: string, iconName: string, tabNum: number) => {
-		const { colors } = theme;
+		const { colors } = useTheme(customTheme);
 		return (
 			<TouchableOpacity
 				style={{
@@ -133,9 +130,13 @@ export const Home: FunctionComponent<IHomeProps> = ({ navigation }) => {
 				}}
 				onPress={() => setSelectedTab(tabNum)}
 			>
-				<View style={{ alignItems: 'center'}}>
+				<View style={{ alignItems: 'center' }}>
 					{renderPendingTabCounter(tabName)}
-					<MaterialCommunityIcons name={iconName} size={30} color={colors.primary} />
+					<IconButton
+						icon={iconName}
+						size={30}
+						iconColor={colors.primary as string}
+					/>
 				</View>
 			</TouchableOpacity>
 		);
@@ -152,19 +153,22 @@ export const Home: FunctionComponent<IHomeProps> = ({ navigation }) => {
 	};
 	const renderHeaderLeftIcon = () => {
 		return (
-			!isSearchMode && (
-				<Icon name="menu" size={35} color="white" onPress={openMenu} />
-			)
+			!isSearchMode && (<IconButton
+				icon="menu"
+				size={35}
+				iconColor={theme.colors.primary}
+				onPress={openMenu}
+			/>)
 		);
 	};
 	return (
-		 <React.Fragment>
+		<React.Fragment>
 			<Header
 				leftComponent={renderHeaderLeftIcon}
 				centerComponent={renderHeaderCenter}
 				containerStyle={{ paddingTop: 10, paddingBottom: 10 }}
 			/>
-	 	{isSearchMode && searchComponent}
+			{isSearchMode && searchComponent}
 			{!isSearchMode && renderTab()}
 			<SafeAreaView style={styles.safeArea}>
 				<View style={styles.footer}>
@@ -178,7 +182,7 @@ export const Home: FunctionComponent<IHomeProps> = ({ navigation }) => {
 			<BackButtonHandler
 				registerBackButtonHandler={registerBackButtonHandler}
 				onBackButtonPressed={onBackButtonPressed}
-			/> 
+			/>
 		</React.Fragment>
 	);
 };
