@@ -26,7 +26,7 @@ All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 **Other Changes:**
 
 - **Updated Documentation**: Comprehensive updates to the authentication documentation, including:
-  - Detailed usage instructions for the useRainbowAuth hook.
+  - Detailed usage instructions for the useRainbowAuth hook.  
   - Enhanced tutorials for integrating the authentication flow using the RainbowContainer.
   - Added links to relevant documentation for better navigation and understanding of authentication components.
 
