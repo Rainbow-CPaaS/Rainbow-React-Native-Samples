@@ -4,6 +4,32 @@
 
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
+## [1.10.4] - 2024-3-4
+---
+
+## [1.10.4] - 2024-2-26
+---
+
+**New Features:**
+
+**Authentication Process Refactor**
+- **Refactored Authentication Process:** Improved the authentication flow by integrating the `RainbowContainer` and `SecureContainer` components, allowing for better management of authentication states and user sessions.
+- **Custom Authentication Navigator:** Added the ability to pass a custom authentication stack navigator to the `RainbowContainer`, providing flexibility for developers to implement their own authentication flows.
+- **New `useRainbowAuth` Hook:** Introduced a custom hook that simplifies access to the authentication state and user information from the Redux store, enhancing the ease of use within React components.
+
+**Fixes:**
+- Resolved an issue where the app logo was not displaying on iOS.
+- **Invalid Date Rendering:** Fixed the issue where dates were rendered as "Invalid Date" inside the chat message container.
+- **Fixed Attach File Issue:** Resolved the problem where attaching files was not functioning correctly.
+- **Addressed Upstream Dependency Conflicts:** Ensured that the project's dependencies were in sync with the latest versions.
+
+**Other Changes:**
+
+- **Updated Documentation**: Comprehensive updates to the authentication documentation, including:
+  - Detailed usage instructions for the useRainbowAuth hook.
+  - Enhanced tutorials for integrating the authentication flow using the RainbowContainer.
+  - Added links to relevant documentation for better navigation and understanding of authentication components.
+
 ## [1.10.3] - 2024-11-19
 ---
 

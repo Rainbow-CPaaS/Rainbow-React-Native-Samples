@@ -1,23 +1,5 @@
 PODS:
   - Alamofire (5.10.1)
-  - appcenter-analytics (5.0.2):
-    - AppCenter/Analytics (~> 5.0)
-    - AppCenterReactNativeShared (~> 5.0)
-    - React-Core
-  - appcenter-core (5.0.2):
-    - AppCenterReactNativeShared (~> 5.0)
-    - React-Core
-  - appcenter-crashes (5.0.2):
-    - AppCenter/Crashes (~> 5.0)
-    - AppCenterReactNativeShared (~> 5.0)
-    - React-Core
-  - AppCenter/Analytics (5.0.5):
-    - AppCenter/Core
-  - AppCenter/Core (5.0.5)
-  - AppCenter/Crashes (5.0.5):
-    - AppCenter/Core
-  - AppCenterReactNativeShared (5.0.2):
-    - AppCenter/Core (= 5.0.5)
   - boost (1.84.0)
   - CryptoSwift (1.8.3)
   - DoubleConversion (1.1.6)
@@ -1266,7 +1248,7 @@ PODS:
     - React-Core
   - react-native-get-random-values (1.11.0):
     - React-Core
-  - react-native-image-picker (7.1.2):
+  - react-native-image-picker (7.2.3):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1287,7 +1269,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-pager-view (6.5.0):
+  - react-native-keyboard-controller (1.16.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1308,10 +1290,31 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-rainbow-module (1.10.3):
+  - react-native-pager-view (6.7.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - react-native-rainbow-module (1.10.4):
     - RainbowSDK (~> 2.10.0)
     - React
-  - react-native-safe-area-context (4.14.0):
+  - react-native-safe-area-context (4.14.1):
     - React-Core
   - React-nativeconfig (0.75.1)
   - React-NativeModulesApple (0.75.1):
@@ -1575,13 +1578,13 @@ PODS:
     - React-utils (= 0.75.1)
   - ReactNativeLocalization (2.3.2):
     - React-Core
-  - RNCAsyncStorage (2.0.0):
+  - RNCAsyncStorage (2.1.2):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNCPicker (2.9.0):
+  - RNCPicker (2.11.0):
     - React-Core
-  - RNGestureHandler (2.20.2):
+  - RNGestureHandler (2.24.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1606,7 +1609,126 @@ PODS:
     - React-Core
   - RNPermissions (4.1.5):
     - React-Core
-  - RNScreens (3.35.0):
+  - RNReanimated (3.17.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated (= 3.17.1)
+    - RNReanimated/worklets (= 3.17.1)
+    - Yoga
+  - RNReanimated/reanimated (3.17.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated/apple (= 3.17.1)
+    - Yoga
+  - RNReanimated/reanimated/apple (3.17.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNReanimated/worklets (3.17.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/worklets/apple (= 3.17.1)
+    - Yoga
+  - RNReanimated/worklets/apple (3.17.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNScreens (3.36.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1628,7 +1750,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSVG (15.8.0):
+  - RNSVG (15.11.2):
     - React-Core
   - RNVectorIcons (10.2.0):
     - DoubleConversion
@@ -1655,9 +1777,6 @@ PODS:
   - Yoga (0.0.0)
 
 DEPENDENCIES:
-  - appcenter-analytics (from `../node_modules/appcenter-analytics`)
-  - appcenter-core (from `../node_modules/appcenter`)
-  - appcenter-crashes (from `../node_modules/appcenter-crashes`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -1698,6 +1817,7 @@ DEPENDENCIES:
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-keyboard-controller (from `../node_modules/react-native-keyboard-controller`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-rainbow-module (from `../node_modules/react-native-rainbow-module`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -1734,6 +1854,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -1742,20 +1863,12 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - AppCenter
-    - AppCenterReactNativeShared
     - CryptoSwift
     - RainbowSDK
     - RainbowWebRTC
     - SocketRocket
 
 EXTERNAL SOURCES:
-  appcenter-analytics:
-    :path: "../node_modules/appcenter-analytics"
-  appcenter-core:
-    :path: "../node_modules/appcenter"
-  appcenter-crashes:
-    :path: "../node_modules/appcenter-crashes"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -1833,6 +1946,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-keyboard-controller:
+    :path: "../node_modules/react-native-keyboard-controller"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
   react-native-rainbow-module:
@@ -1905,6 +2020,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keychain"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -1916,11 +2033,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 840d2a1ad82355b536ec6ba5f97e5bfa54600ca3
-  AppCenter: 994875ea7941b9e168babb98299f900a94bcef13
-  appcenter-analytics: b90b12a9357d8e3f6174ac761f00c70d95a137ee
-  appcenter-core: 711583753e9b44d3a9c75f8f78baa23804be3e40
-  appcenter-crashes: be716cca49539023ab5778502230098dd4b41d54
-  AppCenterReactNativeShared: e6f6bd4d0e055bf1a3d7337edb4993bfce79185b
   boost: 4cb898d0bf20404aab1850c656dcea009429d6c1
   CryptoSwift: 967f37cea5a3294d9cce358f78861652155be483
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
@@ -1961,10 +2073,11 @@ SPEC CHECKSUMS:
   React-microtasksnativemodule: f25dba9c8c3f8be0b3368d52b99abd6e381dee1d
   react-native-document-picker: ec07866a30707f23660c0f3ae591d669d3e89096
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
-  react-native-image-picker: 2fbbafdae7a7c6db9d25df2f2b1db4442d2ca2ad
-  react-native-pager-view: bc0577047c5901fc96f6134881172072a909af7b
-  react-native-rainbow-module: 9173197217ee97fe34f9dafd590e0a5b55b1a706
-  react-native-safe-area-context: 4532f1a0c5d34a46b9324ccaaedcb5582a302b7d
+  react-native-image-picker: df4f6aefbc662b0a5f991065650662c9731977a3
+  react-native-keyboard-controller: ec99670a7761ef20b462bebabea3e0b67ec822c9
+  react-native-pager-view: 30e0724fa58eb984b23543971096290bc693525f
+  react-native-rainbow-module: 469f03d600cfd84629ac897d7727fdf24bbf0015
+  react-native-safe-area-context: 141eca0fd4e4191288dfc8b96a7c7e1c2983447a
   React-nativeconfig: 7af2ccce165f86b233a9f9d63295f6207e62640e
   React-NativeModulesApple: db1c1ee9dda26c9e58d824b4100fed83add82ae9
   React-perflogger: 7c4e97b47d8bc58c03fad1a6b97d96181b59aa41
@@ -1992,18 +2105,19 @@ SPEC CHECKSUMS:
   ReactCodegen: e9156d86a166f3e10dc8fb6160764048df3528bc
   ReactCommon: 3ae48fa4cfa7052a270c2150ececfc94e541fb8a
   ReactNativeLocalization: fb171138cdc80d5d0d4f20243d2fc82c2b3cc48f
-  RNCAsyncStorage: d35c79ffba52c1013013e16b1fc295aec2feabb6
+  RNCAsyncStorage: addfc2cb6511dbe199c56c6b26ede383b6c38919
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNCPicker: f963e01f78e546a93b98aa201501713dbda14e94
-  RNGestureHandler: 511250b190a284388f9dd0d2e56c1df76f14cfb8
+  RNCPicker: 4f6d5e8d107064be32dfc8f1bcb5a3741135db0b
+  RNGestureHandler: 2e4971181218718ab9c5871ea5ef855ec5c389fe
   RNKeychain: bfe3d12bf4620fe488771c414530bf16e88f3678
   RNPermissions: 93708df705c7e7f23e935f6bf414952c3fbc1357
-  RNScreens: c7ceced6a8384cb9be5e7a5e88e9e714401fd958
-  RNSVG: 8b1a777d54096b8c2a0fd38fc9d5a454332bbb4d
+  RNReanimated: 8b36a458b255be4d4b2e02bacc3e06e18254db9a
+  RNScreens: 274d7cc1d2abb2497b8c20561cc9e3a344a19095
+  RNSVG: 8b18fe2c2884a86e5e2e008acee0f3503dc19ff2
   RNVectorIcons: 6382277afab3c54658e9d555ee0faa7a37827136
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 06fc4b2c3664ae0e278964b8fbcb0ee9d21f0a5a
 
 PODFILE CHECKSUM: baf9dea28d4a0c24594b5fafec71673338bf80dd
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

@@ -1,28 +1,13 @@
-
-import React, {FunctionComponent, useEffect, useState} from 'react';
-import { Badge, Divider , useTheme} from 'react-native-paper';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import {
-  IBubble,
-  bubblesService,
-  eventEmitter,
-  EventType,
-  Bubbles,
-  AvatarPresenceBadge,
-} from 'react-native-rainbow-module';
-import {
-  NavigationState,
-  Route,
-  SceneMap,
-  SceneRendererProps,
-  TabBar,
-  TabView,
-} from 'react-native-tab-view';
+import { IBubble, bubblesService, eventEmitter, EventType, Bubbles, AvatarPresenceBadge } from 'react-native-rainbow-module';
+import { NavigationState, Route, SceneMap, SceneRendererProps, TabBar, TabView } from 'react-native-tab-view';
 import addBubble from '../resources/images/addBubble.png';
-import {Strings} from './../resources/localization/Strings';
-import {BubbleInvitations} from './BubbleInvitations';
-import {CombinedRootStackParamList} from '../Navigation/AppNavigationTypes';
-import {NavigationProp} from '@react-navigation/native';
+import { Strings } from './../resources/localization/Strings';
+import { BubbleInvitations } from './BubbleInvitations';
+import { CombinedRootStackParamList } from '../Navigation/AppNavigationTypes';
+import { NavigationProp } from '@react-navigation/native';
+import { Badge, Divider , useTheme} from 'react-native-paper';
 import customTheme from '../theme';
 
 type State = NavigationState<Route>;
@@ -30,40 +15,30 @@ type State = NavigationState<Route>;
 interface IBubblesNavigationProps {
   navigation: NavigationProp<CombinedRootStackParamList>;
 }
-export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
-  navigation,
-}) => {
+export const BubblesComponent: FunctionComponent<IBubblesNavigationProps>= ({navigation}) => {
   const theme = useTheme(customTheme);
+
   const [allBubbles, setAllBubbles] = useState<IBubble[]>([]);
-  const [bubbleInvitationCounter, setBubbleInvitationCounter] =
-    useState<number>(0);
+  const [bubbleInvitationCounter, setBubbleInvitationCounter] = useState<number>(0);
   const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    {
-      key: 'first',
-      title: Strings.all,
-    },
-    {
-      key: 'second',
-      title: Strings.myBubbles,
-    },
-    {
-      key: 'third',
-      title: Strings.Invitations,
-    },
-  ]);
-  const initialLayout = {width: Dimensions.get('window').width};
-  const FirstRoute = () => (
-    <Bubbles bubbles={allBubbles} renderItems={renderBubblesList} />
-  );
-  const SecondRoute = () => (
-    <Bubbles bubbles={getMyBubble()} renderItems={renderBubblesList} />
-  );
+  const [routes] = React.useState([{
+    key: 'first',
+    title: Strings.all
+  }, {
+    key: 'second',
+    title: Strings.myBubbles
+  }, {
+    key: 'third',
+    title: Strings.Invitations
+  },]);
+  const initialLayout = { width: Dimensions.get('window').width };
+  const FirstRoute = () => <Bubbles bubbles={allBubbles} renderItems={renderBubblesList} />;
+  const SecondRoute = () => <Bubbles bubbles={getMyBubble()} renderItems={renderBubblesList} />;
   const ThirdRoute = () => <BubbleInvitations />;
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute,
+    third: ThirdRoute
   });
 
   useEffect(() => {
@@ -73,13 +48,14 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
       EventType.BubblesListUpdated,
       (eventData: IBubble[]) => {
         setAllBubbles(eventData);
-      },
+
+      }
     );
     const bubblePendingInvitationsCounter = eventEmitter.addListener(
       EventType.BubblePendingInvitationsCounter,
       (counter: number) => {
         setBubbleInvitationCounter(counter);
-      },
+      }
     );
 
     return () => {
@@ -94,7 +70,7 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
   };
 
   const onItemClick = (bubble: IBubble) => () => {
-    navigation.navigate('BubbleChatView', {bubble});
+    navigation.navigate('BubbleChatView',{bubble});
   };
   const renderBubblesList = (item: IBubble) => {
     return (
@@ -119,39 +95,43 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({
     navigation.navigate('CreateBubble');
   };
 
-  const renderInvitationBadge = ({ route, color } :{ route: Route; color: string }) => {
-    if (route.key === 'third' && bubbleInvitationCounter > 0) {
-        return (
-            <Badge
-                size={16}
-                style={[styles.badge, { backgroundColor: 'red', color: 'white' }]}
-            >
-                {bubbleInvitationCounter}
-            </Badge>
-        );
-    }
-    return null;
+const renderInvitationBadge = ({ route, color }: { route: { key: string }; color: string }) => {
+  if (route.key === 'third' && bubbleInvitationCounter > 0) {
+      return (
+          <Badge
+              size={16}
+              style={[styles.badge, { backgroundColor: 'red', color: 'white' }]}
+          >
+              {bubbleInvitationCounter}
+          </Badge>
+      );
+  }
+  return null;
 };
-  const renderTabBar = (
-    props: SceneRendererProps & {navigationState: State},
-  ) => (
-    <TabBar {...props} style={{ backgroundColor: '#fff', fontColor: 'red' }} 
-    activeColor={theme.colors.primary}
-    inactiveColor={theme.colors.inactiveColor}
-        indicatorStyle={{ backgroundColor: theme.colors.primary}}
-    renderIcon={renderInvitationBadge}   />
+
+  const renderTabBar = (props: SceneRendererProps & { navigationState: State }) => (
+    <TabBar 
+      {...props} 
+      style={{ backgroundColor: '#fff' }} 
+      activeColor={theme.colors.primary}
+      inactiveColor={theme.colors.inactiveColor}
+      indicatorStyle={{ backgroundColor: theme.colors.primary }}
+      renderIcon={({ route, color }) => renderInvitationBadge({ route, color })}
+    />
   );
   return (
     <>
       <TabView
-        navigationState={{index, routes}}
+        navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
-        renderTabBar={renderTabBar}
-      />
+        renderTabBar={renderTabBar} />
 
-      <TouchableOpacity onPress={createBubble} style={styles.addIcon}>
+      <TouchableOpacity
+        onPress={createBubble}
+        style={styles.addIcon}
+      >
         <Image source={addBubble} style={styles.icon} />
       </TouchableOpacity>
     </>
@@ -182,7 +162,6 @@ pressable: {
 },
 innerContainer: {
     paddingHorizontal: 20,
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
