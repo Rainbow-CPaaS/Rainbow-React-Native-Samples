@@ -15,7 +15,7 @@ type State = NavigationState<Route>;
 interface IBubblesNavigationProps {
   navigation: NavigationProp<CombinedRootStackParamList>;
 }
-export const BubblesComponent: FunctionComponent<IBubblesNavigationProps>= ({navigation}) => {
+export const BubblesComponent: FunctionComponent<IBubblesNavigationProps> = ({navigation}) => {
   const theme = useTheme(customTheme);
 
   const [allBubbles, setAllBubbles] = useState<IBubble[]>([]);
@@ -23,14 +23,14 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps>= ({nav
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([{
     key: 'first',
-    title: Strings.all
+    title: Strings.all,
   }, {
     key: 'second',
-    title: Strings.myBubbles
+    title: Strings.myBubbles,
   }, {
     key: 'third',
-    title: Strings.Invitations
-  },]);
+    title: Strings.Invitations,
+  }]);
   const initialLayout = { width: Dimensions.get('window').width };
   const FirstRoute = () => <Bubbles bubbles={allBubbles} renderItems={renderBubblesList} />;
   const SecondRoute = () => <Bubbles bubbles={getMyBubble()} renderItems={renderBubblesList} />;
@@ -38,7 +38,7 @@ export const BubblesComponent: FunctionComponent<IBubblesNavigationProps>= ({nav
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute
+    third: ThirdRoute,
   });
 
   useEffect(() => {
@@ -109,16 +109,19 @@ const renderInvitationBadge = ({ route, color }: { route: { key: string }; color
   return null;
 };
 
-  const renderTabBar = (props: SceneRendererProps & { navigationState: State }) => (
-    <TabBar 
-      {...props} 
-      style={{ backgroundColor: '#fff' }} 
+  const renderTabBar = (props: SceneRendererProps & { navigationState: State }) => {
+    const { ...tabBarProps } = props as any;
+    return (
+      <TabBar
+        {...tabBarProps}
+      style={{ backgroundColor: '#fff' }}
       activeColor={theme.colors.primary}
       inactiveColor={theme.colors.inactiveColor}
       indicatorStyle={{ backgroundColor: theme.colors.primary }}
       renderIcon={({ route, color }) => renderInvitationBadge({ route, color })}
     />
   );
+  };
   return (
     <>
       <TabView

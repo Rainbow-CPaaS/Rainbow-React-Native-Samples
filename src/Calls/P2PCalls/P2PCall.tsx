@@ -188,7 +188,7 @@ export const P2PCall: FunctionComponent<IProps> = ({}) => {
     return (
       <React.Fragment>
         <SafeAreaView style={styles.headerColor} />
-        <Header centerComponent={renderCenterHeader} />
+        <Header centerComponent={renderCenterHeader} containerStyle={{ backgroundColor: '#0086CF' }} />
 
 		<View style={styles.container}>
 		<P2PCallView call={p2pCall} />

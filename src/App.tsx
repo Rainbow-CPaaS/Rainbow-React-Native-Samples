@@ -19,7 +19,6 @@ import { CreateBubbleComponent } from './Bubbles/CreateBubbleComponent';
 import { useEffect } from 'react';
 import { PeerConversationChatView } from './Messages/PeerConversationChatView';
 import { BubbleChatView } from './Messages/BubbleChatView';
-import jsonRainbowConfig from './rainbow-config.json';
 import { ActiveCallBanner } from './Calls/ActiveCallBanner';
 import { SharedFileComponent, FileDescription } from './SharedFile/';
 import { MyProfileInfo, UserInfoFrom } from './MyProfile/';
@@ -31,11 +30,10 @@ import {  PaperProvider } from 'react-native-paper';
 import customTheme from './theme';
 import { LoginForm } from './Auth/LoginForm';
 import { ForgotPassword } from './Auth/ForgotPassword';
+import { ConnectivitySnackbar } from './ConnectivityBar';
 const logger = new Logger('example');
 const handlers: IBackButtonHandler[] = [];
 const Stack = createNativeStackNavigator<CombinedRootStackParamList>();
-
-setAppSecretKey(jsonRainbowConfig);
 
 const AuthNavigator = () =>{
   return (
@@ -63,8 +61,9 @@ export default function App() {
     <SafeArea>
       <NavigationContainer>
       <PaperProvider theme={customTheme}>
+      <ConnectivitySnackbar />
 
-      <RainbowContainer  useInternalNavigation={false} authNavigator={AuthNavigator} >
+      <RainbowContainer  useInternalNavigation={true} authNavigator={AuthNavigator} >
           <ActiveCallBanner />
           <BackHandlerListener />
           <NavigationContext.Provider value={registerBackButtonHandler}>
@@ -122,7 +121,6 @@ export default function App() {
 const BackHandlerListener: React.FunctionComponent = () => {
   const navigation = useNavigation();
   useEffect(() => {
-    console.log(navigation.canGoBack());
     logger.info('BackHandlerListener');
     BackHandler.addEventListener('hardwareBackPress', onHandleBackButton);
   }, []);

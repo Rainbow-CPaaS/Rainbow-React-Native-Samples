@@ -226,6 +226,7 @@ export const ConferenceCallComponent: FunctionComponent<
         <Header
           centerComponent={renderHeaderCenter}
           leftComponent={renderLeftHeader}
+          containerStyle={{backgroundColor:'#005b96'}}
         />
         <View style={{flex: 1, backgroundColor: '#005b96'}}>
           <ConferenceDelegateContainer
@@ -264,10 +265,13 @@ const defaultStyle = StyleSheet.create({
     color: '#ffffff',
   },
   callActionContainer: {
+    display:'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
     backgroundColor: '#02a2ff',
     opacity: 0.8,
+    margin:10
   },
   buttonsViewStyle: {
     flex: 1,

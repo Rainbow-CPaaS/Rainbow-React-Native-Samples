@@ -144,7 +144,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
       // Incase the message obj have a `fileDescriptorId` this means this msg have file or image!
       options.push(IMessageOption.Download);
     }
-    if (message.isSent) {
+    if (message.isSent && !message.isDeleted) {
       // Show delete option only for the sent msg
       options.push(IMessageOption.Delete);
     }

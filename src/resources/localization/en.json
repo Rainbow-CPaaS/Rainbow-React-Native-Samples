@@ -75,5 +75,6 @@
 	"lastName": "Last Name",
 	"avatar": "Avatar",
 	"myProfileInfo": "My Profile Info",
-	"servicePlane": "Service Plane"
+	"servicePlane": "Service Plane",
+	"noNetworkConnection":"No internet connection"
 }

@@ -75,5 +75,6 @@
 	"lastName": "الاسم الاخير",
 	"avatar": "الصوره الشخصيه",
 	"myProfileInfo": "معلومات ملف التعريف الخاص بي",
-	"servicePlane": "خطة الخدمة"
+	"servicePlane": "خطة الخدمة",
+	"noNetworkConnection":"لا يوجد اتصال بالانترنت "
 }
