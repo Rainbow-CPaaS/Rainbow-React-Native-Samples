@@ -4,7 +4,27 @@
 
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
-## [1.10.4] - 2024-3-4
+
+
+## [1.11.0] - 2025-5-22
+---
+
+**Other Changes:**
+- Upgraded iOS Rainbow SDK to version 2.13.0
+- Upgraded Android Rainbow SDK to version 2.61.0
+- Resolved compatibility issues with the latest SDK versions
+
+**Fixes:**
+- Enhanced authentication flow stability by resolving login page flickering
+- Fixed iOS message deletion UI issue where the rest of messages are shown as deleted message.
+- Optimized Android WebRTC performance by reducing event emissions during active calls.
+- Resolved Android local video rendering issue for callers.
+- Improved conference call UI by adding missing call action buttons.
+
+**API Changes:**
+- Add event `IsNetworkAvailable` to [Events](https://developers.openrainbow.com/doc/sdk/reactnative/api/Events.md) to handle app state when no internet connection.
+
+## [1.10.4] - 2025-3-4
 ---
 
 **New Features:**
