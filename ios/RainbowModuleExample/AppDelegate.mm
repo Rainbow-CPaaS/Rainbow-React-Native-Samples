@@ -42,6 +42,11 @@
    UINavigationController *rootNavigationController = [[RNRainbowRn sharedManager] setupRainbowRootController:rootViewController];
    self.window.rootViewController = rootNavigationController;
   [self.window makeKeyAndVisible];
+  
+  NSDictionary *defaultConfig  = [[RNRainbowRn sharedManager] getConfigurationForCurrentHost ];
+  NSString *appId = defaultConfig[@"APP_ID"];
+  NSString *secretKey = defaultConfig[@"SEC_KEY"];
+  [[ServicesManager sharedInstance] setAppID:appId secretKey:secretKey];
   return YES;
 }
 
