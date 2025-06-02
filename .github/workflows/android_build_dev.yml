@@ -11,36 +11,38 @@ jobs:
 
     steps:
       - name: Checkout Rainbow-React-Native-Samples
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
+          cache: 'npm'
           
       - name: Use Java 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
-           distribution: 'temurin'
-           java-version: '17'
-           distribution-type: 'jdk'
+          distribution: 'temurin'
+          java-version: '17'
+          distribution-type: 'jdk'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci  # Using npm ci for faster, more reliable installs
         
       - name: Set Gradle Wrapper Permissions
-        run:  cd android &&
-              chmod +x gradlew
+        run: |
+          cd android
+          chmod +x gradlew
+          cd ..
 
       - name: Build Android APK
-        run: pwd &&
-             ls &&
-             cd android &&
-            ./gradlew assembleRelease  
+        run: |
+          cd android
+          ./gradlew assembleRelease
+          cd ..
 
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
-          path: android/app/build/outputs/apk/release/
-
+          path: android/app/build/outputs/apk/release/app-release.apk
