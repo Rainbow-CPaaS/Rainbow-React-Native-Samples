@@ -27,7 +27,7 @@ jobs:
           distribution-type: 'jdk'
 
       - name: Install dependencies
-        run: npm ci  # Using npm ci for faster, more reliable installs
+        run: npm install 
         
       - name: Set Gradle Wrapper Permissions
         run: |
