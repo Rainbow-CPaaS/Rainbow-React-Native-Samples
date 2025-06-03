@@ -1,22 +1,22 @@
 {
-    "calls": {
-        "enabled": true,
-        "webRtcEnabled": true,
-        "pbxEnabled": false
-    },
-    "invitations": {
-        "enabled": true
-    },
-    "conversations": {
-        "enabled": true
-    },
-    "bubbles": {
-        "enabled": false
-    },
-    "ContactInformation": {
-        "enabled": true
-    },
-    "Contacts": {
-        "enabled": true
-    }
+  "calls": {
+    "enabled": true,
+    "webRtcEnabled": true,
+    "pbxEnabled": false
+  },
+  "invitations": {
+    "enabled": true
+  },
+  "conversations": {
+    "enabled": true
+  },
+  "bubbles": {
+    "enabled": false
+  },
+  "ContactInformation": {
+    "enabled": true
+  },
+  "Contacts": {
+    "enabled": true
+  }
 }
