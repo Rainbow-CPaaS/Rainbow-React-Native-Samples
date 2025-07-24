@@ -5,6 +5,26 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.11.1] - 2025-07-23
+---
+
+**API Changes:**
+- Renamed `EventType.missedCallLogsUpdated` to `EventType.MissedCallLogsUpdated` for naming consistency
+- Updated event documentation to reflect the new event name across the codebase
+
+**Fixes:**
+- Fixed event name consistency in iOS native code for call logs
+- Updated event listeners to use the new event name in the React Native bridge.
+
+**Other Changes:**
+- Security
+    - Updated vulnerable dependencies to their latest secure versions
+  - Addressed critical and high severity vulnerabilities in third-party packages
+
+  **Documentation:**
+- Added comprehensive documentation for [CallLogsService](https://developers.openrainbow.com/doc/sdk/reactnative/api/CallLogsService.md).
+- Added comprehensive documentation for [InvitationsService](https://developers.openrainbow.com/doc/sdk/reactnative/api/InvitationsService.md).
+- Updated API reference with new service documentation.
 
 ## [1.11.0] - 2025-5-22
 ---
