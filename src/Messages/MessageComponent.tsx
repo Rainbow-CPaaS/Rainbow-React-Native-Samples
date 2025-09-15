@@ -17,7 +17,7 @@ import {
   CustomMessageTime,
   MessageTimeProps,
   CustomBubbleContainer,
-  CustomBubbleProps
+  CustomBubbleProps,
 } from 'react-native-rainbow-module';
 import React, { useEffect, useState } from 'react';
 import {
@@ -41,9 +41,9 @@ import {
   messageHeaderView,
   repliedMessageView,
   deletedMessageView,
-  IStyleHeaderView
+  IStyleHeaderView,
 } from './CustomizableMsgUI';
-import DocumentPicker from 'react-native-document-picker';
+import {pick,types} from '@react-native-documents/picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Strings } from './../resources/localization/Strings';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -99,7 +99,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     const uploadFilesResult = eventEmitter.addListener(
       EventType.FileAttachFinished,
       (eventData: { isSuccess: boolean, uri: string, errorMsg?: string }) => {
-        console.log("eventData", eventData);
+        console.log('eventData', eventData);
         // Update filesToUpload only if the file matches the eventData URI
         setFilesToUpload((prevFiles) =>
           prevFiles.filter((file) => file.uri !== eventData.uri)
@@ -235,13 +235,13 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
         options={{
           'Important msg': () => {
             const msg = {
-              urgency: IUrgencyType.MEDIUM
+              urgency: IUrgencyType.MEDIUM,
             };
             setSelectedMessage(msg);
           },
           'Information msg': () => {
             const msg = {
-              urgency: IUrgencyType.LOW
+              urgency: IUrgencyType.LOW,
             };
             setSelectedMessage(msg);
 
@@ -278,23 +278,20 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
     switch (type) {
       case Attached.FilesLibrary:
         try {
-          const results = await DocumentPicker.pickMultiple({
-            type: [DocumentPicker.types.allFiles],
+          const results = await pick({
+            type: [types.allFiles],
           });
           for (const res of results) {
             if (res.uri) {
-              const fileType = res.type === DocumentPicker.types.images ? Attached.ImageLibrary : Attached.FilesLibrary;
+              const fileType = res.type === types.images ? Attached.ImageLibrary : Attached.FilesLibrary;
               const fileObj: IAttachedFile = { uri: res.uri, type: fileType };
               filesToUpload.push(fileObj);
               setFilesToUpload([...filesToUpload]);
             }
           }
         } catch (err) {
-          if (DocumentPicker.isCancel(err)) {
-            // User cancelled the picker, exit any dialogs or menus and move on
-          } else {
-            console.error(`openAttached ERROR: ${err}`);
-          }
+          console.error(`openAttached ERROR: ${err}`);
+
         }
         break;
       case Attached.Capture:
@@ -422,7 +419,7 @@ export const MessageComponent: React.FunctionComponent<IMessageComponentProps> =
      * You can uncommitted the line 425 to customize the default font style.
      */
     const textStyle: TextStyle = {
-      fontSize: 18, fontWeight: 'bold', fontFamily: 'AvenirNext-Regular', color: 'lightgray'
+      fontSize: 18, fontWeight: 'bold', fontFamily: 'AvenirNext-Regular', color: 'lightgray',
     };
     const linkStyle = { fontSize: 18, color: 'green' };
     const customTextStyle = { color: 'red' }; // text style for both messages(left & right)
@@ -525,17 +522,17 @@ const importantMsgViewStyle: IStyleSendingExtraView = StyleSheet.create({
 const importantHeaderViewStyle: IStyleHeaderView = StyleSheet.create({
   containerStyle: { backgroundColor: '#f9d38b', borderRadius: 10, width: '100%', alignContent: 'center', flexDirection: 'row', padding: 5 },
   iconStyle: { color: '#c85c2c' },
-  textStyle: { color: '#c85c2c', fontSize: 15, paddingTop: 10, paddingBottom: 10 }
+  textStyle: { color: '#c85c2c', fontSize: 15, paddingTop: 10, paddingBottom: 10 },
 });
 const infoHeaderViewStyle: IStyleHeaderView = StyleSheet.create({
   containerStyle: { backgroundColor: '#cae1fb', borderRadius: 10, width: '100%', alignContent: 'center', flexDirection: 'row', padding: 5 },
   iconStyle: { color: '#3f8df5' },
-  textStyle: { color: '#3f8df5', fontSize: 15, paddingTop: 10, paddingBottom: 10 }
+  textStyle: { color: '#3f8df5', fontSize: 15, paddingTop: 10, paddingBottom: 10 },
 });
 const forwardHeaderViewStyle: IStyleHeaderView = StyleSheet.create({
   containerStyle: { backgroundColor: 'gray', borderRadius: 10, width: '100%', alignContent: 'center', flexDirection: 'row', padding: 5 },
   iconStyle: { color: 'white' },
-  textStyle: { color: 'white', fontSize: 15, paddingTop: 10, paddingBottom: 10 }
+  textStyle: { color: 'white', fontSize: 15, paddingTop: 10, paddingBottom: 10 },
 });
 
 const defaultStyle = StyleSheet.create({

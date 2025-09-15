@@ -121,7 +121,7 @@ export const MyProfileInfo: React.FunctionComponent<IProps> = ({
                    {renderContactInfo()}
                 </ImageBackground>
             </View>
-            {renderContactDetails}
+            {renderContactDetails()}
        </>
     );
 };

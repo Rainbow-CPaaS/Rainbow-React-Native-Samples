@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import { ImageStyle, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import {
   Logger,
   UserProfile,
@@ -17,10 +17,7 @@ import customTheme from './theme';
 
 const logger = new Logger('AppMenu');
 
-const presenceIconStyle: ImageStyle = {
-  width: 25,
-  height: 25,
-};
+
 interface IMenuProps {
   navigation: AppMenuNavigationProp;
 }
@@ -64,7 +61,7 @@ export const AppMenuView: FunctionComponent<IMenuProps> = ({navigation}) => {
     <UserProfile />
     {connectedUser?.isAllowedToChangePresence && (
         <View style={{ flexDirection: 'row', alignItems: 'center',marginVertical: 8 }}>
-            <PresenceList presenceIconStyle={presenceIconStyle} />
+            <PresenceList presenceIconSize={25} />
         </View>
     )}
 
