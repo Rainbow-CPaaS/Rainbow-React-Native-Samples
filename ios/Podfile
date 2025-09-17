@@ -9,17 +9,16 @@ end
 
 node_require('react-native/scripts/react_native_pods.rb')
 node_require('react-native-permissions/scripts/setup.rb')
+# Load properties 
+podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
+
+# Explicitly enable New Architecture if flagged
+ENV['RCT_NEW_ARCH_ENABLED'] = '1' if podfile_properties['newArchEnabled'] == true
 
 platform :ios, min_ios_version_supported
-prepare_react_native_project! 
+prepare_react_native_project!
 
-
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-use_frameworks! :linkage => linkage.to_sym
-end
-
+use_frameworks! :linkage => :static
 
 
 # Add you Notification Extension dependencies
@@ -32,24 +31,22 @@ target 'RainbowModuleExample' do
   config = use_native_modules!
   use_react_native!(
     :path => config[:reactNativePath],
-    # Enables Flipper.
-    #
+    :hermes_enabled => true, # ensure Hermes stays on
+    :fabric_enabled => true, # Enable Fabric explicitly
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
-
   )
 
-  # Pods for RainbowModuleExample
- permissions_path = '../node_modules/react-native-permissions/ios'
-    # Use this helper to setup specific permissions
-    setup_permissions([
-      'Camera',
-      'Contacts',
-      'Microphone',
-      'PhotoLibrary',
-      'Notifications',
-    ])
+   # Permissions setup if needed
+   setup_permissions([
+     'Camera',
+     'Contacts',
+     'Microphone',
+     'PhotoLibrary',
+     'Notifications',
+   ])
+ 
   
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
@@ -59,12 +56,34 @@ target 'RainbowModuleExample' do
       config[:reactNativePath],
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
-    ) # Fix react-native libraries compatibility with the notification extension
+    )
+    
+    # Disable code signing for resource bundles (Xcode 14+)
+    installer.target_installation_results.pod_target_installation_results
+      .each do |pod_name, target_installation_result|
+      target_installation_result.resource_bundle_targets.each do |resource_bundle_target|
+        resource_bundle_target.build_configurations.each do |config|
+          config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+    end
+      
+    # Fix react-native libraries compatibility with the notification extension
       installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
           config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'No'
 
         end
       end
+      
+      # ---- Override specific pods to iOS 13.0 ----
+         installer.pods_project.targets.each do |target|
+           if ['Alamofire', 'CryptoSwift'].include? target.name
+             target.build_configurations.each do |config|
+               config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+             end
+           end
+         end
+
   end
 end
