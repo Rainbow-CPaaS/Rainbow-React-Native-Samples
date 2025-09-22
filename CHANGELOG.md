@@ -5,6 +5,22 @@
 Here is the list of the changes and features provided by the **Rainbow-React-Native-SDK**
 All notable changes to Rainbow-React-Native-SDK will be documented in this file.
 
+## [1.12.0] - 2025-09-22
+---
+**Enhancements:**
+- Upgraded React Native version from 0.75.1 to 0.79.0
+- Enabled support for the new architecture (New Arch). For detailed upgrade instructions, refer to the [React Native Upgrade Helper](https://react-native-community.github.io/upgrade-helper/?from=0.75.1&to=0.79.0)
+
+- Updated libraries to be compatible with React Native 0.79 and New Architecture
+- Added localization strings for alert messages to support multiple languages
+
+**Fixes:**
+- Resolved issue with icons not displaying after the React Native upgrade.
+- Fixed compatibility issues in Kotlin native modules.
+- Addressed breaking changes introduced in React Native 0.79.0.
+
+
+
 ## [1.11.1] - 2025-07-23
 ---
 

@@ -7,6 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import com.ale.rainbow.rn.notifications.NotificationHandler
 import com.facebook.react.ReactActivity
+import com.facebook.react.ReactActivityDelegate
+import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
+
+
 
 class MainActivity : ReactActivity() {
     private var channelName = "My Channel"
@@ -16,18 +21,26 @@ class MainActivity : ReactActivity() {
      * Returns the name of the main component registered from JavaScript. This is used to schedule
      * rendering of the component.
      */
-    override fun getMainComponentName(): String? {
-        return "RainbowModuleExample"
-    }
+    override fun getMainComponentName(): String = "RainbowModuleExample"
+
+
 
     override fun invokeDefaultOnBackPressed() {
         moveTaskToBack(true)
     }
+    /**
+     * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
+     * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
+     */
+    override fun createReactActivityDelegate(): ReactActivityDelegate =
+        DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(null)
         createNotificationChannel()
+         NotificationHandler(this)
         NotificationHandler.setChannelId(CHANNEL_ID)
+
     }
 
     private fun createNotificationChannel() {
@@ -45,8 +58,8 @@ class MainActivity : ReactActivity() {
         }
     }
 
-    companion object {
-        @JvmField
-        var CHANNEL_ID = "Your Channel ID"
-    }
+companion object {
+    @JvmField
+    var CHANNEL_ID = "Your Channel ID"
+}
 }

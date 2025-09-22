@@ -61,7 +61,7 @@ react {
 def enableProguardInReleaseBuilds = false
 
 
-def jscFlavor = 'org.webkit:android-jsc:+'
+def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 
 
@@ -78,8 +78,8 @@ android {
         applicationId "com.example.reactnativerainbowmodule"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1_6_2
-        versionName "1.6.2"
+        versionCode 1_12_0
+        versionName "1.12.0"
     }
 
     signingConfigs {
