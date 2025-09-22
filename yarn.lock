@@ -9674,7 +9674,7 @@ __metadata:
     react-native-localization: "npm:^2.3.2"
     react-native-pager-view: "npm:^6.9.1"
     react-native-permissions: "npm:^5.4.2"
-    react-native-rainbow-module: ../react-native-rainbow-module-1.12.0.tgz
+    react-native-rainbow-module: "npm:^1.12.0"
     react-native-reanimated: "npm:^4.0.2"
     react-native-safe-area-context: "npm:^5.6.1"
     react-native-screens: "npm:^4.15.2"
@@ -9688,9 +9688,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-rainbow-module@file:../react-native-rainbow-module-1.12.0.tgz::locator=react-native-rainbow-module-example%40workspace%3A.":
+"react-native-rainbow-module@npm:^1.12.0":
   version: 1.12.0
-  resolution: "react-native-rainbow-module@file:../react-native-rainbow-module-1.12.0.tgz#../react-native-rainbow-module-1.12.0.tgz::hash=7dc053&locator=react-native-rainbow-module-example%40workspace%3A."
+  resolution: "react-native-rainbow-module@npm:1.12.0"
   dependencies:
     "@react-native-community/masked-view": "npm:^0.1.11"
     "@react-native-picker/picker": "npm:^2.4.10"
@@ -9730,7 +9730,7 @@ __metadata:
     react-native-pager-view: ">=6.9.1"
     react-native-reanimated: ">=4.0.0"
     react-native-vector-icons: ">=10.3.0"
-  checksum: 10/cec1cc436652751e2056607f8de1702e3b472892e28e9ccf0b63f1fe35b8415a63f86291807af4544a9de980bd874d581615fee9ac7af31cf4269368d9eadbd3
+  checksum: 10/dc11b610ce4e646aa04de874b92d9fdaba9e260c723490ec948f1e9a6146216ba7d3fc78a18873e7f928d33dcbc1aebdb14b226422438c591a3fd954c58e654e
   languageName: node
   linkType: hard
 

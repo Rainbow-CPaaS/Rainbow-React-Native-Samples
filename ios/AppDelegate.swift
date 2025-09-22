@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  RainbowModuleExample
 //
-//  Created by Maali Hasan on 16/09/2025.
+//  Created on 16/09/2025.
 //
 
 

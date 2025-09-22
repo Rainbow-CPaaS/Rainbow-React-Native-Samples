@@ -58,8 +58,8 @@ class MainActivity : ReactActivity() {
         }
     }
 
-    companion object {
-        @JvmField
-        var CHANNEL_ID = "Your Channel ID"
-    }
+companion object {
+    @JvmField
+    var CHANNEL_ID = "Your Channel ID"
+}
 }
