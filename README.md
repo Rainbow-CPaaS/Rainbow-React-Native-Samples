@@ -1,118 +1,143 @@
-# Rainbow SDK for React Native
+<div align="center">
+  <h1>🚀 Rainbow SDK for React Native</h1>
+  <p>
+    A production-ready sample application showcasing the power of <a href="https://developers.openrainbow.com/doc/sdk/reactnative/overview">Rainbow's React Native SDK</a>.
+    Get started with real-time communication features in minutes, not hours.
+  </p>
+  
+  [![React Native](https://img.shields.io/badge/React_Native-0.79.0-61DAFB?style=flat&logo=react&logoColor=white)](https://reactnative.dev/)
+  [![npm package](https://img.shields.io/npm/v/react-native-rainbow-module?color=blue&label=npm%20package)](https://www.npmjs.com/package/react-native-rainbow-module)
+</div>
 
+> 💡 **New to Rainbow SDK?** This sample app is the fastest way to explore all features with zero configuration. For existing projects, you can still use this as a reference implementation.
 
+## ✨ Why Use This Sample App?
 
-## Rainbow-React-Native-SDK-Sample APP
+### 🎯 For Explorers
+- **Zero Configuration** - Just clone and run
+- **Feature Showcase** - See all Rainbow capabilities in action
+- **Learning Resource** - Study production-grade implementation
 
-Welcome to the Alcatel-Lucent Enterprise **Sample code for React Native**!
+### 🛠 For Developers
+- **Production-Ready** - Follows best practices
+- **Modular Architecture** - Easy to extract and reuse components
+- **TypeScript Support** - Better developer experience with type safety
 
-This repo provides a basic sample application you can use it for starting your development using the SDK for React Native and
-to check some of the Rainbow features provide by the Rainbow RN SDK.
+### 🔍 Key Features
 
+| Feature | Description |
+|---------|-------------|
+| **🔐 Authentication** | Seamless login/logout and session management |
+| **💬 Conversations** | 1-to-1 and group chats with rich media support |
+| **👥 Contacts** | Full contact management and presence |
+| **📞 WebRTC** | Crystal-clear audio/video calls |
+| **👨‍👩‍👧‍👦 Conferences** | Multi-party video conferencing |
+| **📎 File Sharing** | Secure file transfers in conversations |
+| **👥 Invitations** | Manage list of sent and received invitations. Accept, reject or resend the invitation. |
+| **📞 CallLogs** | Manage all the calls history and the missed calls. |
+| **👥 ForgotPassword** | Reset your password account. |
+| **👥 Search for Contact** | Search for contact by name. |
 
-## Preamble
+## 🚀 Getting Started in 5 Minutes
 
-You must have a valid Rainbow account on sandbox to be able to login and test.
+1. **Clone and Install**
+   ```bash
+   git clone https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples.git
+   cd Rainbow-React-Native-Samples
+   yarn install
+   ```
 
-If you have this error : Unknown application or wrong token for application id YOUR_APPLICATION_ID when you attempt to login, please enter your own application id and application secret or try to remove default values in Application class.
+2. **Get API Credentials**
+   - Create an account at [Rainbow Developer Hub](https://hub.openrainbow.com/)
+   - Register a new application to get your `AppID` and `AppSecret`
 
-You can find more information about application id and application secret at [hub.openrainbow.com](https://hub.openrainbow.com/#/documentation/doc/hub/developer-sandboxed-platform)
+3. **Configure** (Choose your platform)
 
+   <details>
+   <summary>Android Setup</summary>
+   
+   Edit `android/app/src/main/assets/rainbow-config.json` and add your application credentials in the appropriate environment object:
+   ```json
+   {
+       "HOST": "openrainbow.com",
+       "APP_ID": "YOUR_APP_ID",
+       "SEC_KEY": "YOUR_APP_SECRET"
+   }
+   ```
+   
+   Choose the correct environment (openrainbow.com, openrainbow.net, or sandbox.openrainbow.com) and replace the placeholder values with your actual application credentials.
+   
+   Then run:
+   ```bash
+   yarn android
+   ```
+   </details>
 
-## Installation
+   <details>
+   <summary>iOS Setup</summary>
+   
+   Edit `ios/rainbow-config.json` and add your application credentials in the appropriate environment object:
+   ```json
+   {
+       "HOST": "openrainbow.com",
+       "APP_ID": "YOUR_APP_ID",
+       "SEC_KEY": "YOUR_APP_SECRET"
+   }
+   ```
+   
+   Choose the correct environment (openrainbow.com, openrainbow.net, or sandbox.openrainbow.com) and replace the placeholder values with your actual application credentials.
+   
+   Then run:
+   ```bash
+   cd ios && pod install && cd ..
+   yarn ios
+   ```
+   </details>
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## 🔧 Troubleshooting
 
-# Getting Started
+Common issues and solutions are documented in our [Troubleshooting Guide](TROUBLESHOOTING.md).
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
-
-## Step 1: Start the Metro Server
-
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
+Quick fixes for common problems:
 
 ```bash
-# using npm
-npm start
+# Clean and rebuild
+cd android && ./gradlew clean && cd ..
+yarn install
 
-# OR using Yarn
-yarn start
+# Reset Metro cache
+yarn start --reset-cache
 ```
 
-## Step 2: Start your Application
+## 📚 Documentation & Resources
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+- [📘 API Reference](https://developers.openrainbow.com/doc/sdk/reactnative/api/Events)
+- [📋 Changelog](https://developers.openrainbow.net/doc/sdk/reactnative/tutorials/what_is_new)
 
-### For Android
 
-```bash
-# using npm
-npm run android
+## 🤝 Contributing
 
-# OR using Yarn
-yarn android
-```
+We love contributions! Whether it's:
+- 🐛 Reporting bugs
+- 📝 Improving documentation
+- 💻 Submitting fixes or features
 
-### For iOS
+Please read our [Contributing Guide](CONTRIBUTING.md) to get started.
+---
 
-```bash
-# using npm
-npm run ios
+If you encounter any issues, please [open an issue](https://github.com/Rainbow-CPaaS/Rainbow-React-Native-Samples/issues) on our GitHub repository.
 
-# OR using Yarn
-yarn ios
-```
+## 📱 Supported Platforms
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+- **Android**: 6.0 (API Level 23) and aboveß
+- **iOS**: 12.0 and above
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## 🔄 Upgrading
 
-## Step 3: Modifying your App
+When upgrading to a new version of the Rainbow SDK, make sure to:
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-
-make sure to run npm install before you run the app.
-## Content
-
-This sample application for React Native SDK provide the following features:
-
-- **Conversations** - manage list of conversations - chat and bubbles.
-- **Contacts** - manage list of contacts and make a native call to a contact.
-- **WebRTC** - make or take audio/video call.
-- **Telephony** - make or  PBX call and manage telephony settings.
-- **Invitations** - manage list of sent and received invitations. Accept, reject or resend the invitation.
-- **CallLogs** - manage all the calls history and the missed calls.
-- **ForgotPassword** - reset your password account.
-- **Search for Contact** - search for contact by name.
-- **Enabling Push Notifications**
+1. Update the SDK version in `package.json`
+2. Run `yarn install` or `npm install`
+3. For iOS: `cd ios && pod install && cd ..`
+4. Clean and rebuild your project
 
