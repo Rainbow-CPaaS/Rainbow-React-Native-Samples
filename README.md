@@ -1,7 +1,7 @@
 <div align="center">
   <h1>🚀 Rainbow SDK for React Native</h1>
   <p>
-    A production-ready sample application showcasing the power of <a href="https://developers.openrainbow.com/doc/sdk/reactnative/overview">Rainbow's React Native SDK</a>.
+    A production-ready sample application showcasing the power of <a href="https://developers.openrainbow.net/doc/sdk/reactnative/home">Rainbow's React Native SDK</a>.
     Get started with real-time communication features in minutes, not hours.
   </p>
   
