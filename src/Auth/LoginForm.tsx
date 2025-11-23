@@ -1,14 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Keychain from 'react-native-keychain';
-import { authService, Logger, Strings, useAppSelector, AuthErrorCode } from 'react-native-rainbow-module';
+import { authService, Logger, Strings, useAppSelector, AuthErrorCode, ApplicationInformation } from 'react-native-rainbow-module';
 import { useNavigation } from '@react-navigation/native';
 import { Button, TextInput } from 'react-native-paper';
 
-export const LoginForm: React.FunctionComponent = () => {
-  const authResponseMsg = useAppSelector((state) => state.authReducer.responseMsg);
-  const appIcon = useAppSelector((state) => state.appConfigReducer.appIconBase64);
+const logger = new Logger('LoginForm');
 
+export const LoginForm: React.FunctionComponent = () => {
+  const authResponseMsg = useAppSelector((state: any) => state.authReducer.responseMsg);
+  const appIcon = useAppSelector((state: any) => state.appConfigReducer.appIconBase64);
   const isMounted = useRef<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -16,7 +17,13 @@ export const LoginForm: React.FunctionComponent = () => {
   const [clicksCount, setClicksCount] = useState<number>(0);
   const navigation = useNavigation();
 
-  const logger = new Logger('LoginForm');
+  useEffect(() => {
+    isMounted.current = true;
+    getCachedCredentials();
+    return () => {
+      isMounted.current = false;
+    }
+  }, []);
 
   const doLogin = () => {
     if (!isValidEmail() || !password) {
@@ -25,6 +32,7 @@ export const LoginForm: React.FunctionComponent = () => {
     }
 
     authService.login(email, password);
+    authService.saveCredentilals(email, password);
 
 
   };
@@ -129,6 +137,8 @@ export const LoginForm: React.FunctionComponent = () => {
     >
       {Strings.login}
     </Button>
+    {/* Application Information Modal */}
+    <ApplicationInformation visible={modalVisible} closeModal={onCancelPress} /> 
   </View>
 );
 };

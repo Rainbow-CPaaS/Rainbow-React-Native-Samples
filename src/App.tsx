@@ -63,7 +63,7 @@ export default function App() {
       <PaperProvider theme={customTheme}>
       <ConnectivitySnackbar />
 
-      <RainbowContainer  useInternalNavigation={true} authNavigator={AuthNavigator} >
+      <RainbowContainer  useInternalNavigation={false} authNavigator={AuthNavigator} >
           <ActiveCallBanner />
           <BackHandlerListener />
           <NavigationContext.Provider value={registerBackButtonHandler}>
