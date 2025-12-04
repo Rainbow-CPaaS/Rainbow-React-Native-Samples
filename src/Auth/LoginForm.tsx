@@ -32,8 +32,7 @@ export const LoginForm: React.FunctionComponent = () => {
     }
 
     authService.login(email, password);
-    authService.saveCredentilals(email, password);
-
+    Keychain.setGenericPassword(email, password);
 
   };
   const isValidEmail = () => {

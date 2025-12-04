@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		12F1E2143290AF01738FF8B2 /* Pods_RainbowModuleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA9F767F86BF4CA79B87033 /* Pods_RainbowModuleExample.framework */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		360624E62C62382500D94D0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 362823512C62092E002C0619 /* LaunchScreen.storyboard */; };
 		36140E342DDDC3AC00611380 /* rainbow-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 36140E332DDDC3AC00611380 /* rainbow-config.json */; };
 		36C6574B2E7951D500DBDB18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6574A2E7951D500DBDB18 /* AppDelegate.swift */; };
 		5B68B468425DACA66705BD18 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8C9DB502FD704D40B5994B64 /* PrivacyInfo.xcprivacy */; };
+		DBEAA6FCBDE692F951CF1513 /* Pods_RainbowModuleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DE61E67167E3CAEFD196CE /* Pods_RainbowModuleExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,10 +25,10 @@
 		36C657492E7951D500DBDB18 /* RainbowModuleExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RainbowModuleExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		36C6574A2E7951D500DBDB18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C9DB502FD704D40B5994B64 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = RainbowModuleExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		9C80B6DBE7E2439353489DD1 /* Pods-RainbowModuleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RainbowModuleExample.release.xcconfig"; path = "Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample.release.xcconfig"; sourceTree = "<group>"; };
-		AAEA92FA44F85DF136E00421 /* Pods-RainbowModuleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RainbowModuleExample.debug.xcconfig"; path = "Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample.debug.xcconfig"; sourceTree = "<group>"; };
+		A5FEC630A56F591EA1182922 /* Pods-RainbowModuleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RainbowModuleExample.release.xcconfig"; path = "Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample.release.xcconfig"; sourceTree = "<group>"; };
+		E6DE61E67167E3CAEFD196CE /* Pods_RainbowModuleExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RainbowModuleExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E73898F7D803BC6C2D13AE1B /* Pods-RainbowModuleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RainbowModuleExample.debug.xcconfig"; path = "Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EEA9F767F86BF4CA79B87033 /* Pods_RainbowModuleExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RainbowModuleExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12F1E2143290AF01738FF8B2 /* Pods_RainbowModuleExample.framework in Frameworks */,
+				DBEAA6FCBDE692F951CF1513 /* Pods_RainbowModuleExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				EEA9F767F86BF4CA79B87033 /* Pods_RainbowModuleExample.framework */,
+				E6DE61E67167E3CAEFD196CE /* Pods_RainbowModuleExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,8 +99,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AAEA92FA44F85DF136E00421 /* Pods-RainbowModuleExample.debug.xcconfig */,
-				9C80B6DBE7E2439353489DD1 /* Pods-RainbowModuleExample.release.xcconfig */,
+				E73898F7D803BC6C2D13AE1B /* Pods-RainbowModuleExample.debug.xcconfig */,
+				A5FEC630A56F591EA1182922 /* Pods-RainbowModuleExample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -112,13 +112,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RainbowModuleExample" */;
 			buildPhases = (
-				DFBE02FF345462F65BC44AAE /* [CP] Check Pods Manifest.lock */,
+				D84B564BF07875200107C975 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				97BDEA5B712D8CB5D9E2BD94 /* [CP] Embed Pods Frameworks */,
-				6A36728B46FE46EA064A5E72 /* [CP] Copy Pods Resources */,
+				5C23358165ED6949D8331D12 /* [CP] Embed Pods Frameworks */,
+				4041DFA38F75FF53348500BF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,7 +191,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		6A36728B46FE46EA064A5E72 /* [CP] Copy Pods Resources */ = {
+		4041DFA38F75FF53348500BF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -208,7 +208,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		97BDEA5B712D8CB5D9E2BD94 /* [CP] Embed Pods Frameworks */ = {
+		5C23358165ED6949D8331D12 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,7 +225,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RainbowModuleExample/Pods-RainbowModuleExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DFBE02FF345462F65BC44AAE /* [CP] Check Pods Manifest.lock */ = {
+		D84B564BF07875200107C975 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -263,7 +263,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AAEA92FA44F85DF136E00421 /* Pods-RainbowModuleExample.debug.xcconfig */;
+			baseConfigurationReference = E73898F7D803BC6C2D13AE1B /* Pods-RainbowModuleExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -293,7 +293,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C80B6DBE7E2439353489DD1 /* Pods-RainbowModuleExample.release.xcconfig */;
+			baseConfigurationReference = A5FEC630A56F591EA1182922 /* Pods-RainbowModuleExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

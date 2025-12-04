@@ -76,5 +76,15 @@
 	"avatar": "Avatar",
 	"myProfileInfo": "My Profile Info",
 	"servicePlane": "Service Plane",
-	"noNetworkConnection":"No internet connection"
+	"noNetworkConnection":"No internet connection",
+	"restPwdErrorTitle": "Rest Password Error.",
+	"ForgotPwdErrorCode": {
+		"httpConflict": "An account with this e-mail address already exists",
+		"genericError": "An error occurred. Please try again.",
+		"noValidToken": "Invalid or expired code",
+		"forbiddenAccount": "Your e-mail address is not accepted by the Rainbow system",
+		"passwordViolation": "Password must be more than 8 characters in length and contain 1 lowercase letter,1 uppercase letter,1 number and 1 special character"
+	}
+	
+
 }

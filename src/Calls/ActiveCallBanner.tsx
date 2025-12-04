@@ -74,8 +74,7 @@ export const ActiveCallBanner: FunctionComponent<IProps> = ({
     <TouchableHighlight onPress={openActiveCall}>
       <SafeAreaView style={mergedStyle}>
         <Text style={mergedTextStyle}>{Strings.callInProgress}</Text>
-        <Timer startTime={currentCall.startTime} style={mergedTextStyle} />
-      </SafeAreaView>
+        {currentCall && <Timer startTime={currentCall.startTime} style={mergedTextStyle} />}      </SafeAreaView>
     </TouchableHighlight>
   );
 };

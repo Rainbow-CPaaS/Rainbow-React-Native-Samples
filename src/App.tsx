@@ -10,7 +10,9 @@ import {
   ForwardedView,
   EditBubble,
   AddParticipant,
-  setAppSecretKey,
+  useRainbowAuth,
+  RainbowProvider,
+  Spinner,
   SafeArea,
 } from 'react-native-rainbow-module';
 import { Home } from './Home';
@@ -35,15 +37,8 @@ const logger = new Logger('example');
 const handlers: IBackButtonHandler[] = [];
 const Stack = createNativeStackNavigator<CombinedRootStackParamList>();
 
-const AuthNavigator = () =>{
-  return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginForm}/>
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
-    </Stack.Navigator>
-  );
-};
-export default function App() {
+const App: React.FunctionComponent = () => {
+
   const registerBackButtonHandler = (handler: IBackButtonHandler) => {
     logger.info('registerBackButtonHandler');
 
@@ -58,65 +53,69 @@ export default function App() {
     };
   };
   return (
-    <SafeArea>
-      <NavigationContainer>
-      <PaperProvider theme={customTheme}>
-      <ConnectivitySnackbar />
+    <SafeArea >
+        <PaperProvider theme={customTheme}>
+            <RainbowProvider>
+                <NavigationContainer>
+                    <ConnectivitySnackbar />
+                    <RootNavigator registerBackButtonHandler={registerBackButtonHandler} />
+                </NavigationContainer>
+            </RainbowProvider>
+        </PaperProvider>
+    </SafeArea>
+);
 
-      <RainbowContainer  useInternalNavigation={false} authNavigator={AuthNavigator} >
+};
+const AuthNavigator = () => {
+  return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={LoginForm} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      </Stack.Navigator>
+  );
+};
+const MainAppNavigator: React.FC<{ registerBackButtonHandler: (handler: IBackButtonHandler) => () => void }> = ({ registerBackButtonHandler }) => {
+  return (
+      <>
           <ActiveCallBanner />
           <BackHandlerListener />
           <NavigationContext.Provider value={registerBackButtonHandler}>
-            <Stack.Navigator
-              screenOptions={{ gestureEnabled: false, headerShown: false }}>
-              <Stack.Screen name="ScreenHome" component={Home} />
-              <Stack.Screen name="AppMenu" component={AppMenuView} />
-                <Stack.Screen name="MyProfileInfo" component={MyProfileInfo} />
-                <Stack.Screen name="UserInfoFrom" component={UserInfoFrom} />
-                <Stack.Screen
-                  name="BubbleChatView"
-                  component={BubbleChatView}
-                />
-                <Stack.Screen
-                  name="PeerConversationChatView"
-                  component={PeerConversationChatView}
-                />
-                <Stack.Screen
-                  name="SharedFileList"
-                  component={SharedFileComponent}
-                />
-                <Stack.Screen
-                  name="FileDescription"
-                  component={FileDescription}
-                />
-                <Stack.Screen
-                  name="CreateBubble"
-                  component={CreateBubbleComponent}
-                />
-                {/*  Other screens react-native-rainbow-module library */}
-                <Stack.Screen name="EditBubble" component={EditBubble} />
-                <Stack.Screen name="ForwardedView" component={ForwardedView} />
-                <Stack.Screen
-                  name="TelephonySettings"
-                  component={TelephonySettings}
-                />
-                <Stack.Screen
-                  name="AddParticipants"
-                  component={AddParticipant}
-                />
-                <Stack.Screen
-                  name="ContactInformation"
-                  component={ContactInformation}
-                />
-                <Stack.Screen name="CallHistory" component={CallHistory} />
-            </Stack.Navigator>
+              <Stack.Navigator screenOptions={{ gestureEnabled: false, headerShown: false }} >
+                  {/* App's screens  */}
+                  <Stack.Screen name="ScreenHome" component={Home} />
+                  <Stack.Screen name="AppMenu" component={AppMenuView} />
+                  <Stack.Screen name="MyProfileInfo" component={MyProfileInfo} />
+                  <Stack.Screen name="UserInfoFrom" component={UserInfoFrom} />
+                  <Stack.Screen name="BubbleChatView" component={BubbleChatView} />
+                  <Stack.Screen name="PeerConversationChatView" component={PeerConversationChatView} />
+                  <Stack.Screen name="SharedFileList" component={SharedFileComponent} />
+                  <Stack.Screen name="FileDescription" component={FileDescription} />
+                  <Stack.Screen name="CreateBubble" component={CreateBubbleComponent} />
+                  {/*  Other screens react-native-rainbow-module library */}
+                  <Stack.Screen name="EditBubble" component={EditBubble} />
+                  <Stack.Screen name="ForwardedView" component={ForwardedView} />
+                  <Stack.Screen name="TelephonySettings" component={TelephonySettings} />
+                  <Stack.Screen name="AddParticipants" component={AddParticipant} />
+                  <Stack.Screen name="ContactInformation" component={ContactInformation} />
+                  <Stack.Screen name="CallHistory" component={CallHistory} />
+              </Stack.Navigator>
           </NavigationContext.Provider>
-        </RainbowContainer>
-        </PaperProvider>
-      </NavigationContainer>
-    </SafeArea>
+      </>
   );
-}
+};
+
+const RootNavigator: React.FC<{ registerBackButtonHandler: (handler: IBackButtonHandler) => () => void }> = ({ registerBackButtonHandler }) => {
+  const { isAuthenticated, isLoading } = useRainbowAuth();
+
+  if (isLoading) {
+      return <Spinner spinnerSize={40} />;
+  }
+
+  return isAuthenticated ? <MainAppNavigator registerBackButtonHandler={registerBackButtonHandler} /> : <AuthNavigator />;
+};
+
+
+
 
 const BackHandlerListener: React.FunctionComponent = () => {
   const navigation = useNavigation();
@@ -143,3 +142,4 @@ const BackHandlerListener: React.FunctionComponent = () => {
   };
   return null;
 };
+export default App;
