@@ -57,14 +57,14 @@ export const BubbleInvitations: FunctionComponent = () => {
               <Button
                   icon="check"
                   mode="contained"
-                  onPress={() => acceptBubbleInvitation(item.id)}
+                  onPress={acceptBubbleInvitation(item.id)}
                   compact
                   style={styles.button} children={null}
                   />
               <Button
                   icon="close"
                   mode="contained"
-                  onPress={() => declineBubbleInvitation(item.id)}
+                  onPress={declineBubbleInvitation(item.id)}
                   compact
                   style={styles.button}
                   children={null}

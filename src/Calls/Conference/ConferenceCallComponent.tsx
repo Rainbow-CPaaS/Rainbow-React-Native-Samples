@@ -77,7 +77,7 @@ export const ConferenceCallComponent: FunctionComponent<
       EventType.ConferenceAttendeesUpdates,
       (attendees: IConferenceParticipants[]) => {
         logger.info(
-          `get conference participants with count ${attendees.length}`,
+          `get conference participants with count ${attendees}`,
         );
         if (conferenceCall) {
           setConferenceCall({...conferenceCall, attendees});
@@ -235,7 +235,7 @@ export const ConferenceCallComponent: FunctionComponent<
             bubbleId={id}
             onClosePressed={handleCloseDelegateModal}
           />
-          {conferenceCall.isSharingEnabled && switchToShareScreen ? (
+          {(conferenceCall.isSharingEnabled && switchToShareScreen) ? (
             <ShareConferenceView
               sharingParticipant={conferenceCall.sharingParticipant}
             />
