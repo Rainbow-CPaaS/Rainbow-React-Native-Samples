@@ -27,11 +27,13 @@
   "exclude": [
   "./node_modules",
   "./rainbow-core/node_modules",
-  "./rainbow-core/src/resources/localization/Strings.ts"
+  "./rainbow-core/src/resources/localization/Strings.ts",
+  "**/node_modules", "**/Pods"
 
 ],
 "include": [
   "./src",
+  "**/*.ts", "**/*.tsx"
 ],
 "extends": "@react-native/typescript-config/tsconfig.json"
 }
