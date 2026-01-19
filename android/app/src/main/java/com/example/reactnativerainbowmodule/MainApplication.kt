@@ -9,10 +9,8 @@ import com.facebook.react.ReactHost
 import com.facebook.react.ReactInstanceManager
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
-import com.facebook.soloader.SoLoader
-import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
-import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
+import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.defaults.DefaultReactNativeHost
 import java.lang.reflect.InvocationTargetException
 
@@ -48,9 +46,6 @@ class MainApplication : Application(), ReactApplication {
     override fun onCreate() {
         super.onCreate()
         RainbowPackage.setApplication(this, MainActivity::class.java)
-        SoLoader.init(this, OpenSourceMergedSoMapping)
-        if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-            load()
-        }
+        loadReactNative(this)
     }
 }
