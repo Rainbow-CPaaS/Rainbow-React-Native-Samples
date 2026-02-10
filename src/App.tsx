@@ -2,7 +2,6 @@ import * as React from 'react';
 import { BackHandler } from 'react-native';
 import {
   Logger,
-  RainbowContainer,
   ContactInformation,
   TelephonySettings,
   CallHistory,
@@ -33,6 +32,8 @@ import customTheme from './theme';
 import { LoginForm } from './Auth/LoginForm';
 import { ForgotPassword } from './Auth/ForgotPassword';
 import { ConnectivitySnackbar } from './ConnectivityBar';
+import { RegistrationForm } from './Auth/RegistrationForm';
+
 const logger = new Logger('example');
 const handlers: IBackButtonHandler[] = [];
 const Stack = createNativeStackNavigator<CombinedRootStackParamList>();
@@ -71,6 +72,11 @@ const AuthNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={LoginForm} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+          <Stack.Screen 
+  name="Registration" 
+  component={RegistrationForm} 
+  options={{ title: 'Create Account' }}
+/>
       </Stack.Navigator>
   );
 };

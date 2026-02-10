@@ -84,7 +84,20 @@
 		"noValidToken": "Invalid or expired code",
 		"forbiddenAccount": "Your e-mail address is not accepted by the Rainbow system",
 		"passwordViolation": "Password must be more than 8 characters in length and contain 1 lowercase letter,1 uppercase letter,1 number and 1 special character"
-	}
+	},
+	"forgotPwdMsg1": "Please enter the e-mail address associated with your Rainbow account.",
+	"forgotPwdMsg2": "A verification code to reset your password will be sent to you by e-mail.",
+	"username": "E-mail address",
+	"checkInbox": "Check your inbox.",
+	"verificationCodeMsg": "A 6-digit verification code has been sent by e-mail",
+  "password":"password",
+  "continue": "continue",
+  "alreadyHaveAccount": "Already have an account ?",
+  "login": "SIGN IN",
+  "InProgress": "In Progress",
+	"InProgressMsg": "Please wait until the progress finish",
+	"dontHaveAccount": "don't have an account ?",
+	"registerNow": "Register Now"
 	
 
 }

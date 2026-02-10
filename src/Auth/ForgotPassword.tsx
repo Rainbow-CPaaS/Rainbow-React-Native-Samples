@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
-import { authService, eventEmitter, EventType, Logger, Strings, useAppSelector,ForgotPwdErrorCode, InProgressDialog } from 'react-native-rainbow-module';
+import { authService, eventEmitter, EventType, Logger, useAppSelector,ForgotPwdErrorCode, InProgressDialog } from 'react-native-rainbow-module';
 import { Button, Text, TextInput } from 'react-native-paper';
 import Keychain from 'react-native-keychain';
+import { Strings } from '../resources/localization/Strings';
 
 import { useNavigation } from '@react-navigation/native';
 

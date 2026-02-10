@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Keychain from 'react-native-keychain';
-import { authService, Logger, Strings, useAppSelector, AuthErrorCode, ApplicationInformation } from 'react-native-rainbow-module';
+import { authService, Logger, useAppSelector, AuthErrorCode, ApplicationInformation } from 'react-native-rainbow-module';
 import { useNavigation } from '@react-navigation/native';
 import { Button, TextInput } from 'react-native-paper';
+import { Strings } from '../resources/localization/Strings';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { CombinedRootStackParamList } from '../Navigation/AppNavigationTypes';
 
 const logger = new Logger('LoginForm');
-
+type RegistrationScreenNavigationProp = NativeStackNavigationProp<
+  CombinedRootStackParamList,
+  'ForgotPassword'
+>;
 export const LoginForm: React.FunctionComponent = () => {
   const authResponseMsg = useAppSelector((state: any) => state.authReducer.responseMsg);
   const appIcon = useAppSelector((state: any) => state.appConfigReducer.appIconBase64);
@@ -15,7 +21,7 @@ export const LoginForm: React.FunctionComponent = () => {
   const [password, setPassword] = useState<string>('');
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [clicksCount, setClicksCount] = useState<number>(0);
-  const navigation = useNavigation();
+  const navigation = useNavigation<RegistrationScreenNavigationProp>();
 
   useEffect(() => {
     isMounted.current = true;
@@ -127,6 +133,18 @@ export const LoginForm: React.FunctionComponent = () => {
       {Strings.forgotPwd}
     </Text>
 
+    {/* Register Link */}
+    <View style={styles.registerContainer}>
+  <Text style={styles.registerText}>
+    {Strings.dontHaveAccount}{''}
+    <Text 
+      style={styles.registerLink}
+      onPress={() => navigation.navigate('Registration' as never)}
+    >
+      {Strings.registerNow}
+    </Text>
+  </Text>
+</View>
     {/* Login Button */}
     <Button
       mode="contained"
@@ -191,5 +209,17 @@ buttonText: {
   fontSize: 16,
   fontWeight: '600',
   color: '#FFF',
+},
+registerContainer: {
+  margin: 20,
+  alignItems: 'center',
+},
+registerText: {
+  color: '#666',
+  fontSize: 14,
+},
+registerLink: {
+  color: '#007AFF',
+  fontWeight: 'bold',
 },
 });
